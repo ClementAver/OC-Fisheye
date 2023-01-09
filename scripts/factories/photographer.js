@@ -1,5 +1,5 @@
 function photographerFactory(data) {
-  const { name, portrait, city, country, tagline, price } = data;
+  const { name, portrait, city, country, tagline, price, id } = data;
 
   const picture = `assets/photographers/${portrait}`;
 
@@ -14,6 +14,7 @@ function photographerFactory(data) {
     userDescription.classList.add("sr-only");
     a.setAttribute("aria-describedby", name.replace(/ /g, ""));
     a.setAttribute("tabindex", "0");
+    a.setAttribute("href", `photographer.html?id=${id}`);
 
     img.setAttribute("src", picture);
     img.setAttribute("alt", "");
