@@ -63,9 +63,40 @@ async function getPhotographs() {
   media.forEach((media) => {
     if (media.photographerId == id) {
       if (media.image) {
-        new Image(media).create;
+        const { image, title, likes } = media;
+        const sectionMedia = document.querySelector("section.media");
+        const div = document.createElement("div");
+        const divB = document.createElement("div");
+        const img = document.createElement("img");
+        const p1 = document.createElement("p");
+        const p2 = document.createElement("p");
+        sectionMedia.append(div);
+        div.append(img);
+        div.append(divB);
+        divB.append(p1);
+        divB.append(p2);
+
+        img.setAttribute("src", `assets/media/${image}`);
+        p1.innerText = title;
+        p2.innerHTML = `${likes}&nbsp;<i class="fa-solid fa-heart"></i>`;
       } else if (media.video) {
-        new Video(media).create;
+        const { video, title, likes } = media;
+        const sectionMedia = document.querySelector("section.media");
+        const div = document.createElement("div");
+        const divB = document.createElement("div");
+        const vid = document.createElement("video");
+        const p1 = document.createElement("p");
+        const p2 = document.createElement("p");
+        sectionMedia.append(div);
+        div.append(vid);
+        div.append(divB);
+        divB.append(p1);
+        divB.append(p2);
+
+        vid.setAttribute("src", `assets/media/${video}`);
+        vid.setAttribute("controls", "");
+        p1.innerText = title;
+        p2.innerHTML = `${likes}&nbsp;<i class="fa-solid fa-heart"></i>`;
       }
     }
   });
@@ -75,37 +106,11 @@ getPhotographs();
 
 class Image {
   constructor(media) {
-    this._image = media.image;
-    this._title = media.title;
-    this._likes = media.likes;
-  }
-  get create() {
-    const sectionMedia = document.querySelector("section.media");
-    const div = document.createElement("div");
-    const divB = document.createElement("div");
-    const img = document.createElement("img");
-    const p1 = document.createElement("p");
-    const p2 = document.createElement("p");
-    sectionMedia.append(div);
-    div.append(img);
-    div.append(divB);
-    divB.append(p1);
-    divB.append(p2);
-
-    img.setAttribute("src", `assets/media/${this._image}`);
-    img.setAttribute("alt", this._title);
-    p1.innerText = this._title;
-    p2.innerHTML = `${this._likes}&nbsp;<i class="fa-solid fa-heart"></i>`;
-  }
-}
-
-class Video {
-  constructor(media) {
     this._video = media.video;
     this._title = media.title;
     this._likes = media.likes;
   }
-  get create() {
+  get tile() {
     const sectionMedia = document.querySelector("section.media");
     const div = document.createElement("div");
     const divB = document.createElement("div");
@@ -118,10 +123,9 @@ class Video {
     divB.append(p1);
     divB.append(p2);
 
-    vid.setAttribute("src", `assets/media/${this._video}`);
+    vid.setAttribute("src", `assets/media/${video}`);
     vid.setAttribute("controls", "");
-    vid.setAttribute("title", this._title);
-    p1.innerText = this._title;
-    p2.innerHTML = `${this._likes}&nbsp;<i class="fa-solid fa-heart"></i>`;
+    p1.innerText = title;
+    p2.innerHTML = `${likes}&nbsp;<i class="fa-solid fa-heart"></i>`;
   }
 }
