@@ -1,29 +1,140 @@
-#contact_modal {
-  display: none;
-}
-
+/* banner */
 .photograph-header {
   background-color: var(--lightgrey);
+  border-radius: 5px;
   height: 300px;
-  margin: 0 100px;
+
+  padding: 0 50px;
+  margin: 0 100px 20px;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  justify-items: center;
+  align-items: center;
 }
 
-.contact_button {
+.photograph-header :first-child {
+  justify-self: left;
+}
+
+.photograph-header :last-child {
+  justify-self: right;
+}
+
+.photograph-header h1 {
+  color: var(--orange);
+  font-weight: 400;
+  font-size: 4rem;
+  margin-right: 0;
+}
+
+.photograph-header p:nth-child(2) {
+  color: var(--red);
+  font-weight: 400;
+  font-size: 1.5rem;
+}
+
+.photograph-header p:nth-child(3) {
+  font-weight: 400;
+  font-size: 1.125rem;
+}
+
+.photograph-header .contact_button {
   font-size: 20px;
-  font-weight: bold;
+  font-weight: 700;
   color: white;
   padding: 11px;
   width: 170px;
   height: 70px;
+
   border: none;
   background-color: var(--red);
   border-radius: 5px;
+
   cursor: pointer;
+}
+
+.photograph-header img {
+  height: 200px;
+  width: 200px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+/* media */
+section.media {
+  max-width: 1440px;
+  padding: 0 100px;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+}
+
+section.media div {
+  display: flex;
+  flex-flow: column nowrap;
+  margin-bottom: 30px;
+}
+
+section.media div div {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  color: var(--red);
+  font-size: 1.5rem;
+  overflow: hidden;
+  max-width: 350px;
+}
+
+section.media p:nth-child(1) {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+section.media p:nth-child(2) {
+  font-weight: 500;
+  white-space: nowrap;
+  margin-left: 0.5rem;
+}
+
+section.media img,
+video {
+  width: 350px;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+/* price */
+.price {
+  height: 60px;
+  width: 370px;
+  box-sizing: inherit;
+
+  position: fixed;
+  bottom: 0;
+  right: 4rem;
+  padding: 0px 34px;
+  background-color: var(--orangeB);
+  border-radius: 5px 5px 0 0;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+
+/* modal */
+#contact_modal {
+  display: none;
 }
 
 .modal {
   border-radius: 5px;
-  background-color: #db8876;
+  background-color: var(--orangeB);
   width: 50%;
   display: flex;
   flex-direction: column;
