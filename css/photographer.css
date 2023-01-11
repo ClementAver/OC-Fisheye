@@ -231,3 +231,18 @@ form textarea {
   height: 136px;
   resize: none;
 }
+
+.invalid-fields {
+  color: var(--red);
+  font-size: 1rem;
+  font-weight: 500;
+  display: none;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.invalid-field {
+  display: block;
+}

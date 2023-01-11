@@ -45,22 +45,26 @@
           <h2>Contactez-moi</h2>
           <img src="assets/icons/close.svg" onclick="closeModal()" />
         </header>
-        <form>
+        <form id="contact-form">
           <div>
             <label for="first">Prénom</label>
-            <input type="text" name="first" id="first" maxlength="30" />
+            <input type="text" name="first" id="first" />
+            <p class="invalid-fields">Veuillez entrer 2 caractères ou plus.</p>
           </div>
           <div>
             <label for="last">Nom</label>
-            <input type="text" name="last" id="last" maxlength="30" />
+            <input type="text" name="last" id="last" />
+            <p class="invalid-fields">Veuillez entrer 2 caractères ou plus.</p>
           </div>
           <div>
-            <label for="last">Email</label>
-            <input type="text" name="mail" id="mail" maxlength="30" />
+            <label for="email">Email</label>
+            <input type="text" name="email" id="email" />
+            <p class="invalid-fields">Veuillez entrer une adresse email valide.</p>
           </div>
           <div>
             <label for="message">Votre message</label>
-            <textarea name="message" id="message" rows="5"></textarea>
+            <textarea name="message" id="message"></textarea>
+            <p class="invalid-fields">Veuillez entrer 2 caractères ou plus.</p>
           </div>
           <button class="contact_button">Envoyer</button>
         </form>
