@@ -25,8 +25,19 @@
         <button class="contact_button" onclick="displayModal()">Contactez-moi</button>
         <img />
       </section>
+
+      <div class="sort">
+        <label for="media-select">Trier par</label>
+        <select name="media" class="media-select" id="media-select">
+          <option value="popularity">Popularité</option>
+          <option value="date">Date</option>
+          <option value="title">Titre</option>
+        </select>
+      </div>
+
       <section class="media"></section>
     </main>
+
     <section class="price"></section>
     <div id="contact_modal">
       <div class="modal">
@@ -36,8 +47,20 @@
         </header>
         <form>
           <div>
-            <label>Prénom</label>
-            <input />
+            <label for="first">Prénom</label>
+            <input type="text" name="first" id="first" maxlength="30" />
+          </div>
+          <div>
+            <label for="last">Nom</label>
+            <input type="text" name="last" id="last" maxlength="30" />
+          </div>
+          <div>
+            <label for="last">Email</label>
+            <input type="text" name="mail" id="mail" maxlength="30" />
+          </div>
+          <div>
+            <label for="message">Votre message</label>
+            <textarea name="message" id="message" rows="5"></textarea>
           </div>
           <button class="contact_button">Envoyer</button>
         </form>

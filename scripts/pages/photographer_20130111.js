@@ -73,22 +73,17 @@ async function getPhotographs() {
   // then iterate through it to find the right photographer.
   media.forEach((media) => {
     if (media.photographerId == id) {
-      new MediaFactory(media);
+      if (media.image) {
+        new Image(media).create;
+      } else if (media.video) {
+        new Video(media).create;
+      }
     }
   });
 }
 
 // call the above.
 getPhotographs();
-
-// ----------------------
-
-/// factory
-class MediaFactory {
-  constructor(media) {
-    media.image ? new Image(media).create : new Video(media).create;
-  }
-}
 
 // ----------------------
 
