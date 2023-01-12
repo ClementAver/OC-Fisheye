@@ -15,17 +15,10 @@
       <a href="index.html"><img src="assets/images/logo.png" class="logo" /></a>
     </header>
     <main id="main">
-      <section class="photograph-header">
-        <div>
-          <h1>Photographer Name</h1>
-          <p>Location, Country</p>
-          <p>tagline</p>
-        </div>
+      <!-- photographer's banner section -->
+      <section class="photograph-header"></section>
 
-        <button class="contact_button" onclick="displayModal()">Contactez-moi</button>
-        <img />
-      </section>
-
+      <!-- sorting section -->
       <div class="sort">
         <label for="media-select">Trier par</label>
         <select name="media" class="media-select" id="media-select">
@@ -35,10 +28,35 @@
         </select>
       </div>
 
+      <!-- media section -->
       <section class="media"></section>
     </main>
 
+    <!-- price section -->
     <section class="price"></section>
+
+    <!-- slider section -->
+    <div class="slider-bg">
+      <section class="slider">
+        <button type="button" class="btn-nav-slider close">
+          <svg class="icon-nav-slider-previous" viewBox="0 0 23.53 39.99">
+            <polyline points="21.76 38.22 3.54 20 21.76 1.77" />
+          </svg>
+        </button>
+        <button type="button" class="btn-nav-slider previous">
+          <svg class="icon-nav-slider-previous" viewBox="0 0 23.53 39.99">
+            <polyline points="21.76 38.22 3.54 20 21.76 1.77" />
+          </svg>
+        </button>
+        <button type="button" class="btn-nav-slider next">
+          <svg class="icon-nav-slider-next" viewBox="0 0 23.53 39.99">
+            <polyline points="1.77 1.77 20 20 1.77 38.22" />
+          </svg>
+        </button>
+      </section>
+    </div>
+
+    <!-- form section -->
     <div id="contact_modal">
       <div class="modal">
         <header>
@@ -70,6 +88,7 @@
         </form>
       </div>
     </div>
+
     <script src="/scripts/pages/photographer.js"></script>
     <script src="/scripts/utils/contactForm.js"></script>
   </body>

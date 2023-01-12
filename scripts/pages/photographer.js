@@ -1,130 +1,279 @@
-///// global constants.
 // catches page url and stock it into a constant.
 const url = new URL(window.location.href);
 // catches page url key 'id' and stock it into a constant.
 const id = url.searchParams.get("id");
-const sectionPrice = document.querySelector(".price");
-const h1 = document.querySelector("h1");
-const p1 = document.querySelector(".photograph-header p:nth-child(2)");
-const p2 = document.querySelector(".photograph-header p:nth-child(3)");
-const img = document.querySelector(".photograph-header img");
+
+// stores targeted DOM sectors.
+const sectionPhotographHeader = document.querySelector(".photograph-header");
 const sectionMedia = document.querySelector("section.media");
+const sectionPrice = document.querySelector(".price");
+const sectionSlider = document.querySelector(".slider");
 
-// ----------------------
+// - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - //
 
-///// return a javascript object from a fetch request.
-async function getDatas() {
-  const result = await fetch("data/photographers.json");
+// return a javascript object from a fetch request.
+async function getDatas(url) {
+  const result = await fetch(url);
   const data = await result.json();
   return data;
 }
 
-// ----------------------
+// - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - //
 
-///// catches the right photographer and displays his informations into the DOM.
-async function getPhotographer() {
-  // catches photographers attribute from getDatas()'s returned object.
-  const { photographers } = await getDatas();
-  // then iterate through it to find the right photographer.
-  photographers.forEach((photographer) => {
-    if (photographer.id == id) {
-      // then destructures it.
-      const { name, portrait, city, country, tagline, price, id } = photographer;
-      // and applies the obtained constants into focused html elements.
+class Photographer {
+  constructor(data) {
+    this._name = data.name;
+    this._id = data.id;
+    this._city = data.city;
+    this._country = data.country;
+    this._tagline = data.tagline;
+    this._price = data.price;
+    this._portrait = data.portrait;
+  }
 
-      h1.textContent = name;
+  get name() {
+    return this._name;
+  }
 
-      p1.textContent = `${city}, ${country}`;
+  get id() {
+    return this._id;
+  }
 
-      p2.textContent = tagline;
+  get city() {
+    return this._city;
+  }
 
-      const picture = `assets/photographers/${portrait}`;
+  get country() {
+    return this._country;
+  }
 
-      img.setAttribute("src", picture);
-      img.setAttribute("alt", `${name}`);
-      // get the sum of likes of all the photographs of the photographer.
-      async function getTotalLikes() {
-        // retrieve media attribute instead of photographers.
-        const { media } = await getDatas();
-        // then iterate through it to find the rights photographers Ids and increments i for all matches.
-        let i = 0;
-        media.forEach((media) => {
-          if (media.photographerId == id) {
-            const { likes } = media;
-            i += likes;
-          }
-        });
-        sectionPrice.innerHTML = `<p>${i}&nbsp;<i class="fa-solid fa-heart"></i></p> <p>${price}€&#8239;/&#8239;jour</p>`;
-      }
-      getTotalLikes();
-    }
-  });
-}
+  get tagline() {
+    return this._tagline;
+  }
 
-// call the above.
-getPhotographer();
+  get price() {
+    return this._price;
+  }
 
-// ----------------------
+  get portrait() {
+    return `assets/photographers/${this._portrait}`;
+  }
 
-///// catches the right photographs and appends them into the DOM.
-async function getPhotographs() {
-  // catches photographers attribute from getDatas()'s returned object.
-  const { media } = await getDatas();
-  // then iterate through it to find the right photographer.
-  media.forEach((media) => {
-    if (media.photographerId == id) {
-      new MediaFactory(media);
-    }
-  });
-}
+  get createBanner() {
+    sectionPhotographHeader.innerHTML = `
+      <div>
+        <h1>${this._name}</h1>
+        <p>${this._city}, ${this._country}</p>
+        <p>${this._tagline}</p>
+      </div>
 
-// call the above.
-getPhotographs();
-
-// ----------------------
-
-/// factory
-class MediaFactory {
-  constructor(media) {
-    media.image ? new Image(media).create : new Video(media).create;
+      <button class="contact_button" onclick="displayModal()">Contactez-moi</button>
+      <img src="assets/photographers/${this._portrait}" alt="${this._name}"/>`;
   }
 }
-
-// ----------------------
 
 class Image {
-  constructor(media) {
-    this._media = media;
+  constructor(data) {
+    this._id = data.id;
+    this._photographerId = data.photographerId;
+    this._title = data.title;
+    this._image = data.image;
+    this._likes = data.likes;
+    this._date = data.date;
+    this._price = data.price;
   }
 
-  get create() {
+  get id() {
+    return this._id;
+  }
+
+  get photographerId() {
+    return this._photographerId;
+  }
+
+  get title() {
+    return this._title;
+  }
+
+  get url() {
+    return `assets/media/${this._image}`;
+  }
+
+  get likes() {
+    return this._likes;
+  }
+
+  get date() {
+    return this._date;
+  }
+
+  get price() {
+    return this._price;
+  }
+
+  get createArticle() {
     const card = document.createElement("article");
     const cardContent = `
-          <img src="assets/media/${this._media.image}" alt="${this._media.title}">
+          <img src="assets/media/${this._image}" alt="${this._title}">
           <div>
-            <h2>${this._media.title}</h2>
-            <p>${this._media.likes}&nbsp;<i class="fa-solid fa-heart"></i></p>
+            <h2>${this._title}</h2>
+            <p>${this._likes}&nbsp;<i class="fa-solid fa-heart"></i></p>
           </div>
       `;
     card.innerHTML = cardContent;
     sectionMedia.append(card);
+  }
+
+  get createSlide() {
+    const slide = document.createElement("div");
+    const slideContent = `
+          <article class="slide">
+            <img src="assets/media/${this._image}" alt="${this._title}"/>
+            <h2>${this._title}</h2>
+          </article>
+      `;
+    slide.innerHTML = slideContent;
+    sectionSlider.append(slide);
   }
 }
 
 class Video {
-  constructor(media) {
-    this._media = media;
+  constructor(data) {
+    this._id = data.id;
+    this._photographerId = data.photographerId;
+    this._title = data.title;
+    this._video = data.video;
+    this._likes = data.likes;
+    this._date = data.date;
+    this._price = data.price;
   }
-  get create() {
+
+  get id() {
+    return this._id;
+  }
+
+  get photographerId() {
+    return this._photographerId;
+  }
+
+  get title() {
+    return this._title;
+  }
+
+  get url() {
+    return `assets/media/${this._video}`;
+  }
+
+  get likes() {
+    return this._likes;
+  }
+
+  get date() {
+    return this._date;
+  }
+
+  get price() {
+    return this._price;
+  }
+
+  get createArticle() {
     const card = document.createElement("article");
     const cardContent = `
-          <video src="assets/media/${this._media.video}" controls title="${this._media.title}">${this._media.title}</video>
+          <video src="assets/media/${this._video}" controls title="${this._title}">${this._title}</video>
           <div>
-            <h2>${this._media.title}</h2>
-            <p>${this._media.likes}&nbsp;<i class="fa-solid fa-heart"></i></p>
+            <h2>${this._title}</h2>
+            <p>${this._likes}&nbsp;<i class="fa-solid fa-heart"></i></p>
           </div>
       `;
     card.innerHTML = cardContent;
     sectionMedia.append(card);
   }
+
+  get createSlide() {
+    const slide = document.createElement("div");
+    const slideContent = `
+          <article class="slide">
+            <video src="assets/media/${this._video}" controls title="${this._title}">${this._title}</video>
+            <h2>${this._title}</h2>
+          </article>
+      `;
+    slide.innerHTML = slideContent;
+    sectionSlider.append(slide);
+  }
 }
+
+// - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - //
+
+let photographer = [];
+let pictures = [];
+let videos = [];
+
+// factory
+class Factory {
+  constructor(data) {
+    if (data.portrait && data.id == id) {
+      photographer.push(new Photographer(data));
+    } else if (data.image && data.photographerId == id) {
+      pictures.push(new Image(data));
+    } else if (data.video && data.photographerId == id) {
+      videos.push(new Video(data));
+    }
+  }
+}
+
+// - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - //
+
+async function getTotalLikes(array) {
+  let i = 0;
+  array.forEach((key) => {
+    const likes = key._likes;
+    i += likes;
+  });
+  return i;
+}
+
+// - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - //
+
+// - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - //
+
+async function app(url) {
+  // fetches datas, then returns them in js format.
+  const data = await getDatas(url);
+
+  /* 
+    get 'photographers' property from data object.
+    get 'media' property from data object.
+    concatenates the two above
+  */
+  const photographers = data.photographers;
+  const media = data.media;
+  const all = photographers.concat(media);
+
+  // for each key, instanciates the right class then push the newly created object on the right array.
+  all.forEach((key) => new Factory(key));
+
+  // concatenates all medias together.
+  const medias = pictures.concat(videos);
+
+  /* test unit */
+  console.log("=*=*=*=*=*=*=*=*=*=");
+  console.log(photographer);
+  console.log(pictures);
+  console.log(videos);
+  console.log(medias);
+  console.log("=_=_=_=_=_=_=_=_=_=");
+
+  // creates and appends the content of the photographer's banner section.
+  photographer[0].createBanner;
+
+  // creates and appends the media section content.
+  medias.forEach((key) => key.createArticle);
+
+  // creates and appends the price section content.
+  sectionPrice.innerHTML = `<p>${await getTotalLikes(medias)}&nbsp;<i class="fa-solid fa-heart"></i></p><p>${photographer[0].price}€&#8239;/&#8239;jour</p>`;
+
+  // creates and appends the slider section content.
+  medias.forEach((key) => key.createSlide);
+}
+
+app("data/photographers.json");
