@@ -126,6 +126,7 @@ class Image {
 
   get createSlide() {
     const slide = document.createElement("div");
+    slide.classList.add("slide-container");
     const slideContent = `
           <article class="slide">
             <img src="assets/media/${this._image}" alt="${this._title}"/>
@@ -191,6 +192,7 @@ class Video {
 
   get createSlide() {
     const slide = document.createElement("div");
+    slide.classList.add("slide-container");
     const slideContent = `
           <article class="slide">
             <video src="assets/media/${this._video}" controls title="${this._title}">${this._title}</video>
@@ -234,6 +236,56 @@ async function getTotalLikes(array) {
 
 // - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - //
 
+function slider() {
+  const sliderBg = document.querySelector(".slider-bg");
+  const mediaArtciles = document.querySelectorAll(".media article");
+  const slideContainers = document.querySelectorAll(".slide-container");
+  const close = document.querySelector(".close");
+  const previous = document.querySelector(".previous");
+  const next = document.querySelector(".next");
+
+  let count = "";
+  for (let i = 0; i < mediaArtciles.length; i++) {
+    mediaArtciles[i].addEventListener("click", () => {
+      sliderBg.style.display = "flex";
+      slideContainers[i].style.display = "flex";
+      count = i;
+    });
+  }
+
+  close.addEventListener("click", () => {
+    sliderBg.style.display = "none";
+    for (let slideContainer of slideContainers) {
+      if ((slideContainer.style.display = "flex")) {
+        slideContainer.style.display = "none";
+      }
+    }
+  });
+
+  previous.addEventListener("click", () => {
+    //exécute le code ci-dessous quand le bouton previous du slider est pressé.
+    slideContainers[count].style.display = "none";
+    if (count > 0) {
+      count--;
+    } else {
+      count = slideContainers.length - 1;
+    }
+
+    slideContainers[count].style.display = "flex";
+  });
+
+  next.addEventListener("click", () => {
+    //exécute le code ci-dessous quand le bouton next du slider est pressé.
+    slideContainers[count].style.display = "none";
+    if (count < slideContainers.length - 1) {
+      count++;
+    } else {
+      count = 0;
+    }
+    slideContainers[count].style.display = "flex";
+  });
+}
+
 // - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - //
 
 async function app(url) {
@@ -274,6 +326,9 @@ async function app(url) {
 
   // creates and appends the slider section content.
   medias.forEach((key) => key.createSlide);
+
+  // call the slider function
+  slider();
 }
 
 app("data/photographers.json");

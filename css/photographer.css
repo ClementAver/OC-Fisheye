@@ -137,8 +137,7 @@ video {
 }
 
 /* modal */
-#contact_modal,
-.slider-bg {
+#contact_modal {
   display: none;
   position: fixed;
   z-index: 1;
@@ -246,4 +245,95 @@ form textarea {
 
 .invalid-field {
   display: block;
+}
+
+/* slider */
+.slider-bg {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+
+  overflow: hidden;
+
+  background-color: rgba(255, 255, 255, 1);
+}
+
+.slider {
+  position: relative;
+  width: fit-content;
+  height: fit-content;
+
+  max-width: 80vw;
+  max-height: 80vh;
+  margin: auto auto;
+
+  display: grid;
+  grid-template-columns: 40px 1fr 40px;
+}
+
+.slide-container {
+  display: none;
+  grid-column: 2;
+  grid-row: 1;
+
+  object-fit: cover;
+  gap: 0px;
+}
+
+.slide-container-active {
+  display: flex;
+}
+
+.slide img,
+video {
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 75vh;
+}
+
+.slide h2 {
+  height: 5vh;
+  color: var(--red);
+  font-weight: 400;
+}
+
+.close {
+  position: absolute;
+  width: 25px;
+  height: 25px;
+  top: 0;
+  right: 0;
+
+  color: var(--red);
+  background: none;
+  border: none;
+  transform: scale(2);
+}
+
+.previous {
+  place-self: center left;
+  width: 25px;
+  height: 25px;
+
+  color: var(--red);
+  background: none;
+  border: none;
+  transform: scale(2);
+}
+
+.next {
+  place-self: center right;
+  grid-column: 3;
+  width: 25px;
+  height: 25px;
+
+  color: var(--red);
+  background: none;
+  border: none;
+  transform: scale(2);
 }
