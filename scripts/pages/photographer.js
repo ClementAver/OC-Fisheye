@@ -8,6 +8,12 @@ const sectionPhotographHeader = document.querySelector(".photograph-header");
 const sectionMedia = document.querySelector("section.media");
 const sectionPrice = document.querySelector(".price");
 const sectionSlider = document.querySelector(".slider");
+const sliderBg = document.querySelector(".slider-bg");
+const close = document.querySelector(".close");
+const previous = document.querySelector(".previous");
+const next = document.querySelector(".next");
+
+let slideContainers = "";
 
 // - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - //
 
@@ -81,6 +87,7 @@ class Image {
     this._likes = data.likes;
     this._date = data.date;
     this._price = data.price;
+    this._slide = document.createElement("div");
   }
 
   get id() {
@@ -111,10 +118,11 @@ class Image {
     return this._price;
   }
 
-  createArticle() {
+  /*
+createArticle() {
     const card = document.createElement("article");
     const cardContent = `
-          <img src="assets/media/${this._image}" alt="${this._title}">
+          <img src="assets/media/${this._image}" alt="${this._title}"/>
           <div>
             <h2>${this._title}</h2>
             <p>${this._likes}&nbsp;<i class="fa-solid fa-heart"></i></p>
@@ -122,19 +130,59 @@ class Image {
       `;
     card.innerHTML = cardContent;
     sectionMedia.append(card);
+    card.addEventListener("click", () => {
+      sliderBg.style.display = "flex";
+      this._slide.style.display = "flex";
+      let slideContainers = Object.values(document.querySelectorAll(".slide-container"));
+      slideContainers.filter((res) => {
+        if (res.style.display === "flex") {
+          console.log(slideContainers.indexOf(res));
+          count = slideContainers.indexOf(res);
+          return count;
+        }
+      });
+    });
+  }
+*/
+
+  createArticle() {
+    const card = document.createElement("article");
+    const cardContent = `
+          <img src="assets/media/${this._image}" alt="${this._title}"/>
+          <div>
+            <h2>${this._title}</h2>
+            <p>${this._likes}&nbsp;<i class="fa-solid fa-heart"></i></p>
+          </div>
+      `;
+    card.innerHTML = cardContent;
+    sectionMedia.append(card);
+    card.addEventListener("click", () => {
+      sliderBg.style.display = "flex";
+      this._slide.style.display = "flex";
+
+      // sends back an array containing all elements targeted by the '.slide-container' selector.
+      let slideContainers = Object.values(document.querySelectorAll(".slide-container"));
+
+      // updates and returns count with the index of the array key containing an attribute .style.display who's worth "flex".
+      slideContainers.filter((res) => {
+        if (res.style.display === "flex") {
+          count = slideContainers.indexOf(res);
+          return count;
+        }
+      });
+    });
   }
 
   createSlide() {
-    const slide = document.createElement("div");
-    slide.classList.add("slide-container");
+    this._slide.classList.add("slide-container");
     const slideContent = `
           <article class="slide">
             <img src="assets/media/${this._image}" alt="${this._title}"/>
             <h2>${this._title}</h2>
           </article>
       `;
-    slide.innerHTML = slideContent;
-    sectionSlider.append(slide);
+    this._slide.innerHTML = slideContent;
+    sectionSlider.append(this._slide);
   }
 }
 
@@ -147,6 +195,7 @@ class Video {
     this._likes = data.likes;
     this._date = data.date;
     this._price = data.price;
+    this._slide = document.createElement("div");
   }
 
   get id() {
@@ -188,22 +237,34 @@ class Video {
       `;
     card.innerHTML = cardContent;
     sectionMedia.append(card);
+    card.addEventListener("click", () => {
+      sliderBg.style.display = "flex";
+      this._slide.style.display = "flex";
+
+      // sends back an array containing all elements targeted by the '.slide-container' selector.
+      let slideContainers = Object.values(document.querySelectorAll(".slide-container"));
+
+      // updates and returns count with the index of the array key containing an attribute .style.display who's worth "flex".
+      slideContainers.filter((res) => {
+        if (res.style.display === "flex") {
+          count = slideContainers.indexOf(res);
+        }
+      });
+    });
   }
 
   createSlide() {
-    const slide = document.createElement("div");
-    slide.classList.add("slide-container");
+    this._slide.classList.add("slide-container");
     const slideContent = `
           <article class="slide">
             <video src="assets/media/${this._video}" controls title="${this._title}">${this._title}</video>
             <h2>${this._title}</h2>
           </article>
       `;
-    slide.innerHTML = slideContent;
-    sectionSlider.append(slide);
+    this._slide.innerHTML = slideContent;
+    sectionSlider.append(this._slide);
   }
 }
-// - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - //
 
 // - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - //
 
@@ -235,29 +296,11 @@ async function getTotalLikes(array) {
 // - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - //
 
 function slider() {
-  const sliderBg = document.querySelector(".slider-bg");
-  const mediaArtciles = document.querySelectorAll(".media article");
-  const slideContainers = document.querySelectorAll(".slide-container");
-  const close = document.querySelector(".close");
-  const previous = document.querySelector(".previous");
-  const next = document.querySelector(".next");
-
-  let count = "";
-  for (let i = 0; i < mediaArtciles.length; i++) {
-    mediaArtciles[i].addEventListener("click", () => {
-      sliderBg.style.display = "flex";
-      slideContainers[i].style.display = "flex";
-      count = i;
-    });
-  }
+  let slideContainers = Object.values(document.querySelectorAll(".slide-container"));
 
   close.addEventListener("click", () => {
     sliderBg.style.display = "none";
-    for (let slideContainer of slideContainers) {
-      if ((slideContainer.style.display = "flex")) {
-        slideContainer.style.display = "none";
-      }
-    }
+    slideContainers[count].style.display = "none";
   });
 
   previous.addEventListener("click", () => {
@@ -327,8 +370,12 @@ async function app(url) {
   // creates and appends the slider section content.
   medias.forEach((key) => key.createSlide());
 
+  // /!\ will have to call the sortings functions here.
+  sortedMedias = medias;
+
   // call the slider function
   slider();
 }
 
+let count = "";
 app("data/photographers.json");
