@@ -157,15 +157,15 @@ createArticle() {
     card.innerHTML = cardContent;
     sectionMedia.append(card);
     card.addEventListener("click", () => {
-      sliderBg.style.display = "flex";
-      this._slide.style.display = "flex";
+      sliderBg.classList.add("active");
+      this._slide.classList.add("active");
 
       // sends back an array containing all elements targeted by the '.slide-container' selector.
       let slideContainers = Object.values(document.querySelectorAll(".slide-container"));
 
       // updates and returns count with the index of the array key containing an attribute .style.display who's worth "flex".
       slideContainers.filter((res) => {
-        if (res.style.display === "flex") {
+        if (res.classList.contains("active")) {
           count = slideContainers.indexOf(res);
           return count;
         }
@@ -238,15 +238,15 @@ class Video {
     card.innerHTML = cardContent;
     sectionMedia.append(card);
     card.addEventListener("click", () => {
-      sliderBg.style.display = "flex";
-      this._slide.style.display = "flex";
+      sliderBg.classList.add("active");
+      this._slide.classList.add("active");
 
       // sends back an array containing all elements targeted by the '.slide-container' selector.
       let slideContainers = Object.values(document.querySelectorAll(".slide-container"));
 
       // updates and returns count with the index of the array key containing an attribute .style.display who's worth "flex".
       slideContainers.filter((res) => {
-        if (res.style.display === "flex") {
+        if (res.classList.contains("active")) {
           count = slideContainers.indexOf(res);
         }
       });
@@ -299,31 +299,31 @@ function slider() {
   let slideContainers = Object.values(document.querySelectorAll(".slide-container"));
 
   close.addEventListener("click", () => {
-    sliderBg.style.display = "none";
-    slideContainers[count].style.display = "none";
+    sliderBg.classList.remove("active");
+    slideContainers[count].classList.remove("active");
   });
 
   previous.addEventListener("click", () => {
     //exécute le code ci-dessous quand le bouton previous du slider est pressé.
-    slideContainers[count].style.display = "none";
+    slideContainers[count].classList.remove("active");
     if (count > 0) {
       count--;
     } else {
       count = slideContainers.length - 1;
     }
 
-    slideContainers[count].style.display = "flex";
+    slideContainers[count].classList.add("active");
   });
 
   next.addEventListener("click", () => {
     //exécute le code ci-dessous quand le bouton next du slider est pressé.
-    slideContainers[count].style.display = "none";
+    slideContainers[count].classList.remove("active");
     if (count < slideContainers.length - 1) {
       count++;
     } else {
       count = 0;
     }
-    slideContainers[count].style.display = "flex";
+    slideContainers[count].classList.add("active");
   });
 }
 
