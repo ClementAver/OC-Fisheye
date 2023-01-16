@@ -80,17 +80,18 @@ section.media {
 section.media div {
   display: flex;
   flex-flow: column nowrap;
+  align-items: baseline;
   margin-bottom: 30px;
 }
 
 section.media article div {
   display: flex;
   flex-flow: row nowrap;
-  justify-content: space-between;
   color: var(--red);
   font-size: 1.5rem;
   overflow: hidden;
   max-width: 100%;
+  user-select: none;
 }
 
 section.media h2 {
@@ -99,12 +100,18 @@ section.media h2 {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  margin-right: auto;
 }
 
 section.media p:nth-child(2) {
   font-weight: 500;
   white-space: nowrap;
   margin-left: 0.5rem;
+  margin-right: 1rem;
+}
+
+section.media i {
+  z-index: 1;
 }
 
 section.media img,

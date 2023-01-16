@@ -159,15 +159,15 @@ class Image {
     p.innerText = `${this._likes} `;
     const i = document.createElement("i");
     i.classList.add("fa-solid", "fa-heart");
-    p.append(i);
     div.append(h2);
     div.append(p);
+    div.append(i);
 
     card.append(img);
     card.append(div);
     sectionMedia.append(card);
 
-    card.addEventListener("click", () => {
+    img.addEventListener("click", () => {
       sliderBg.classList.add("active");
       this._slide.classList.add("active");
 
@@ -180,6 +180,17 @@ class Image {
           count = slideContainers.indexOf(res);
         }
       });
+    });
+
+    let iB = this._likes;
+    i.addEventListener("click", () => {
+      if (iB === this.likes) {
+        iB++;
+        p.innerText = `${this._likes + 1} `;
+      } else {
+        iB--;
+        p.innerText = `${this._likes} `;
+      }
     });
   }
 
@@ -279,15 +290,15 @@ class Video {
     p.innerText = `${this._likes} `;
     const i = document.createElement("i");
     i.classList.add("fa-solid", "fa-heart");
-    p.append(i);
     div.append(h2);
     div.append(p);
+    div.append(i);
 
     card.append(video);
     card.append(div);
     sectionMedia.append(card);
 
-    card.addEventListener("click", () => {
+    video.addEventListener("click", () => {
       sliderBg.classList.add("active");
       this._slide.classList.add("active");
       // sends back an array containing all elements targeted by the '.slide-container' selector.
@@ -299,6 +310,17 @@ class Video {
           count = slideContainers.indexOf(res);
         }
       });
+    });
+
+    let iB = this._likes;
+    i.addEventListener("click", () => {
+      if (iB === this.likes) {
+        iB++;
+        p.innerText = `${this._likes + 1} `;
+      } else {
+        iB--;
+        p.innerText = `${this._likes} `;
+      }
     });
   }
 
