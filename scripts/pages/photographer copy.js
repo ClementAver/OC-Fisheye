@@ -9,6 +9,11 @@ const sectionMedia = document.querySelector("section.media");
 const sectionPrice = document.querySelector(".price");
 const sectionSlider = document.querySelector(".slider");
 
+const sliderBg = document.querySelector(".slider-bg");
+const close = document.querySelector(".close");
+const previous = document.querySelector(".previous");
+const next = document.querySelector(".next");
+
 // - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - //
 
 // return a javascript object from a fetch request.
@@ -72,6 +77,8 @@ class Photographer {
   }
 }
 
+let = "";
+
 class Image {
   constructor(data) {
     this._id = data.id;
@@ -81,6 +88,7 @@ class Image {
     this._likes = data.likes;
     this._date = data.date;
     this._price = data.price;
+    this._slide = document.createElement("div");
   }
 
   get id() {
@@ -121,20 +129,23 @@ class Image {
           </div>
       `;
     card.innerHTML = cardContent;
+    card.addEventListener("click", () => {
+      sliderBg.style.display = "flex";
+      this._slide.classList.add("slide-container", "active");
+    });
     sectionMedia.append(card);
   }
 
   createSlide() {
-    const slide = document.createElement("div");
-    slide.classList.add("slide-container");
     const slideContent = `
           <article class="slide">
             <img src="assets/media/${this._image}" alt="${this._title}"/>
             <h2>${this._title}</h2>
           </article>
       `;
-    slide.innerHTML = slideContent;
-    sectionSlider.append(slide);
+    this._slide.innerHTML = slideContent;
+    this._slide.classList.add("slide-container");
+    sectionSlider.append(this._slide);
   }
 }
 
@@ -147,6 +158,9 @@ class Video {
     this._likes = data.likes;
     this._date = data.date;
     this._price = data.price;
+    this._slide = document.createElement("div");
+    this._slide.classList.add("slide-container");
+    this._index = "";
   }
 
   get id() {
@@ -188,30 +202,33 @@ class Video {
       `;
     card.innerHTML = cardContent;
     sectionMedia.append(card);
+
+    card.addEventListener("click", () => {
+      sliderBg.style.display = "flex";
+      this._slide.classList.add(".active");
+      count = this._index;
+    });
   }
 
   createSlide() {
-    const slide = document.createElement("div");
-    slide.classList.add("slide-container");
     const slideContent = `
           <article class="slide">
             <video src="assets/media/${this._video}" controls title="${this._title}">${this._title}</video>
             <h2>${this._title}</h2>
           </article>
       `;
-    slide.innerHTML = slideContent;
-    sectionSlider.append(slide);
+    this._slide.innerHTML = slideContent;
+    sectionSlider.append(this._slide);
   }
 }
-// - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - //
 
 // - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - //
 
 let pictures = [];
 let videos = [];
 
-// factory
-class MediaFactory {
+// mediafactory
+class mediaFactory {
   constructor(data) {
     if (data.image && data.photographerId == id) {
       pictures.push(new Image(data));
@@ -233,54 +250,40 @@ async function getTotalLikes(array) {
 }
 
 // - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - //
+let sliderCount = "";
 
 function slider() {
-  const sliderBg = document.querySelector(".slider-bg");
-  const mediaArtciles = document.querySelectorAll(".media article");
   const slideContainers = document.querySelectorAll(".slide-container");
-  const close = document.querySelector(".close");
-  const previous = document.querySelector(".previous");
-  const next = document.querySelector(".next");
-
-  let count = "";
-  for (let i = 0; i < mediaArtciles.length; i++) {
-    mediaArtciles[i].addEventListener("click", () => {
-      sliderBg.style.display = "flex";
-      slideContainers[i].style.display = "flex";
-      count = i;
-    });
-  }
+  let slideContainerActive = "";
 
   close.addEventListener("click", () => {
+    slideContainerActive = document.querySelector(".slide-container.active");
     sliderBg.style.display = "none";
-    for (let slideContainer of slideContainers) {
-      if ((slideContainer.style.display = "flex")) {
-        slideContainer.style.display = "none";
-      }
-    }
+    slideContainerActive.classList.remove("active");
   });
 
   previous.addEventListener("click", () => {
+    slideContainerActive = document.querySelector(".slide-container.active");
     //exécute le code ci-dessous quand le bouton previous du slider est pressé.
-    slideContainers[count].style.display = "none";
-    if (count > 0) {
-      count--;
+    slideContainerActive.classList.remove("active");
+    if (sliderCount > 0) {
+      sliderCount--;
     } else {
-      count = slideContainers.length - 1;
+      sliderCount = medias.length - 1;
     }
-
-    slideContainers[count].style.display = "flex";
+    slideContainerActive.classList.add(".active");
   });
 
   next.addEventListener("click", () => {
+    slideContainerActive = document.querySelector(".slide-container.active");
     //exécute le code ci-dessous quand le bouton next du slider est pressé.
-    slideContainers[count].style.display = "none";
-    if (count < slideContainers.length - 1) {
-      count++;
+    slideContainerActive.classList.remove(".active");
+    if (sliderCount < medias.length - 1) {
+      sliderCount++;
     } else {
-      count = 0;
+      sliderCount = 0;
     }
-    slideContainers[count].style.display = "flex";
+    slideContainerActive.classList.add(".active");
   });
 }
 
@@ -299,7 +302,7 @@ async function app(url) {
   const media = data.media;
 
   // for each key, instanciates the right class then push the newly created object on the right array.
-  media.forEach((key) => new MediaFactory(key));
+  media.forEach((key) => new mediaFactory(key));
 
   // concatenates all medias together.
   const medias = pictures.concat(videos);
@@ -311,11 +314,9 @@ async function app(url) {
   console.log(medias);
   console.log("=_=_=_=_=_=_=_=_=_=");
 
-  // retrieves the right photographer according to his id.
+  // /!\.
   const photographer = photographers.filter((res) => res.id == id);
-  // creates a Photographer instance.
   const activePhotograph = new Photographer(photographer[0]);
-  // calls the creation function for the banner.
   activePhotograph.createBanner();
 
   // creates and appends the media section content.
