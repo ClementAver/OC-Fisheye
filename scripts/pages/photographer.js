@@ -119,7 +119,7 @@ class Image {
   }
 
   /*
-createArticle() {
+  createArticle() {
     const card = document.createElement("article");
     const cardContent = `
           <img src="assets/media/${this._image}" alt="${this._title}"/>
@@ -147,15 +147,26 @@ createArticle() {
 
   createArticle() {
     const card = document.createElement("article");
-    const cardContent = `
-          <img src="assets/media/${this._image}" alt="${this._title}"/>
-          <div>
-            <h2>${this._title}</h2>
-            <p>${this._likes}&nbsp;<i class="fa-solid fa-heart"></i></p>
-          </div>
-      `;
-    card.innerHTML = cardContent;
+
+    const img = document.createElement("img");
+    img.setAttribute("src", `assets/media/${this._image}`);
+    img.setAttribute("alt", `${this._title}`);
+
+    const div = document.createElement("div");
+    const h2 = document.createElement("h2");
+    h2.innerText = `${this._title}`;
+    const p = document.createElement("p");
+    p.innerText = `${this._likes} `;
+    const i = document.createElement("i");
+    i.classList.add("fa-solid", "fa-heart");
+    p.append(i);
+    div.append(h2);
+    div.append(p);
+
+    card.append(img);
+    card.append(div);
     sectionMedia.append(card);
+
     card.addEventListener("click", () => {
       sliderBg.classList.add("active");
       this._slide.classList.add("active");
@@ -167,7 +178,6 @@ createArticle() {
       slideContainers.filter((res) => {
         if (res.classList.contains("active")) {
           count = slideContainers.indexOf(res);
-          return count;
         }
       });
     });
@@ -226,6 +236,7 @@ class Video {
     return this._price;
   }
 
+  /*
   createArticle() {
     const card = document.createElement("article");
     const cardContent = `
@@ -238,9 +249,47 @@ class Video {
     card.innerHTML = cardContent;
     sectionMedia.append(card);
     card.addEventListener("click", () => {
+      sliderBg.style.display = "flex";
+      this._slide.style.display = "flex";
+      let slideContainers = Object.values(document.querySelectorAll(".slide-container"));
+      slideContainers.filter((res) => {
+        if (res.style.display === "flex") {
+          console.log(slideContainers.indexOf(res));
+          count = slideContainers.indexOf(res);
+          return count;
+        }
+      });
+    });
+  }
+*/
+
+  createArticle() {
+    const card = document.createElement("article");
+
+    const video = document.createElement("video");
+    video.setAttribute("src", `assets/media/${this._video}`);
+    video.setAttribute("title", `${this._title}`);
+    video.setAttribute("controls", "");
+    video.innerText = `${this.title}`;
+
+    const div = document.createElement("div");
+    const h2 = document.createElement("h2");
+    h2.innerText = `${this._title}`;
+    const p = document.createElement("p");
+    p.innerText = `${this._likes} `;
+    const i = document.createElement("i");
+    i.classList.add("fa-solid", "fa-heart");
+    p.append(i);
+    div.append(h2);
+    div.append(p);
+
+    card.append(video);
+    card.append(div);
+    sectionMedia.append(card);
+
+    card.addEventListener("click", () => {
       sliderBg.classList.add("active");
       this._slide.classList.add("active");
-
       // sends back an array containing all elements targeted by the '.slide-container' selector.
       let slideContainers = Object.values(document.querySelectorAll(".slide-container"));
 
