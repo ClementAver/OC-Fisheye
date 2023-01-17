@@ -9,14 +9,37 @@ const sectionMedia = document.querySelector("section.media");
 let sectionPrice = document.querySelector(".price");
 const sectionSlider = document.querySelector(".slider");
 const sliderBg = document.querySelector(".slider-bg");
-
-// slides
-let slideContainers = "";
-// slider count
-let count = "";
-
-// sorting options
 const sortingSelect = document.querySelector(".sorting-select");
+
+/*
+  initializes an array that will be filled later on, 
+  it will contains one object representing the selected photographer.
+*/
+let activePhotographer = "";
+/*
+  initializes an array that will be filled later on, 
+  it will contains all the slides of the selected photographer.
+*/
+let slideContainers = "";
+// initializes the slider counter.
+let count = "";
+// initializes the selected photographer's global likes counter.
+let totalLikes = 0;
+
+/*
+  initializes two arrays that will be filled later on
+  with the medias of the selected photographer.
+*/
+let pictures = [];
+let videos = [];
+
+/* 
+indicates the selected sorting algorithm :
+0 - Popularity (default);
+1 - Date;
+2 - Title (A -> Z).
+*/
+let sortBy = 0;
 
 // - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - //
 
@@ -91,7 +114,8 @@ class Image {
     this._date = data.date;
     this._price = data.price;
     this._slide = document.createElement("div");
-    this._fav = false;
+    this._liked = false;
+    this._likesCounter = this._likes;
   }
 
   get id() {
@@ -130,16 +154,19 @@ class Image {
     img.setAttribute("alt", `${this._title}`);
 
     const div = document.createElement("div");
+
     const h2 = document.createElement("h2");
     h2.innerText = `${this._title}`;
+
     const p = document.createElement("p");
     p.innerText = `${this._likes} `;
+
     const i = document.createElement("i");
     i.classList.add("fa-solid", "fa-heart");
+
     div.append(h2);
     div.append(p);
     div.append(i);
-
     card.append(img);
     card.append(div);
     sectionMedia.append(card);
@@ -159,20 +186,19 @@ class Image {
       });
     });
 
-    let iB = this._likes;
     i.addEventListener("click", () => {
-      if (iB === this.likes && !this._fav) {
-        iB++;
+      if (this._likesCounter === this.likes && !this._liked) {
+        this._likesCounter++;
         this._likes++;
         p.innerText = `${this._likes} `;
-        this._fav = true;
+        this._liked = true;
         totalLikes++;
         sectionPrice.innerHTML = `<p>${totalLikes}&nbsp;<i class="fa-solid fa-heart"></i></p><p>${activePhotographer.price}€&#8239;/&#8239;jour</p>`;
       } else {
-        iB--;
+        this._likesCounter--;
         this._likes--;
         p.innerText = `${this._likes} `;
-        this._fav = false;
+        this._liked = false;
         totalLikes--;
         sectionPrice.innerHTML = `<p>${totalLikes}&nbsp;<i class="fa-solid fa-heart"></i></p><p>${activePhotographer.price}€&#8239;/&#8239;jour</p>`;
       }
@@ -202,6 +228,8 @@ class Video {
     this._date = data.date;
     this._price = data.price;
     this._slide = document.createElement("div");
+    this._liked = false;
+    this._likesCounter = this._likes;
   }
 
   get id() {
@@ -242,16 +270,19 @@ class Video {
     video.innerText = `${this.title}`;
 
     const div = document.createElement("div");
+
     const h2 = document.createElement("h2");
     h2.innerText = `${this._title}`;
+
     const p = document.createElement("p");
     p.innerText = `${this._likes} `;
+
     const i = document.createElement("i");
     i.classList.add("fa-solid", "fa-heart");
+
     div.append(h2);
     div.append(p);
     div.append(i);
-
     card.append(video);
     card.append(div);
     sectionMedia.append(card);
@@ -271,18 +302,21 @@ class Video {
       });
     });
 
-    let iB = this._likes;
     i.addEventListener("click", () => {
-      if (iB === this.likes && !this._fav) {
-        iB++;
+      if (this._likesCounter === this.likes && !this._liked) {
+        this._likesCounter++;
         this._likes++;
         p.innerText = `${this._likes} `;
-        this._fav = true;
+        this._liked = true;
+        totalLikes++;
+        sectionPrice.innerHTML = `<p>${totalLikes}&nbsp;<i class="fa-solid fa-heart"></i></p><p>${activePhotographer.price}€&#8239;/&#8239;jour</p>`;
       } else {
-        iB--;
+        this._likesCounter--;
         this._likes--;
         p.innerText = `${this._likes} `;
-        this._fav = false;
+        this._liked = false;
+        totalLikes--;
+        sectionPrice.innerHTML = `<p>${totalLikes}&nbsp;<i class="fa-solid fa-heart"></i></p><p>${activePhotographer.price}€&#8239;/&#8239;jour</p>`;
       }
     });
   }
@@ -302,9 +336,6 @@ class Video {
 
 // - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - //
 
-let pictures = [];
-let videos = [];
-
 // factory
 class MediaFactory {
   constructor(data) {
@@ -317,7 +348,7 @@ class MediaFactory {
 }
 
 // - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - //
-let totalLikes = 0;
+
 async function getTotalLikes(array) {
   let i = 0;
   array.forEach((key) => {
@@ -414,7 +445,6 @@ async function Sort(object, sortBy) {
       console.error(`invalid object`);
   }
 
-  // call the slider function
   slider();
 }
 
@@ -467,6 +497,4 @@ async function app(url) {
   });
 }
 
-let activePhotographer = "";
-let sortBy = 0;
 app("data/photographers.json");
