@@ -91,6 +91,7 @@ class Image {
     this._date = data.date;
     this._price = data.price;
     this._slide = document.createElement("div");
+    this._fav = false;
   }
 
   get id() {
@@ -187,12 +188,16 @@ class Image {
 
     let iB = this._likes;
     i.addEventListener("click", () => {
-      if (iB === this.likes) {
+      if (iB === this.likes && !this._fav) {
         iB++;
-        p.innerText = `${this._likes + 1} `;
+        this._likes++;
+        p.innerText = `${this._likes} `;
+        this._fav = true;
       } else {
         iB--;
+        this._likes--;
         p.innerText = `${this._likes} `;
+        this._fav = false;
       }
     });
   }
@@ -318,12 +323,16 @@ class Video {
 
     let iB = this._likes;
     i.addEventListener("click", () => {
-      if (iB === this.likes) {
+      if (iB === this.likes && !this._fav) {
         iB++;
-        p.innerText = `${this._likes + 1} `;
+        this._likes++;
+        p.innerText = `${this._likes} `;
+        this._fav = true;
       } else {
         iB--;
+        this._likes--;
         p.innerText = `${this._likes} `;
+        this._fav = false;
       }
     });
   }

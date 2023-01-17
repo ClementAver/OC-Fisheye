@@ -125,6 +125,8 @@ video {
 
 /* price */
 .price {
+  z-index: 2;
+
   height: 60px;
   width: 370px;
   box-sizing: inherit;
