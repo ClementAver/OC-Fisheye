@@ -482,19 +482,27 @@ async function Sort(object, sortBy) {
       sortedMedias = array.sort((a, b) => b.likes - a.likes);
       sortedMedias.forEach((key) => key.createArticle());
       sortedMedias.forEach((key) => key.createSlide());
-      break;
-
-    // title
-    case 1:
-      sortedMedias = array.sort((a, b) => b.likes - a.likes);
-      console.log(sortedMedias);
-      sortedMedias.forEach((key) => key.createArticle());
-      sortedMedias.forEach((key) => key.createSlide());
+      sortedMedias.forEach((res) => console.log(res.likes));
       break;
 
     // date
+    case 1:
+      sortedMedias = array.sort(function (a, b) {
+        // Turn your strings into dates, and then subtract them
+        // to get a value that is either negative, positive, or zero.
+        return new Date(b.date) - new Date(a.date);
+      });
+      sortedMedias.forEach((key) => key.createArticle());
+      sortedMedias.forEach((key) => key.createSlide());
+      sortedMedias.forEach((res) => console.log(res.date));
+      break;
+
+    // title
     case 2:
-      console.log("Oranges are $0.59 a pound.");
+      sortedMedias = array.sort((a, b) => a.title.localeCompare(b.title));
+      sortedMedias.forEach((key) => key.createArticle());
+      sortedMedias.forEach((key) => key.createSlide());
+      sortedMedias.forEach((res) => console.log(res.title));
       break;
 
     default:
