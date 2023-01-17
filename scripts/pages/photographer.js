@@ -6,7 +6,7 @@ const id = url.searchParams.get("id");
 // stores targeted DOM sectors.
 const sectionPhotographHeader = document.querySelector(".photograph-header");
 const sectionMedia = document.querySelector("section.media");
-const sectionPrice = document.querySelector(".price");
+let sectionPrice = document.querySelector(".price");
 const sectionSlider = document.querySelector(".slider");
 const sliderBg = document.querySelector(".slider-bg");
 
@@ -122,33 +122,6 @@ class Image {
     return this._price;
   }
 
-  /*
-  createArticle() {
-    const card = document.createElement("article");
-    const cardContent = `
-          <img src="assets/media/${this._image}" alt="${this._title}"/>
-          <div>
-            <h2>${this._title}</h2>
-            <p>${this._likes}&nbsp;<i class="fa-solid fa-heart"></i></p>
-          </div>
-      `;
-    card.innerHTML = cardContent;
-    sectionMedia.append(card);
-    card.addEventListener("click", () => {
-      sliderBg.style.display = "flex";
-      this._slide.style.display = "flex";
-      let slideContainers = Object.values(document.querySelectorAll(".slide-container"));
-      slideContainers.filter((res) => {
-        if (res.style.display === "flex") {
-          console.log(slideContainers.indexOf(res));
-          count = slideContainers.indexOf(res);
-          return count;
-        }
-      });
-    });
-  }
-*/
-
   createArticle() {
     const card = document.createElement("article");
 
@@ -193,11 +166,15 @@ class Image {
         this._likes++;
         p.innerText = `${this._likes} `;
         this._fav = true;
+        totalLikes++;
+        sectionPrice.innerHTML = `<p>${totalLikes}&nbsp;<i class="fa-solid fa-heart"></i></p><p>${activePhotographer.price}€&#8239;/&#8239;jour</p>`;
       } else {
         iB--;
         this._likes--;
         p.innerText = `${this._likes} `;
         this._fav = false;
+        totalLikes--;
+        sectionPrice.innerHTML = `<p>${totalLikes}&nbsp;<i class="fa-solid fa-heart"></i></p><p>${activePhotographer.price}€&#8239;/&#8239;jour</p>`;
       }
     });
   }
@@ -254,33 +231,6 @@ class Video {
   get price() {
     return this._price;
   }
-
-  /*
-  createArticle() {
-    const card = document.createElement("article");
-    const cardContent = `
-          <video src="assets/media/${this._video}" controls title="${this._title}">${this._title}</video>
-          <div>
-            <h2>${this._title}</h2>
-            <p>${this._likes}&nbsp;<i class="fa-solid fa-heart"></i></p>
-          </div>
-      `;
-    card.innerHTML = cardContent;
-    sectionMedia.append(card);
-    card.addEventListener("click", () => {
-      sliderBg.style.display = "flex";
-      this._slide.style.display = "flex";
-      let slideContainers = Object.values(document.querySelectorAll(".slide-container"));
-      slideContainers.filter((res) => {
-        if (res.style.display === "flex") {
-          console.log(slideContainers.indexOf(res));
-          count = slideContainers.indexOf(res);
-          return count;
-        }
-      });
-    });
-  }
-*/
 
   createArticle() {
     const card = document.createElement("article");
@@ -367,14 +317,14 @@ class MediaFactory {
 }
 
 // - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - //
-
+let totalLikes = 0;
 async function getTotalLikes(array) {
   let i = 0;
   array.forEach((key) => {
     const likes = key._likes;
     i += likes;
   });
-  return i;
+  totalLikes = i;
 }
 
 // - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - //
@@ -417,6 +367,59 @@ function slider() {
 
 // - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - //
 
+// sorting
+async function Sort(object, sortBy) {
+  sectionMedia.innerHTML = ``;
+  sectionSlider.innerHTML = `
+    <button type="button" class="close">
+      <i class="fa-sharp fa-solid fa-xmark"></i>
+    </button>
+    <button type="button" class="previous">
+      <i class="fa-sharp fa-solid fa-chevron-left"></i>
+    </button>
+    <button type="button" class="next">
+      <i class="fa-sharp fa-solid fa-chevron-right"></i>
+    </button>
+  `;
+  await object;
+  // object => array
+  let array = Object.values(object);
+
+  switch (sortBy) {
+    // likes
+    case 0:
+      sortedMedias = array.sort((a, b) => b.likes - a.likes);
+      sortedMedias.forEach((key) => key.createArticle());
+      sortedMedias.forEach((key) => key.createSlide());
+      sortedMedias.forEach((res) => console.log(res.likes));
+      break;
+
+    // date
+    case 1:
+      sortedMedias = array.sort((a, b) => new Date(b.date) - new Date(a.date));
+      sortedMedias.forEach((key) => key.createArticle());
+      sortedMedias.forEach((key) => key.createSlide());
+      sortedMedias.forEach((res) => console.log(res.date));
+      break;
+
+    // title
+    case 2:
+      sortedMedias = array.sort((a, b) => a.title.localeCompare(b.title));
+      sortedMedias.forEach((key) => key.createArticle());
+      sortedMedias.forEach((key) => key.createSlide());
+      sortedMedias.forEach((res) => console.log(res.title));
+      break;
+
+    default:
+      console.error(`invalid object`);
+  }
+
+  // call the slider function
+  slider();
+}
+
+// - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - //
+
 async function app(url) {
   // fetches datas, then returns them in js format.
   const data = await getDatas(url);
@@ -445,11 +448,13 @@ async function app(url) {
   // retrieves the right photographer according to his id.
   const photographer = photographers.filter((res) => res.id == id);
   // creates a Photographer instance.
-  const activePhotograph = new Photographer(photographer[0]);
+  activePhotographer = new Photographer(photographer[0]);
   // calls the creation function for the banner.
-  activePhotograph.createBanner();
-  // creates and appends the price section content.
-  sectionPrice.innerHTML = `<p>${await getTotalLikes(medias)}&nbsp;<i class="fa-solid fa-heart"></i></p><p>${photographer[0].price}€&#8239;/&#8239;jour</p>`;
+  activePhotographer.createBanner();
+
+  // creates and inserts the price section content.
+  getTotalLikes(medias);
+  sectionPrice.innerHTML = `<p>${totalLikes}&nbsp;<i class="fa-solid fa-heart"></i></p><p>${activePhotographer.price}€&#8239;/&#8239;jour</p>`;
 
   // sort initially by likes count (descending)
   Sort(medias, sortBy);
@@ -462,62 +467,6 @@ async function app(url) {
   });
 }
 
+let activePhotographer = "";
 let sortBy = 0;
 app("data/photographers.json");
-
-// - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - //
-
-// sorting
-async function Sort(object, sortBy) {
-  sectionMedia.innerHTML = ``;
-  sectionSlider.innerHTML = `
-<button type="button" class="close">
-          <i class="fa-sharp fa-solid fa-xmark"></i>
-        </button>
-        <button type="button" class="previous">
-          <i class="fa-sharp fa-solid fa-chevron-left"></i>
-        </button>
-        <button type="button" class="next">
-          <i class="fa-sharp fa-solid fa-chevron-right"></i>
-        </button>
-`;
-  await object;
-  // object => array
-  let array = Object.values(object);
-
-  switch (sortBy) {
-    // likes
-    case 0:
-      sortedMedias = array.sort((a, b) => b.likes - a.likes);
-      sortedMedias.forEach((key) => key.createArticle());
-      sortedMedias.forEach((key) => key.createSlide());
-      sortedMedias.forEach((res) => console.log(res.likes));
-      break;
-
-    // date
-    case 1:
-      sortedMedias = array.sort(function (a, b) {
-        // Turn your strings into dates, and then subtract them
-        // to get a value that is either negative, positive, or zero.
-        return new Date(b.date) - new Date(a.date);
-      });
-      sortedMedias.forEach((key) => key.createArticle());
-      sortedMedias.forEach((key) => key.createSlide());
-      sortedMedias.forEach((res) => console.log(res.date));
-      break;
-
-    // title
-    case 2:
-      sortedMedias = array.sort((a, b) => a.title.localeCompare(b.title));
-      sortedMedias.forEach((key) => key.createArticle());
-      sortedMedias.forEach((key) => key.createSlide());
-      sortedMedias.forEach((res) => console.log(res.title));
-      break;
-
-    default:
-      console.error(`invalid object`);
-  }
-
-  // call the slider function
-  slider();
-}
