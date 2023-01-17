@@ -8,11 +8,18 @@ const sectionPhotographHeader = document.querySelector(".photograph-header");
 const sectionMedia = document.querySelector("section.media");
 const sectionPrice = document.querySelector(".price");
 const sectionSlider = document.querySelector(".slider");
-
 const sliderBg = document.querySelector(".slider-bg");
 const close = document.querySelector(".close");
 const previous = document.querySelector(".previous");
 const next = document.querySelector(".next");
+
+// slides
+let slideContainers = "";
+// slider count
+let count = "";
+
+// sorting options
+const sortingSelect = document.querySelector(".sorting-select");
 
 // - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - //
 
@@ -77,8 +84,6 @@ class Photographer {
   }
 }
 
-let = "";
-
 class Image {
   constructor(data) {
     this._id = data.id;
@@ -119,24 +124,84 @@ class Image {
     return this._price;
   }
 
+  /*
   createArticle() {
     const card = document.createElement("article");
     const cardContent = `
-          <img src="assets/media/${this._image}" alt="${this._title}">
+          <img src="assets/media/${this._image}" alt="${this._title}"/>
           <div>
             <h2>${this._title}</h2>
             <p>${this._likes}&nbsp;<i class="fa-solid fa-heart"></i></p>
           </div>
       `;
     card.innerHTML = cardContent;
+    sectionMedia.append(card);
     card.addEventListener("click", () => {
       sliderBg.style.display = "flex";
-      this._slide.classList.add("slide-container", "active");
+      this._slide.style.display = "flex";
+      let slideContainers = Object.values(document.querySelectorAll(".slide-container"));
+      slideContainers.filter((res) => {
+        if (res.style.display === "flex") {
+          console.log(slideContainers.indexOf(res));
+          count = slideContainers.indexOf(res);
+          return count;
+        }
+      });
     });
+  }
+*/
+
+  createArticle() {
+    const card = document.createElement("article");
+
+    const img = document.createElement("img");
+    img.setAttribute("src", `assets/media/${this._image}`);
+    img.setAttribute("alt", `${this._title}`);
+
+    const div = document.createElement("div");
+    const h2 = document.createElement("h2");
+    h2.innerText = `${this._title}`;
+    const p = document.createElement("p");
+    p.innerText = `${this._likes} `;
+    const i = document.createElement("i");
+    i.classList.add("fa-solid", "fa-heart");
+    div.append(h2);
+    div.append(p);
+    div.append(i);
+
+    card.append(img);
+    card.append(div);
     sectionMedia.append(card);
+
+    img.addEventListener("click", () => {
+      sliderBg.classList.add("active");
+      this._slide.classList.add("active");
+
+      // sends back an array containing all elements targeted by the '.slide-container' selector.
+      let slideContainers = Object.values(document.querySelectorAll(".slide-container"));
+
+      // updates and returns count with the index of the array key containing an attribute .style.display who's worth "flex".
+      slideContainers.filter((res) => {
+        if (res.classList.contains("active")) {
+          count = slideContainers.indexOf(res);
+        }
+      });
+    });
+
+    let iB = this._likes;
+    i.addEventListener("click", () => {
+      if (iB === this.likes) {
+        iB++;
+        p.innerText = `${this._likes + 1} `;
+      } else {
+        iB--;
+        p.innerText = `${this._likes} `;
+      }
+    });
   }
 
   createSlide() {
+    this._slide.classList.add("slide-container");
     const slideContent = `
           <article class="slide">
             <img src="assets/media/${this._image}" alt="${this._title}"/>
@@ -144,7 +209,6 @@ class Image {
           </article>
       `;
     this._slide.innerHTML = slideContent;
-    this._slide.classList.add("slide-container");
     sectionSlider.append(this._slide);
   }
 }
@@ -159,8 +223,6 @@ class Video {
     this._date = data.date;
     this._price = data.price;
     this._slide = document.createElement("div");
-    this._slide.classList.add("slide-container");
-    this._index = "";
   }
 
   get id() {
@@ -191,6 +253,7 @@ class Video {
     return this._price;
   }
 
+  /*
   createArticle() {
     const card = document.createElement("article");
     const cardContent = `
@@ -202,15 +265,73 @@ class Video {
       `;
     card.innerHTML = cardContent;
     sectionMedia.append(card);
-
     card.addEventListener("click", () => {
       sliderBg.style.display = "flex";
-      this._slide.classList.add(".active");
-      count = this._index;
+      this._slide.style.display = "flex";
+      let slideContainers = Object.values(document.querySelectorAll(".slide-container"));
+      slideContainers.filter((res) => {
+        if (res.style.display === "flex") {
+          console.log(slideContainers.indexOf(res));
+          count = slideContainers.indexOf(res);
+          return count;
+        }
+      });
+    });
+  }
+*/
+
+  createArticle() {
+    const card = document.createElement("article");
+
+    const video = document.createElement("video");
+    video.setAttribute("src", `assets/media/${this._video}`);
+    video.setAttribute("title", `${this._title}`);
+    video.setAttribute("controls", "");
+    video.innerText = `${this.title}`;
+
+    const div = document.createElement("div");
+    const h2 = document.createElement("h2");
+    h2.innerText = `${this._title}`;
+    const p = document.createElement("p");
+    p.innerText = `${this._likes} `;
+    const i = document.createElement("i");
+    i.classList.add("fa-solid", "fa-heart");
+    div.append(h2);
+    div.append(p);
+    div.append(i);
+
+    card.append(video);
+    card.append(div);
+    sectionMedia.append(card);
+
+    video.addEventListener("click", () => {
+      sliderBg.classList.add("active");
+      this._slide.classList.add("active");
+      // sends back an array containing all elements targeted by the '.slide-container' selector.
+      let slideContainers = Object.values(document.querySelectorAll(".slide-container"));
+
+      // updates and returns count with the index of the array key containing an attribute .style.display who's worth "flex".
+      slideContainers.filter((res) => {
+        if (res.classList.contains("active")) {
+          count = slideContainers.indexOf(res);
+        }
+      });
+    });
+
+    let iB = this._likes;
+    i.addEventListener("click", () => {
+      if (iB === this.likes) {
+        iB++;
+        p.innerText = `${this._likes + 1} `;
+      } else {
+        iB--;
+        p.innerText = `${this._likes} `;
+      }
     });
   }
 
   createSlide() {
+    this._slide.classList.add("slide-container");
     const slideContent = `
           <article class="slide">
             <video src="assets/media/${this._video}" controls title="${this._title}">${this._title}</video>
@@ -227,8 +348,8 @@ class Video {
 let pictures = [];
 let videos = [];
 
-// mediafactory
-class mediaFactory {
+// factory
+class MediaFactory {
   constructor(data) {
     if (data.image && data.photographerId == id) {
       pictures.push(new Image(data));
@@ -250,46 +371,42 @@ async function getTotalLikes(array) {
 }
 
 // - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - //
-let sliderCount = "";
 
 function slider() {
-  const slideContainers = document.querySelectorAll(".slide-container");
-  let slideContainerActive = "";
+  let slideContainers = Object.values(document.querySelectorAll(".slide-container"));
 
   close.addEventListener("click", () => {
-    slideContainerActive = document.querySelector(".slide-container.active");
-    sliderBg.style.display = "none";
-    slideContainerActive.classList.remove("active");
+    sliderBg.classList.remove("active");
+    slideContainers[count].classList.remove("active");
   });
 
   previous.addEventListener("click", () => {
-    slideContainerActive = document.querySelector(".slide-container.active");
     //exécute le code ci-dessous quand le bouton previous du slider est pressé.
-    slideContainerActive.classList.remove("active");
-    if (sliderCount > 0) {
-      sliderCount--;
+    slideContainers[count].classList.remove("active");
+    if (count > 0) {
+      count--;
     } else {
-      sliderCount = medias.length - 1;
+      count = slideContainers.length - 1;
     }
-    slideContainerActive.classList.add(".active");
+
+    slideContainers[count].classList.add("active");
   });
 
   next.addEventListener("click", () => {
-    slideContainerActive = document.querySelector(".slide-container.active");
     //exécute le code ci-dessous quand le bouton next du slider est pressé.
-    slideContainerActive.classList.remove(".active");
-    if (sliderCount < medias.length - 1) {
-      sliderCount++;
+    slideContainers[count].classList.remove("active");
+    if (count < slideContainers.length - 1) {
+      count++;
     } else {
-      sliderCount = 0;
+      count = 0;
     }
-    slideContainerActive.classList.add(".active");
+    slideContainers[count].classList.add("active");
   });
 }
 
 // - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - //
 
-async function app(url) {
+async function app(url, index) {
   // fetches datas, then returns them in js format.
   const data = await getDatas(url);
 
@@ -302,7 +419,7 @@ async function app(url) {
   const media = data.media;
 
   // for each key, instanciates the right class then push the newly created object on the right array.
-  media.forEach((key) => new mediaFactory(key));
+  media.forEach((key) => new MediaFactory(key));
 
   // concatenates all medias together.
   const medias = pictures.concat(videos);
@@ -311,12 +428,14 @@ async function app(url) {
   console.log("=*=*=*=*=*=*=*=*=*=");
   console.log(pictures);
   console.log(videos);
-  console.log(medias);
+  console.log(typeof medias);
   console.log("=_=_=_=_=_=_=_=_=_=");
 
-  // /!\.
+  // retrieves the right photographer according to his id.
   const photographer = photographers.filter((res) => res.id == id);
+  // creates a Photographer instance.
   const activePhotograph = new Photographer(photographer[0]);
+  // calls the creation function for the banner.
   activePhotograph.createBanner();
 
   // creates and appends the media section content.
@@ -328,8 +447,43 @@ async function app(url) {
   // creates and appends the slider section content.
   medias.forEach((key) => key.createSlide());
 
+  // /!\ will have to call the sortings functions here.
+  sortedMedias = medias;
+
   // call the slider function
   slider();
+  Sort(medias, sortBy);
 }
 
+let sortBy = 0;
 app("data/photographers.json");
+
+// - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - //
+
+// returns the selectedIndex attribute of the select.
+sortingSelect.addEventListener("change", () => {
+  const selectedIndex = sortingSelect.options.selectedIndex;
+  sortBy = selectedIndex;
+});
+
+// sorting
+async function Sort(object, sortBy) {
+  await object;
+  // object => array
+  let array = Object.values(object);
+
+  switch (sortBy) {
+    case 0:
+      array.forEach((key) => key.createArticle());
+      array.forEach((key) => key.createSlide());
+      break;
+    case 1:
+      console.log("Oranges are $0.59 a pound.");
+      break;
+    case 2:
+      console.log("Oranges are $0.59 a pound.");
+      break;
+    default:
+      console.error(`invalid object`);
+  }
+}

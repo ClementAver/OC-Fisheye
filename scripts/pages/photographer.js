@@ -9,11 +9,14 @@ const sectionMedia = document.querySelector("section.media");
 const sectionPrice = document.querySelector(".price");
 const sectionSlider = document.querySelector(".slider");
 const sliderBg = document.querySelector(".slider-bg");
-const close = document.querySelector(".close");
-const previous = document.querySelector(".previous");
-const next = document.querySelector(".next");
 
+// slides
 let slideContainers = "";
+// slider count
+let count = "";
+
+// sorting options
+const sortingSelect = document.querySelector(".sorting-select");
 
 // - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - //
 
@@ -298,7 +301,8 @@ class Video {
     card.append(div);
     sectionMedia.append(card);
 
-    video.addEventListener("click", () => {
+    video.addEventListener("click", (e) => {
+      e.preventDefault();
       sliderBg.classList.add("active");
       this._slide.classList.add("active");
       // sends back an array containing all elements targeted by the '.slide-container' selector.
@@ -367,6 +371,10 @@ async function getTotalLikes(array) {
 // - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - //
 
 function slider() {
+  const close = document.querySelector(".close");
+  const previous = document.querySelector(".previous");
+  const next = document.querySelector(".next");
+
   let slideContainers = Object.values(document.querySelectorAll(".slide-container"));
 
   close.addEventListener("click", () => {
@@ -431,22 +439,68 @@ async function app(url) {
   const activePhotograph = new Photographer(photographer[0]);
   // calls the creation function for the banner.
   activePhotograph.createBanner();
-
-  // creates and appends the media section content.
-  medias.forEach((key) => key.createArticle());
-
   // creates and appends the price section content.
   sectionPrice.innerHTML = `<p>${await getTotalLikes(medias)}&nbsp;<i class="fa-solid fa-heart"></i></p><p>${photographer[0].price}€&#8239;/&#8239;jour</p>`;
 
-  // creates and appends the slider section content.
-  medias.forEach((key) => key.createSlide());
+  // sort initially by likes count (descending)
+  Sort(medias, sortBy);
 
-  // /!\ will have to call the sortings functions here.
-  sortedMedias = medias;
+  // returns the selectedIndex attribute of the select.
+  sortingSelect.addEventListener("change", () => {
+    const selectedIndex = sortingSelect.options.selectedIndex;
+    sortBy = selectedIndex;
+    Sort(medias, sortBy);
+  });
+}
+
+let sortBy = 0;
+app("data/photographers.json");
+
+// - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - //
+
+// sorting
+async function Sort(object, sortBy) {
+  sectionMedia.innerHTML = ``;
+  sectionSlider.innerHTML = `
+<button type="button" class="close">
+          <i class="fa-sharp fa-solid fa-xmark"></i>
+        </button>
+        <button type="button" class="previous">
+          <i class="fa-sharp fa-solid fa-chevron-left"></i>
+        </button>
+        <button type="button" class="next">
+          <i class="fa-sharp fa-solid fa-chevron-right"></i>
+        </button>
+`;
+  await object;
+  // object => array
+  let array = Object.values(object);
+
+  switch (sortBy) {
+    // likes
+    case 0:
+      sortedMedias = array.sort((a, b) => b.likes - a.likes);
+      sortedMedias.forEach((key) => key.createArticle());
+      sortedMedias.forEach((key) => key.createSlide());
+      break;
+
+    // title
+    case 1:
+      sortedMedias = array.sort((a, b) => b.likes - a.likes);
+      console.log(sortedMedias);
+      sortedMedias.forEach((key) => key.createArticle());
+      sortedMedias.forEach((key) => key.createSlide());
+      break;
+
+    // date
+    case 2:
+      console.log("Oranges are $0.59 a pound.");
+      break;
+
+    default:
+      console.error(`invalid object`);
+  }
 
   // call the slider function
   slider();
 }
-
-let count = "";
-app("data/photographers.json");
