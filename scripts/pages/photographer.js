@@ -4,7 +4,7 @@ const url = new URL(window.location.href);
 const id = url.searchParams.get("id");
 
 // stores targeted DOM sectors.
-const sectionPhotographHeader = document.querySelector(".photograph-header");
+const sectionPhotographerHeader = document.querySelector(".photographer-header");
 const sectionMedia = document.querySelector("section.media");
 let sectionPrice = document.querySelector(".price");
 const sectionSlider = document.querySelector(".slider");
@@ -92,7 +92,7 @@ class Photographer {
   }
 
   createBanner() {
-    sectionPhotographHeader.innerHTML = `
+    sectionPhotographerHeader.innerHTML = `
       <div>
         <h1>${this._name}</h1>
         <p>${this._city}, ${this._country}</p>
@@ -100,7 +100,10 @@ class Photographer {
       </div>
 
       <button class="contact_button" onclick="displayModal()">Contactez-moi</button>
-      <img src="assets/photographers/${this._portrait}" alt="${this._name}"/>`;
+      <div>
+      <img src="assets/photographers/${this._portrait}" alt="${this._name}"/>
+      </div>
+    `;
   }
 }
 

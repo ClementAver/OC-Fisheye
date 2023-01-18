@@ -8,12 +8,15 @@
   --lightgrey: #fafafa;
 
   font-size: 16px;
+  font-family: "DM Sans", sans-serif;
+
+  margin: 0;
+  padding: 0;
+
+  box-sizing: border-box;
 }
 
 body {
-  font-family: "DM Sans", sans-serif;
-  margin: 0;
-  padding: 0;
   max-width: 1440px;
   margin-left: auto;
   margin-right: auto;
@@ -38,70 +41,77 @@ p {
   line-height: 150%;
 }
 
+h1 {
+  color: var(--red);
+  margin-right: 100px;
+  margin: 30px 100px 30px 0;
+}
+
 a {
   text-decoration: none;
 }
 
 header {
   display: flex;
-  flex-direction: row;
+  flex-flow: row wrap;
   justify-content: space-between;
   align-items: center;
-  height: 8rem;
-}
-
-h1 {
-  color: var(--red);
-  margin-right: 100px;
+  align-items: center;
 }
 
 .logo {
   height: 50px;
-  margin-left: 100px;
+  margin: 30px 0 30px 100px;
 }
 
+/* container of the photographer's galery */
 .photographer_section {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 70px;
-  margin-top: 6rem;
-  margin-bottom: 6rem;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 50px;
+
+  max-width: 1240px;
+
+  margin: 6rem 100px 6rem;
 }
 
+/* container of the photographer's individuals cards */
 .photographer_section article {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  flex-basis: 350px;
 }
 
 /* link */
-.photographer_section article a {
+.photographer_section a {
   display: flex;
   flex-flow: column nowrap;
   align-items: center;
 }
 
 /* portrait */
-.photographer_section article img {
+.photographer_section img {
   height: 200px;
   width: 200px;
+
   object-fit: cover;
   border-radius: 50%;
-
   box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.1);
+
   margin-bottom: 1rem;
 }
 
 /* name */
-.photographer_section article h2 {
+.photographer_section h2 {
   color: var(--orange);
   font-size: 2.25rem;
   font-weight: 400;
 }
 
 /* location */
-.photographer_section article p:nth-child(3) {
+.photographer_section p:nth-child(3) {
   color: var(--red);
   font-size: 1rem;
   font-weight: 400;
@@ -131,3 +141,22 @@ h1 {
   width: 1px;
 }
 */
+
+@media (max-width: 768px) {
+  header {
+    flex-flow: column nowrap;
+    justify-content: center;
+  }
+
+  .logo {
+    margin: 30px 0 0.5rem 0;
+  }
+
+  h1 {
+    margin: 0 0 30px 0;
+  }
+
+  .photographer_section {
+    margin: 3rem 10px 3rem;
+  }
+}
