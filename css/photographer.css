@@ -82,17 +82,16 @@
   border-radius: 50%;
 }
 
-/* sort */
-form h2 {
-  font-size: ;
-  font-weight: ;
+.sort {
+  margin: 0 100px 40px;
+
+  display: flex;
+  gap: 1rem;
 }
 
-.sort {
+.sort h2 {
   font-size: 1.125rem;
-  font-weight: 500;
-
-  margin: 0 100px 40px;
+  font-weight: 700;
 }
 
 /* media */
