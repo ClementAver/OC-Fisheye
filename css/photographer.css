@@ -164,12 +164,13 @@ section.media video {
 #contact_modal {
   display: none;
   position: fixed;
-  z-index: 1;
+  z-index: 3;
   left: 0;
   top: 0;
   height: 100%;
   width: 100%;
-  overflow: auto;
+  overflow-y: hidden;
+
   background-color: rgba(196, 196, 196, 0.4);
 }
 
@@ -177,14 +178,14 @@ section.media video {
   border-radius: 5px;
   background-color: var(--orangeB);
   width: 50%;
-  max-width: 600px;
+  max-width: 620px;
   height: fit-content;
   max-height: 90vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  padding: 0 35px 35px;
+  padding: 2.2rem;
   margin: auto;
   position: fixed;
   top: 0;
@@ -192,6 +193,8 @@ section.media video {
   left: 0;
   right: 0;
   box-shadow: -5px 10px 30px rgba(0, 0, 0, 0.25);
+  overflow-y: auto;
+  box-sizing: border-box;
 }
 
 .modal header {
@@ -201,14 +204,20 @@ section.media video {
 
 .modal header img {
   cursor: pointer;
+  position: absolute;
+  top: 2.2rem;
+  right: 2.2rem;
 }
 
 .modal header h2 {
-  font-size: 64px;
+  font-size: 4rem;
   font-weight: normal;
-  text-align: center;
+  padding-right: 3rem;
+  width: calc(100% - 3rem);
 
   overflow: hidden;
+  word-break: break-word;
+
   text-overflow: ellipsis;
   white-space: nowrap;
 }
@@ -387,6 +396,10 @@ form textarea {
     margin-top: 2.5rem;
     align-self: start;
   }
+
+  .modal {
+    min-width: 60vw;
+  }
 }
 
 /**/
@@ -452,6 +465,10 @@ form textarea {
     top: 1rem;
     right: 1rem;
   }
+
+  .modal header h2 {
+    font-size: 3rem;
+  }
 }
 
 @media (max-width: 768px) {
@@ -469,4 +486,28 @@ form textarea {
   section.media {
     margin: 0 10px;
   }
+
+  .modal {
+    min-width: 90vw;
+  }
+
+  .modal header h2 {
+    font-size: 2.5rem;
+  }
+}
+.styled-scrollbars {
+  /* Foreground, Background */
+  scrollbar-color: var(--orange) var(--red);
+}
+.styled-scrollbars::-webkit-scrollbar {
+  width: 0.5rem; /* Mostly for vertical scrollbars */
+  height: 0.5rem; /* Mostly for horizontal scrollbars */
+}
+.styled-scrollbars::-webkit-scrollbar-thumb {
+  /* Foreground */
+  background: var(--red);
+}
+.styled-scrollbars::-webkit-scrollbar-track {
+  /* Background */
+  background: var(--orangeB);
 }
