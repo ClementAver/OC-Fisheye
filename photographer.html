@@ -2,35 +2,87 @@
 <html>
   <head>
     <link href="css/style.css" rel="stylesheet" type="text/css" />
-    <meta charset="utf-8">
-    <link rel="icon" type="image/png" href="assets/favicon.png">
-    <link href="https://fonts.googleapis.com/css?family=DM+Sans&display=swap" rel="stylesheet">
-    <title>Fisheye - photographe </title>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/png" href="assets/favicon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&display=swap" rel="stylesheet" />
+    <script defer src="https://kit.fontawesome.com/23e60d5d3c.js" crossorigin="anonymous"></script>
+    <title>Fisheye - photographe</title>
   </head>
   <body>
     <header>
-      <img src="assets/images/logo.png" class="logo" />
+      <a href="index.html"><img src="assets/images/logo.png" class="logo" /></a>
     </header>
     <main id="main">
-      <div class="photograph-header">
-        <button class="contact_button" onclick="displayModal()">Contactez-moi</button>
-      </div>
+      <!-- photographer's banner section -->
+      <section class="photograph-header"></section>
+
+      <!-- sorting section -->
+
+      <form class="sort" action="">
+        <select class="sorting-select">
+          <option value="likes">Popularité</option>
+          <option value="Title">Date</option>
+          <option value="Date">Titre</option>
+        </select>
+      </form>
+
+      <!-- media section -->
+      <section class="media"></section>
     </main>
+
+    <!-- price section -->
+    <section class="price"></section>
+
+    <!-- slider section -->
+    <div class="slider-bg">
+      <section class="slider">
+        <button type="button" class="close">
+          <i class="fa-sharp fa-solid fa-xmark"></i>
+        </button>
+        <button type="button" class="previous">
+          <i class="fa-sharp fa-solid fa-chevron-left"></i>
+        </button>
+        <button type="button" class="next">
+          <i class="fa-sharp fa-solid fa-chevron-right"></i>
+        </button>
+      </section>
+    </div>
+
+    <!-- form section -->
     <div id="contact_modal">
-			<div class="modal">
-				<header>
+      <div class="modal">
+        <header>
           <h2>Contactez-moi</h2>
           <img src="assets/icons/close.svg" onclick="closeModal()" />
         </header>
-				<form>
-					<div>
-						<label>Prénom</label>
-						<input />
-					</div>
+        <form id="contact-form">
+          <div>
+            <label for="first">Prénom</label>
+            <input type="text" name="first" id="first" />
+            <p class="invalid-fields">Veuillez entrer 2 caractères ou plus.</p>
+          </div>
+          <div>
+            <label for="last">Nom</label>
+            <input type="text" name="last" id="last" />
+            <p class="invalid-fields">Veuillez entrer 2 caractères ou plus.</p>
+          </div>
+          <div>
+            <label for="email">Email</label>
+            <input type="text" name="email" id="email" />
+            <p class="invalid-fields">Veuillez entrer une adresse email valide.</p>
+          </div>
+          <div>
+            <label for="message">Votre message</label>
+            <textarea name="message" id="message"></textarea>
+            <p class="invalid-fields">Veuillez entrer 2 caractères ou plus.</p>
+          </div>
           <button class="contact_button">Envoyer</button>
-				</form>
-			</div>
-		</div>
+        </form>
+      </div>
+    </div>
+
     <script src="/scripts/pages/photographer.js"></script>
     <script src="/scripts/utils/contactForm.js"></script>
   </body>
