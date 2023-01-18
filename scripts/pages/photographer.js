@@ -10,6 +10,8 @@ let sectionPrice = document.querySelector(".price");
 const sectionSlider = document.querySelector(".slider");
 const sliderBg = document.querySelector(".slider-bg");
 const sortingSelect = document.querySelector(".sorting-select");
+const modalH2 = document.querySelector(".modal h2");
+console.log(modalH2);
 
 /*
   initializes an array that will be filled later on, 
@@ -484,6 +486,7 @@ async function app(url) {
   activePhotographer = new Photographer(photographer[0]);
   // calls the creation function for the banner.
   activePhotographer.createBanner();
+  modalH2.innerHTML = `Conctactez<br> ${activePhotographer._name}`;
 
   // creates and inserts the price section content.
   getTotalLikes(medias);

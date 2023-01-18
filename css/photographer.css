@@ -1,22 +1,22 @@
 /* banner */
 .photographer-header {
-  background-color: var(--lightgrey);
-  border-radius: 5px;
   min-height: 300px;
 
   padding: 0 50px;
   margin: 0 100px 1.5rem;
 
+  background-color: var(--lightgrey);
+  border-radius: 5px;
+
   display: flex;
   flex-flow: row wrap;
   align-items: center;
-
   gap: 1rem;
 }
 
 .photographer-header > :first-child {
-  margin: 2rem auto 4rem;
   flex: 1 1;
+  margin: 2rem auto 4rem;
 }
 
 .photographer-header > :nth-child(2) {
@@ -25,41 +25,46 @@
 }
 
 .photographer-header > :last-child {
-  margin: auto auto;
   flex: 1 1;
+  margin: auto auto;
+
   display: flex;
   justify-content: flex-end;
 }
 
 /* name */
 .photographer-header h1 {
-  color: var(--orange);
   font-weight: 400;
   font-size: 4rem;
+  color: var(--orange);
+
   margin-top: 0;
   margin-right: 0;
 }
 
 /* location */
 .photographer-header div > p:nth-child(2) {
-  color: var(--red);
   font-weight: 400;
   font-size: 1.5rem;
+
+  color: var(--red);
 }
 
 /* tagline */
 .photographer-header div > p:nth-child(3) {
-  font-weight: 400;
   font-size: 1.125rem;
+  font-weight: 400;
 }
 
 .contact_button {
-  font-size: 20px;
-  font-weight: 700;
-  color: white;
-  padding: 11px;
   width: 170px;
   height: 70px;
+
+  font-size: 20px;
+  font-weight: 700;
+
+  color: white;
+  padding: 11px;
 
   border: none;
   background-color: var(--red);
@@ -71,21 +76,30 @@
 .photographer-header img {
   height: 200px;
   width: 200px;
+
   object-fit: cover;
+
   border-radius: 50%;
 }
 
 /* sort */
+form h2 {
+  font-size: ;
+  font-weight: ;
+}
+
 .sort {
-  margin: 0 100px 40px;
   font-size: 1.125rem;
   font-weight: 500;
+
+  margin: 0 100px 40px;
 }
 
 /* media */
 section.media {
   max-width: 1440px;
   margin: 0 100px 6rem;
+
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
   column-gap: 50px;
@@ -95,23 +109,28 @@ section.media div {
   display: flex;
   flex-flow: column nowrap;
   align-items: baseline;
-  margin-bottom: 30px;
+
+  margin-bottom: 2rem;
 }
 
 section.media article div {
   display: flex;
   flex-flow: row nowrap;
+
   color: var(--red);
+
   font-size: 1.5rem;
-  overflow: hidden;
+
   max-width: 100%;
+
+  overflow: hidden;
+
   user-select: none;
 }
 
 section.media h2 {
   font-size: 1.5rem;
   font-weight: 400;
-  overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
   margin-right: auto;
@@ -120,6 +139,7 @@ section.media h2 {
 section.media p:nth-child(2) {
   font-weight: 500;
   white-space: nowrap;
+
   margin-left: 0.5rem;
   margin-right: 1rem;
 }
@@ -132,8 +152,11 @@ section.media img,
 section.media video {
   width: 100%;
   height: 300px;
+
   object-fit: cover;
+
   border-radius: 5px;
+
   cursor: pointer;
 }
 
@@ -141,135 +164,158 @@ section.media video {
 .price {
   z-index: 2;
 
+  font-size: 1.5rem;
+  font-weight: 500;
+
   height: 60px;
   width: 370px;
+  padding: 0px 34px;
   box-sizing: inherit;
 
   position: fixed;
+
   bottom: 0;
   right: 4rem;
-  padding: 0px 34px;
+
   background-color: var(--orangeB);
   border-radius: 5px 5px 0 0;
 
   display: flex;
   justify-content: space-between;
   align-items: center;
-
-  font-size: 1.5rem;
-  font-weight: 500;
 }
 
 /* modal */
 #contact_modal {
   display: none;
+
   position: fixed;
   z-index: 3;
   left: 0;
   top: 0;
+
   height: 100%;
   width: 100%;
+
   overflow-y: hidden;
 
   background-color: rgba(196, 196, 196, 0.4);
 }
 
 .modal {
-  border-radius: 5px;
-  background-color: var(--orangeB);
+  padding: 2.2rem;
+  margin: auto;
+
   width: 50%;
   max-width: 620px;
   height: fit-content;
   max-height: 90vh;
+
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: space-between;
-  padding: 2.2rem;
-  margin: auto;
+  align-items: center;
+
   position: fixed;
   top: 0;
   bottom: 0;
   left: 0;
   right: 0;
-  box-shadow: -5px 10px 30px rgba(0, 0, 0, 0.25);
-  overflow-y: auto;
+
   box-sizing: border-box;
+  background-color: var(--orangeB);
+  box-shadow: -5px 10px 30px rgba(0, 0, 0, 0.25);
+  border-radius: 5px;
+
+  overflow-y: auto;
 }
 
 .modal header {
-  justify-content: space-between;
   width: 100%;
 }
 
 .modal header img {
-  cursor: pointer;
   position: absolute;
   top: 2.2rem;
   right: 2.2rem;
+
+  cursor: pointer;
 }
 
 .modal header h2 {
   font-size: 4rem;
   font-weight: normal;
-  padding-right: 3rem;
+  line-height: 5rem;
+
   width: calc(100% - 3rem);
+
+  margin-bottom: 1rem;
+  padding-right: 3rem;
 
   overflow: hidden;
   word-break: break-word;
-
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
-form {
-  display: flex;
+.modal form {
   width: 100%;
+
+  display: flex;
   flex-direction: column;
   align-items: flex-start;
 }
 
-form label {
-  color: #312e2e;
+.modal label {
   font-size: 36px;
+  color: #312e2e;
 }
 
-form div {
+.modal form div {
+  width: 100%;
+  margin-bottom: 1rem;
+
   display: flex;
   flex-direction: column;
-  width: 100%;
-  align-items: self-start;
-  margin-bottom: 26px;
 }
 
-form input,
-textarea {
-  box-sizing: border-box;
+.modal form div:last-of-type {
+  margin-bottom: 2rem;
+}
 
+.modal input,
+.modal textarea {
   width: 100%;
-  height: 68px;
-  border: none;
-  border-radius: 5px;
-  font-size: 1.5rem;
-  font-weight: 500;
+  height: 4rem;
+
   padding: 0 1rem;
 
   font-family: "DM Sans", sans-serif;
   font-size: 1.5rem;
   font-weight: 500;
+  font-size: 1.5rem;
+  font-weight: 500;
+
+  border: none;
+  border-radius: 5px;
+
+  box-sizing: border-box;
 }
 
-form textarea {
+.modal textarea {
+  height: 6rem;
   padding-top: 1rem;
-  height: 136px;
+
   resize: none;
 }
 
 .invalid-fields {
-  color: var(--red);
+  display: none;
+
   font-size: 1rem;
   font-weight: 500;
-  display: none;
+
+  color: var(--red);
 
   overflow: hidden;
   text-overflow: ellipsis;
@@ -283,12 +329,14 @@ form textarea {
 /* slider */
 .slider-bg {
   display: none;
+
+  height: 100%;
+  width: 100%;
+
   position: fixed;
   z-index: 3;
   left: 0;
   top: 0;
-  height: 100%;
-  width: 100%;
 
   overflow: hidden;
 
@@ -297,11 +345,12 @@ form textarea {
 
 .slider {
   position: relative;
+
   width: fit-content;
   height: fit-content;
-
   max-width: 80vw;
   max-height: 80vh;
+
   margin: auto auto;
 
   display: grid;
@@ -310,11 +359,12 @@ form textarea {
 
 .slide-container {
   display: none;
+
   grid-column: 2;
   grid-row: 1;
+  gap: 0px;
 
   object-fit: cover;
-  gap: 0px;
 }
 
 .active {
@@ -336,20 +386,24 @@ form textarea {
 
 .close {
   position: absolute;
-  width: 25px;
-  height: 25px;
   top: 0;
   right: 0;
 
+  width: 25px;
+  height: 25px;
+
   color: var(--red);
+
   background: none;
   border: none;
   transform: scale(2);
+
   cursor: pointer;
 }
 
 .previous {
   place-self: center left;
+
   width: 25px;
   height: 25px;
 
@@ -362,14 +416,18 @@ form textarea {
 
 .next {
   place-self: center right;
-  grid-column: 3;
+
   width: 25px;
   height: 25px;
 
+  grid-column: 3;
+
   color: var(--red);
+
   background: none;
   border: none;
   transform: scale(2);
+
   cursor: pointer;
 }
 
@@ -402,7 +460,6 @@ form textarea {
   }
 }
 
-/**/
 @media (max-width: 1024px) {
   /* banner */
   .photographer-header {
@@ -434,6 +491,8 @@ form textarea {
   .photographer-header h1 {
     margin: 0;
   }
+
+  /* media */
   section.media {
     grid-template-columns: 1fr;
   }
@@ -444,6 +503,7 @@ form textarea {
     max-height: 80vh;
   }
 
+  /* price */
   .price {
     z-index: 2;
     box-sizing: border-box;
@@ -455,6 +515,7 @@ form textarea {
     right: 0;
   }
 
+  /*slider*/
   .slider {
     max-width: 100%;
     max-height: 100%;
@@ -487,6 +548,7 @@ form textarea {
     margin: 0 10px;
   }
 
+  /* modale */
   .modal {
     min-width: 90vw;
   }
@@ -495,6 +557,8 @@ form textarea {
     font-size: 2.5rem;
   }
 }
+
+/* scrollbar modal */
 .styled-scrollbars {
   /* Foreground, Background */
   scrollbar-color: var(--orange) var(--red);
