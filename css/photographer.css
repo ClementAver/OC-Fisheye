@@ -105,8 +105,6 @@ section.media {
 }
 
 section.media div {
-  display: flex;
-  flex-flow: column nowrap;
   align-items: baseline;
 
   margin-bottom: 2rem;
@@ -292,8 +290,6 @@ section.media video {
   font-family: "DM Sans", sans-serif;
   font-size: 1.5rem;
   font-weight: 500;
-  font-size: 1.5rem;
-  font-weight: 500;
 
   border: none;
   border-radius: 5px;
@@ -361,7 +357,6 @@ section.media video {
 
   grid-column: 2;
   grid-row: 1;
-  gap: 0px;
 
   object-fit: cover;
 }
