@@ -56,7 +56,7 @@
   font-weight: 400;
 }
 
-.contact_button {
+.contact-button {
   width: 170px;
   height: 70px;
 
@@ -183,7 +183,7 @@ section.media video {
 }
 
 /* modal */
-#contact_modal {
+#contact-modal {
   display: none;
 
   position: fixed;
@@ -425,6 +425,24 @@ section.media video {
   cursor: pointer;
 }
 
+/* scrollbar modal */
+.styled-scrollbars {
+  /* Foreground, Background */
+  scrollbar-color: var(--orange) var(--red);
+}
+.styled-scrollbars::-webkit-scrollbar {
+  width: 0.5rem; /* Mostly for vertical scrollbars */
+  height: 0.5rem; /* Mostly for horizontal scrollbars */
+}
+.styled-scrollbars::-webkit-scrollbar-thumb {
+  /* Foreground */
+  background: var(--red);
+}
+.styled-scrollbars::-webkit-scrollbar-track {
+  /* Background */
+  background: var(--orangeB);
+}
+
 @media (max-width: 1440px) {
   .photographer-header {
     display: grid;
@@ -550,22 +568,4 @@ section.media video {
   .modal header h2 {
     font-size: 2.5rem;
   }
-}
-
-/* scrollbar modal */
-.styled-scrollbars {
-  /* Foreground, Background */
-  scrollbar-color: var(--orange) var(--red);
-}
-.styled-scrollbars::-webkit-scrollbar {
-  width: 0.5rem; /* Mostly for vertical scrollbars */
-  height: 0.5rem; /* Mostly for horizontal scrollbars */
-}
-.styled-scrollbars::-webkit-scrollbar-thumb {
-  /* Foreground */
-  background: var(--red);
-}
-.styled-scrollbars::-webkit-scrollbar-track {
-  /* Background */
-  background: var(--orangeB);
 }

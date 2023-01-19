@@ -101,7 +101,7 @@ class Photographer {
         <p>${this._tagline}</p>
       </div>
 
-      <button class="contact_button" onclick="displayModal()">Contactez-moi</button>
+      <button class="contact-button" onclick="displayModal()">Contactez-moi</button>
       <div>
       <img src="assets/photographers/${this._portrait}" alt="${this._name}"/>
       </div>

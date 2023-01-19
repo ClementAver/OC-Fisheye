@@ -1,10 +1,10 @@
 function displayModal() {
-  const contactModal = document.getElementById("contact_modal");
+  const contactModal = document.getElementById("contact-modal");
   contactModal.style.display = "block";
 }
 
 function closeModal() {
-  const contactModal = document.getElementById("contact_modal");
+  const contactModal = document.getElementById("contact-modal");
   contactModal.style.display = "none";
 }
 

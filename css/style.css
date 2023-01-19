@@ -64,7 +64,7 @@ header {
 }
 
 /* container of the photographer's galery */
-.photographer_section {
+.photographer-section {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
   gap: 50px;
@@ -75,7 +75,7 @@ header {
 }
 
 /* container of the photographer's individuals cards */
-.photographer_section article {
+.photographer-section article {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -83,14 +83,14 @@ header {
 }
 
 /* link */
-.photographer_section a {
+.photographer-section a {
   display: flex;
   flex-flow: column nowrap;
   align-items: center;
 }
 
 /* portrait */
-.photographer_section img {
+.photographer-section img {
   height: 200px;
   width: 200px;
 
@@ -102,27 +102,27 @@ header {
 }
 
 /* name */
-.photographer_section h2 {
+.photographer-section h2 {
   color: var(--orange);
   font-size: 2.25rem;
   font-weight: 400;
 }
 
 /* location */
-.photographer_section p:nth-child(3) {
+.photographer-section p:nth-child(3) {
   color: var(--red);
   font-size: 1rem;
   font-weight: 400;
 }
 
 /* tagline */
-.photographer_section article p:nth-child(4) {
+.photographer-section article p:nth-child(4) {
   color: var(--grey);
   font-size: 0.8rem;
 }
 
 /* price */
-.photographer_section article p:nth-child(5) {
+.photographer-section article p:nth-child(5) {
   color: var(--grey);
   font-size: 0.6rem;
 }
@@ -154,7 +154,7 @@ header {
     margin: 0 0 30px 0;
   }
 
-  .photographer_section {
+  .photographer-section {
     margin: 3rem 10px 3rem;
   }
 }
