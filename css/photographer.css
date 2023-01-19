@@ -57,14 +57,11 @@
 }
 
 .contact-button {
-  width: 170px;
-  height: 70px;
-
   font-size: 20px;
   font-weight: 700;
 
   color: white;
-  padding: 11px;
+  padding: 1rem;
 
   border: none;
   background-color: var(--red);
@@ -80,18 +77,6 @@
   object-fit: cover;
 
   border-radius: 50%;
-}
-
-.sort {
-  margin: 0 100px 40px;
-
-  display: flex;
-  gap: 1rem;
-}
-
-.sort h2 {
-  font-size: 1.125rem;
-  font-weight: 700;
 }
 
 /* media */
@@ -167,7 +152,6 @@ section.media video {
   height: 60px;
   width: 370px;
   padding: 0px 34px;
-  box-sizing: inherit;
 
   position: fixed;
 
@@ -187,7 +171,7 @@ section.media video {
   display: none;
 
   position: fixed;
-  z-index: 3;
+  z-index: 20;
   left: 0;
   top: 0;
 
@@ -219,7 +203,6 @@ section.media video {
   left: 0;
   right: 0;
 
-  box-sizing: border-box;
   background-color: var(--orangeB);
   box-shadow: -5px 10px 30px rgba(0, 0, 0, 0.25);
   border-radius: 5px;
@@ -293,8 +276,6 @@ section.media video {
 
   border: none;
   border-radius: 5px;
-
-  box-sizing: border-box;
 }
 
 .modal textarea {
@@ -329,7 +310,7 @@ section.media video {
   width: 100%;
 
   position: fixed;
-  z-index: 3;
+  z-index: 20;
   left: 0;
   top: 0;
 
@@ -518,7 +499,6 @@ section.media video {
   /* price */
   .price {
     z-index: 2;
-    box-sizing: border-box;
 
     height: 4rem;
     width: auto;
@@ -551,7 +531,7 @@ section.media video {
   }
 
   /* sort */
-  .sort {
+  .sorting-section {
     margin: 0 10px 40px;
   }
 

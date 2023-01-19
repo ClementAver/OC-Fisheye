@@ -11,7 +11,6 @@ const sectionSlider = document.querySelector(".slider");
 const sliderBg = document.querySelector(".slider-bg");
 const sortingSelect = document.querySelector(".sorting-select");
 const modalH2 = document.querySelector(".modal h2");
-console.log(modalH2);
 
 /*
   initializes an array that will be filled later on, 
@@ -271,7 +270,7 @@ class Video {
     const video = document.createElement("video");
     video.setAttribute("src", `assets/media/${this._video}`);
     video.setAttribute("title", `${this._title}`);
-    video.setAttribute("controls", "");
+    // video.setAttribute("controls", "");
     video.innerText = `${this.title}`;
 
     const div = document.createElement("div");
@@ -341,7 +340,6 @@ class Video {
 
 // - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - //
 
-// factory
 class MediaFactory {
   constructor(data) {
     if (data.image && data.photographerId == id) {
@@ -402,8 +400,8 @@ function slider() {
 }
 
 // - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - //
-
 // sorting
+
 async function Sort(object, sortBy) {
   sectionMedia.innerHTML = ``;
   sectionSlider.innerHTML = `
@@ -425,25 +423,31 @@ async function Sort(object, sortBy) {
     // likes
     case 0:
       sortedMedias = array.sort((a, b) => b.likes - a.likes);
-      sortedMedias.forEach((key) => key.createArticle());
-      sortedMedias.forEach((key) => key.createSlide());
-      sortedMedias.forEach((res) => console.log(res.likes));
+      sortedMedias.forEach((key) => {
+        key.createArticle();
+        key.createSlide();
+        console.log(key.likes);
+      });
       break;
 
     // date
     case 1:
       sortedMedias = array.sort((a, b) => new Date(b.date) - new Date(a.date));
-      sortedMedias.forEach((key) => key.createArticle());
-      sortedMedias.forEach((key) => key.createSlide());
-      sortedMedias.forEach((res) => console.log(res.date));
+      sortedMedias.forEach((key) => {
+        key.createArticle();
+        key.createSlide();
+        console.log(key.date);
+      });
       break;
 
     // title
     case 2:
       sortedMedias = array.sort((a, b) => a.title.localeCompare(b.title));
-      sortedMedias.forEach((key) => key.createArticle());
-      sortedMedias.forEach((key) => key.createSlide());
-      sortedMedias.forEach((res) => console.log(res.title));
+      sortedMedias.forEach((key) => {
+        key.createArticle();
+        key.createSlide();
+        console.log(key.title);
+      });
       break;
 
     default:
@@ -451,6 +455,61 @@ async function Sort(object, sortBy) {
   }
 
   slider();
+}
+
+async function sorting(object) {
+  let dropDownArrow = {
+    target: document.getElementById("dropDownArrow"),
+    deployed: false,
+  };
+
+  const selectedOption = document.querySelector(".select-like div:first-of-type p");
+  const options = document.querySelector(".select-like div:nth-of-type(2)");
+  const likes = document.querySelector(".select-like div:nth-child(2) p:first-child");
+  const date = document.querySelector(".select-like div:nth-child(2) p:nth-child(3)");
+  const title = document.querySelector(".select-like div:nth-child(2) p:nth-child(5)");
+
+  dropDownArrow.target.addEventListener("click", () => {
+    switch (dropDownArrow.deployed) {
+      case false:
+        dropDownArrow.target.classList.add("U-turn");
+        dropDownArrow.deployed = true;
+        options.classList.add("deployed");
+        break;
+      case true:
+        dropDownArrow.target.classList.remove("U-turn");
+        dropDownArrow.deployed = false;
+        options.classList.remove("deployed");
+        break;
+    }
+  });
+
+  likes.addEventListener("click", () => {
+    sortBy = 0;
+    Sort(object, sortBy);
+    selectedOption.innerText = "Popularité";
+    dropDownArrow.target.classList.remove("U-turn");
+    dropDownArrow.deployed = false;
+    options.classList.remove("deployed");
+  });
+
+  date.addEventListener("click", () => {
+    sortBy = 1;
+    Sort(object, sortBy);
+    selectedOption.innerText = "Date";
+    dropDownArrow.target.classList.remove("U-turn");
+    dropDownArrow.deployed = false;
+    options.classList.remove("deployed");
+  });
+
+  title.addEventListener("click", () => {
+    sortBy = 2;
+    Sort(object, sortBy);
+    selectedOption.innerText = "Titre";
+    dropDownArrow.target.classList.remove("U-turn");
+    dropDownArrow.deployed = false;
+    options.classList.remove("deployed");
+  });
 }
 
 // - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - //
@@ -492,15 +551,11 @@ async function app(url) {
   getTotalLikes(medias);
   sectionPrice.innerHTML = `<p>${totalLikes}&nbsp;<i class="fa-solid fa-heart"></i></p><p>${activePhotographer.price}€&#8239;/&#8239;jour</p>`;
 
-  // sort initially by likes count (descending)
+  // sorts initially by likes count (descending).
   Sort(medias, sortBy);
 
-  // returns the selectedIndex attribute of the select.
-  sortingSelect.addEventListener("change", () => {
-    const selectedIndex = sortingSelect.options.selectedIndex;
-    sortBy = selectedIndex;
-    Sort(medias, sortBy);
-  });
+  // adds eventListeners on 'select-like' div options.
+  sorting(medias);
 }
 
 app("data/photographers.json");

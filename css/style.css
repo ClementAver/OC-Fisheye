@@ -1,4 +1,11 @@
 @import url("photographer.css");
+@import url("sorting.css");
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
 
 :root {
   --red: #901c1c;
@@ -12,8 +19,6 @@
 
   margin: 0;
   padding: 0;
-
-  box-sizing: border-box;
 }
 
 body {
@@ -21,7 +26,6 @@ body {
   margin-left: auto;
   margin-right: auto;
   position: relative;
-  box-sizing: border-box;
   overflow-x: hidden;
 }
 
