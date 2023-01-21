@@ -131,7 +131,6 @@ header {
   font-size: 0.6rem;
 }
 
-/*
 .sr-only {
   border: 0;
   clip: rect(0 0 0 0);
@@ -142,7 +141,6 @@ header {
   position: absolute;
   width: 1px;
 }
-*/
 
 @media (max-width: 768px) {
   header {

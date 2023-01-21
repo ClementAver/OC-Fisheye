@@ -9,7 +9,7 @@
 }
 
 .sorting-section h2,
-.sorting-section p {
+.sorting-section button {
   font-size: 1.125rem;
   font-weight: 500;
   padding: 0.5rem 1rem;
@@ -31,19 +31,21 @@
   z-index: 4;
 }
 
-/* selected option div */
-.select-like > div:first-child {
+/* main button */
+.select-like > button {
   display: flex;
-  align-items: baseline;
-  width: 150px;
+  align-items: center;
+  width: 170px;
 }
 
-.select-like div:nth-of-type(2) {
+#sorting-options {
   display: none;
   position: absolute;
   top: 0;
   width: 170px;
-  width: 150px;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
 }
 
 .select-like > * {
@@ -51,9 +53,13 @@
   border-radius: 5px;
 }
 
-.select-like p {
+.select-like button {
   color: white;
+  background-color: var(--red);
+  border: none;
+  border-radius: 5px;
   cursor: pointer;
+  height: 3rem;
 }
 
 #dropDownArrow {
@@ -83,6 +89,6 @@
   border: 0.05rem solid white;
 }
 
-.select-like div:nth-of-type(2).deployed {
+#sorting-options.deployed {
   display: block;
 }

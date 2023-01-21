@@ -100,7 +100,7 @@ class Photographer {
         <p>${this._tagline}</p>
       </div>
 
-      <button class="contact-button" onclick="displayModal()">Contactez-moi</button>
+      <button type="button" class="contact-button" onclick="displayModal()">Contactez-moi</button>
       <div>
       <img src="assets/photographers/${this._portrait}" alt="${this._name}"/>
       </div>
@@ -155,7 +155,8 @@ class Image {
 
     const img = document.createElement("img");
     img.setAttribute("src", `assets/media/${this._image}`);
-    img.setAttribute("alt", `${this._title}`);
+    img.setAttribute("tabindex", "0");
+    img.setAttribute("alt", `${this._title}, cliquer sur l'aperçu pour l'agrandir.`);
 
     const div = document.createElement("div");
 
@@ -166,6 +167,7 @@ class Image {
     p.innerText = `${this._likes} `;
 
     const i = document.createElement("i");
+    i.setAttribute("aria-label", "likes");
     i.classList.add("fa-solid", "fa-heart");
 
     div.append(h2);
@@ -269,7 +271,8 @@ class Video {
 
     const video = document.createElement("video");
     video.setAttribute("src", `assets/media/${this._video}`);
-    video.setAttribute("title", `${this._title}`);
+    video.setAttribute("tabindex", "0");
+    video.setAttribute("title", `${this._title}, cliquer sur l'aperçu pour l'agrandir.`);
     // video.setAttribute("controls", "");
     video.innerText = `${this.title}`;
 
@@ -282,6 +285,7 @@ class Video {
     p.innerText = `${this._likes} `;
 
     const i = document.createElement("i");
+    i.setAttribute("aria-label", "likes");
     i.classList.add("fa-solid", "fa-heart");
 
     div.append(h2);
@@ -463,23 +467,26 @@ async function sorting(object) {
     deployed: false,
   };
 
-  const selectedOption = document.querySelector(".select-like div:first-of-type p");
-  const options = document.querySelector(".select-like div:nth-of-type(2)");
-  const likes = document.querySelector(".select-like div:nth-child(2) p:first-child");
-  const date = document.querySelector(".select-like div:nth-child(2) p:nth-child(3)");
-  const title = document.querySelector(".select-like div:nth-child(2) p:nth-child(5)");
+  const mainButton = document.querySelector(".select-like button:first-of-type");
+  const selectedOption = document.getElementById("option-selected");
+  const options = document.getElementById("sorting-options");
+  const likes = document.getElementById("option-likes");
+  const date = document.getElementById("option-date");
+  const title = document.getElementById("option-title");
 
-  dropDownArrow.target.addEventListener("click", () => {
+  mainButton.addEventListener("click", () => {
     switch (dropDownArrow.deployed) {
       case false:
         dropDownArrow.target.classList.add("U-turn");
         dropDownArrow.deployed = true;
         options.classList.add("deployed");
+        mainButton.setAttribute("aria-expanded", "true");
         break;
       case true:
         dropDownArrow.target.classList.remove("U-turn");
         dropDownArrow.deployed = false;
         options.classList.remove("deployed");
+        mainButton.setAttribute("aria-expanded", "false");
         break;
     }
   });
@@ -488,27 +495,30 @@ async function sorting(object) {
     sortBy = 0;
     Sort(object, sortBy);
     selectedOption.innerText = "Popularité";
-    dropDownArrow.target.classList.remove("U-turn");
     dropDownArrow.deployed = false;
     options.classList.remove("deployed");
+    mainButton.setAttribute("aria-expanded", "false");
+    dropDownArrow.target.classList.remove("U-turn");
   });
 
   date.addEventListener("click", () => {
     sortBy = 1;
     Sort(object, sortBy);
     selectedOption.innerText = "Date";
-    dropDownArrow.target.classList.remove("U-turn");
     dropDownArrow.deployed = false;
     options.classList.remove("deployed");
+    mainButton.setAttribute("aria-expanded", "false");
+    dropDownArrow.target.classList.remove("U-turn");
   });
 
   title.addEventListener("click", () => {
     sortBy = 2;
     Sort(object, sortBy);
     selectedOption.innerText = "Titre";
-    dropDownArrow.target.classList.remove("U-turn");
     dropDownArrow.deployed = false;
     options.classList.remove("deployed");
+    mainButton.setAttribute("aria-expanded", "false");
+    dropDownArrow.target.classList.remove("U-turn");
   });
 }
 
