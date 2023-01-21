@@ -14,18 +14,19 @@
     <header>
       <a href="index.html"><img src="assets/images/logo.png" class="logo" alt="Fisheye Home page" /></a>
     </header>
+
     <main id="main">
       <!-- photographer's banner section -->
       <section class="photographer-header"></section>
 
       <!-- sorting section -->
-      <div class="sorting-section">
+      <section class="sorting-section">
         <h2>Trier par</h2>
         <!-- contains selected options and dropdown menu -->
         <div class="select-like">
           <!-- displayed role when the dropdown menu isn't displayed -->
           <span class="sr-only" id="dropdown-description">Ouvre le menu déroulant de tri.</span>
-          <button type="button" tabindex="0" aria-controls="sorting-options" aria-expanded="false" aria-labelledby="dropdown-description">
+          <button type="button" tabindex="0" aria-controls="sorting-options" aria-haspopup="listbox" aria-expanded="false" aria-labelledby="dropdown-description">
             <p id="option-selected">Popularité</p>
             <svg id="dropDownArrow" viewBox="0 0 17 11.3" alt="chevron pointing down">
               <title>dropDownArrow</title>
@@ -34,28 +35,15 @@
           </button>
 
           <!-- dropdown menu container -->
-          <ul id="sorting-options">
-            <li><button type="button" tabindex="0" id="option-likes">Popularité</button></li>
+          <ul role="listbox" id="sorting-options" aria-activedescendant="option-likes">
+            <li role="option" aria-selected="true" tabindex="0" id="option-likes">Popularité</li>
             <hr />
-            <li><button type="button" tabindex="0" id="option-date">Date</button></li>
+            <li role="option" aria-selected="false" tabindex="0" id="option-date">Date</li>
             <hr />
-            <li><button type="button" tabindex="0" id="option-title">Titre</button></li>
+            <li role="option" aria-selected="false" tabindex="0" id="option-title">Titre</li>
           </ul>
         </div>
-      </div>
-
-      <!--
-<div role="listbox" tabindex="0" id="listbox1" onclick="return listItemClick(event);"
-  onkeydown="return listItemKeyEvent(event);" onkeypress="return listItemKeyEvent(event);"
-  onfocus="this.className='focus';" onblur="this.className='blur';" aria-activedescendant="listbox1-1">
-  <div role="option" id="listbox1-1" class="selected">Vert</div>
-  <div role="option" id="listbox1-2">Orange</div>
-  <div role="option" id="listbox1-3">Rouge</div>
-  <div role="option" id="listbox1-4">Bleu</div>
-  <div role="option" id="listbox1-5">Violet</div>
-  <div role="option" id="listbox1-6">Pervenche</div>
-</div>
--->
+      </section>
 
       <!-- media section -->
       <section class="media"></section>

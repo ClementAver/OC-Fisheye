@@ -499,6 +499,10 @@ async function sorting(object) {
     options.classList.remove("deployed");
     mainButton.setAttribute("aria-expanded", "false");
     dropDownArrow.target.classList.remove("U-turn");
+    likes.setAttribute("aria-selected", "true");
+    date.setAttribute("aria-selected", "false");
+    title.setAttribute("aria-selected", "false");
+    options.setAttribute("aria-activedescendant", "option-likes");
   });
 
   date.addEventListener("click", () => {
@@ -509,6 +513,10 @@ async function sorting(object) {
     options.classList.remove("deployed");
     mainButton.setAttribute("aria-expanded", "false");
     dropDownArrow.target.classList.remove("U-turn");
+    likes.setAttribute("aria-selected", "false");
+    date.setAttribute("aria-selected", "true");
+    title.setAttribute("aria-selected", "false");
+    options.setAttribute("aria-activedescendant", "option-date");
   });
 
   title.addEventListener("click", () => {
@@ -519,6 +527,10 @@ async function sorting(object) {
     options.classList.remove("deployed");
     mainButton.setAttribute("aria-expanded", "false");
     dropDownArrow.target.classList.remove("U-turn");
+    likes.setAttribute("aria-selected", "false");
+    date.setAttribute("aria-selected", "false");
+    title.setAttribute("aria-selected", "true");
+    options.setAttribute("aria-activedescendant", "option-title");
   });
 }
 

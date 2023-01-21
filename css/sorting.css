@@ -5,18 +5,25 @@
   margin: 0 100px 40px;
 
   display: flex;
-  column-gap: 1rem;
 }
 
-.sorting-section h2,
-.sorting-section button {
+.sorting-section h2 {
+  font-size: 1.125rem;
+  font-weight: 500;
+  padding: 0.5rem 0;
+  padding-right: 1rem;
+}
+
+.sorting-section button,
+.sorting-section li {
   font-size: 1.125rem;
   font-weight: 500;
   padding: 0.5rem 1rem;
 }
 
-.sorting-section h2 {
-  padding-right: 0;
+.sorting-section li {
+  padding: 0.75rem 1rem;
+  align-items: baseline;
 }
 
 .sorting-section svg {
@@ -53,7 +60,8 @@
   border-radius: 5px;
 }
 
-.select-like button {
+.select-like button,
+.select-like li {
   color: white;
   background-color: var(--red);
   border: none;
@@ -91,4 +99,10 @@
 
 #sorting-options.deployed {
   display: block;
+}
+
+@media (max-width: 768px) {
+  .sorting-section {
+    margin: 0 10px 40px;
+  }
 }
