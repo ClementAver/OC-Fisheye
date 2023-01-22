@@ -1,32 +1,32 @@
 /* sorting section rules */
 
 /* main container */
-.sorting-section {
+.sorting {
   margin: 0 100px 40px;
 
   display: flex;
 }
 
-.sorting-section h2 {
+.sorting h2 {
   font-size: 1.125rem;
   font-weight: 500;
   padding: 0.5rem 0;
   padding-right: 1rem;
 }
 
-.sorting-section button,
-.sorting-section li {
+.sorting button,
+.sorting li {
   font-size: 1.125rem;
   font-weight: 500;
   padding: 0.5rem 1rem;
 }
 
-.sorting-section li {
+.sorting li {
   padding: 0.75rem 1rem;
   align-items: baseline;
 }
 
-.sorting-section svg {
+.sorting svg {
   padding: 0.5rem 1rem;
   z-index: 5;
 }
@@ -102,7 +102,7 @@
 }
 
 @media (max-width: 768px) {
-  .sorting-section {
+  .sorting {
     margin: 0 10px 40px;
   }
 }
