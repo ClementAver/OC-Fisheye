@@ -100,7 +100,8 @@ class Photographer {
         <p>${this._tagline}</p>
       </div>
 
-      <button type="button" class="contact-button" onclick="displayModal()">Contactez-moi</button>
+      <span class="sr-only" id="contact-btn-description">Ouvre le formulaire de contact</span>
+      <button type="button" aria-labelledby="contact-btn-description" class="contact-button" onclick="displayModal()">Contactez-moi</button>
       <div>
       <img src="assets/photographers/${this._portrait}" alt="${this._name}"/>
       </div>
@@ -156,7 +157,7 @@ class Image {
     const img = document.createElement("img");
     img.setAttribute("src", `assets/media/${this._image}`);
     img.setAttribute("tabindex", "0");
-    img.setAttribute("alt", `${this._title}, cliquer sur l'aperçu pour l'agrandir.`);
+    img.setAttribute("alt", `${this._title}`);
 
     const div = document.createElement("div");
 
@@ -220,6 +221,7 @@ class Image {
           </article>
       `;
     this._slide.innerHTML = slideContent;
+    sectionSlider.setAttribute("aria-label", `image close up view.`);
     sectionSlider.append(this._slide);
   }
 }
@@ -272,7 +274,7 @@ class Video {
     const video = document.createElement("video");
     video.setAttribute("src", `assets/media/${this._video}`);
     video.setAttribute("tabindex", "0");
-    video.setAttribute("title", `${this._title}, cliquer sur l'aperçu pour l'agrandir.`);
+    video.setAttribute("title", `${this._title}`);
     // video.setAttribute("controls", "");
     video.innerText = `${this.title}`;
 
@@ -338,6 +340,7 @@ class Video {
           </article>
       `;
     this._slide.innerHTML = slideContent;
+    sectionSlider.setAttribute("aria-label", `image close up view.`);
     sectionSlider.append(this._slide);
   }
 }
