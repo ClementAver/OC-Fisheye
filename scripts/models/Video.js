@@ -87,9 +87,8 @@ class Video {
 */
     });
 
-    let totalLikes = parseInt(document.getElementById("total-likes").textContent);
-
     i.addEventListener("click", () => {
+      let totalLikes = parseInt(document.getElementById("total-likes").textContent);
       if (this._likesCounter === this.likes && !this._liked) {
         this._likesCounter++;
         this._likes++;
