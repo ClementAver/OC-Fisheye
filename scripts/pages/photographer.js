@@ -35,11 +35,10 @@ let activePhotographer = "";
   initializes an array that will be filled later on, 
   it will contains all the slides of the selected photographer.
 */
-let slideContainers = "";
-/*
+let slideContainers = null;
+
 // initializes the slider counter.
-let count = "";
-*/
+let count = 0;
 
 /* 
 indicates the selected sorting algorithm :
@@ -81,7 +80,7 @@ function slider() {
   //checked// const previous = document.querySelector(".previous");
   //checked// const next = document.querySelector(".next");
 
-  let slideContainers = Object.values(document.querySelectorAll(".slide-container"));
+  //checked// let slideContainers = Object.values(document.querySelectorAll(".slide-container"));
 
   //checked// close.addEventListener("click", () => {
     sliderBg.classList.remove("active");
@@ -148,6 +147,9 @@ function sort(array, sortBy) {
   });
 
   Lightbox.createSlides(sortedMedias);
+
+  const anchors = document.querySelectorAll("section.media article");
+  Lightbox.pinOn(anchors);
 
   /*
 slider();
@@ -263,7 +265,6 @@ async function app(url) {
   modalH2.innerHTML = `Conctactez<br> ${activePhotographer._name}`;
 
   Lightbox.createLightbox();
-  Lightbox.createSlides(medias);
 
   // creates and inserts the price section content.
   sectionPrice.innerHTML = `<p><span id="total-likes">${getTotalLikes(medias)}</span>&nbsp;<i class="fa-solid fa-heart"></i></p><p>${activePhotographer.price}€&#8239;/&#8239;jour</p>`;

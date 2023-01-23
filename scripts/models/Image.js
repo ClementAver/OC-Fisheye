@@ -68,8 +68,9 @@ class Image {
     card.append(div);
     sectionMedia.append(card);
 
+    /*
     img.addEventListener("click", () => {
-      /* 
+       
       sliderBg.classList.add("active");
       this._slide.classList.add("active");
 
@@ -83,7 +84,6 @@ class Image {
         }
       });
       */
-    });
 
     i.addEventListener("click", () => {
       let totalLikes = parseInt(document.getElementById("total-likes").textContent);

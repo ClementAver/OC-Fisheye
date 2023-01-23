@@ -70,9 +70,10 @@ class Video {
     card.append(div);
     sectionMedia.append(card);
 
+    /*
     video.addEventListener("click", (e) => {
       e.preventDefault();
-      /*
+
       sliderBg.classList.add("active");
       this._slide.classList.add("active");
       // sends back an array containing all elements targeted by the '.slide-container' selector.
@@ -85,7 +86,6 @@ class Video {
         }
       });
 */
-    });
 
     i.addEventListener("click", () => {
       let totalLikes = parseInt(document.getElementById("total-likes").textContent);
@@ -105,7 +105,7 @@ class Video {
     });
   }
   /*
-  createSlide() {
+   //checked// createSlide() {
     this._slide.classList.add("slide-container");
     const slideContent = `
           <article class="slide">
