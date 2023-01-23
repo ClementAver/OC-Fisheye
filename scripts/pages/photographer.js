@@ -7,8 +7,10 @@ const id = url.searchParams.get("id");
 const sectionPhotographerHeader = document.querySelector(".photographer-header");
 const sectionMedia = document.querySelector("section.media");
 const sectionPrice = document.querySelector(".price");
+/*
 const sectionSlider = document.querySelector(".slider");
 const sliderBg = document.querySelector(".slider-bg");
+*/
 const sortingSelect = document.querySelector(".sorting-select");
 const modalH2 = document.querySelector(".modal h2");
 
@@ -33,8 +35,10 @@ let activePhotographer = "";
   it will contains all the slides of the selected photographer.
 */
 let slideContainers = "";
+/*
 // initializes the slider counter.
 let count = "";
+*/
 
 /* 
 indicates the selected sorting algorithm :
@@ -70,6 +74,7 @@ function getTotalLikes(array) {
 
 // - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - //
 
+/*
 function slider() {
   const close = document.querySelector(".close");
   const previous = document.querySelector(".previous");
@@ -105,12 +110,14 @@ function slider() {
     slideContainers[count].classList.add("active");
   });
 }
+*/
 
 // - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - //
 // sorting
 
 function Sort(array, sortBy) {
   sectionMedia.innerHTML = ``;
+  /*
   sectionSlider.innerHTML = `
     <button type="button" class="close">
       <i class="fa-sharp fa-solid fa-xmark"></i>
@@ -122,6 +129,7 @@ function Sort(array, sortBy) {
       <i class="fa-sharp fa-solid fa-chevron-right"></i>
     </button>
   `;
+*/
 
   let sortedMedias = [];
 
@@ -150,7 +158,9 @@ function Sort(array, sortBy) {
     /* key.createSlide(); */
   });
 
-  slider();
+  /*
+slider();
+*/
 }
 
 function sorting(object) {
