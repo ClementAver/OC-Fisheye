@@ -6,11 +6,22 @@ const id = url.searchParams.get("id");
 // stores targeted DOM sectors.
 const sectionPhotographerHeader = document.querySelector(".photographer-header");
 const sectionMedia = document.querySelector("section.media");
-let sectionPrice = document.querySelector(".price");
+const sectionPrice = document.querySelector(".price");
 const sectionSlider = document.querySelector(".slider");
 const sliderBg = document.querySelector(".slider-bg");
 const sortingSelect = document.querySelector(".sorting-select");
 const modalH2 = document.querySelector(".modal h2");
+
+let dropDownArrow = {
+  target: document.getElementById("dropDownArrow"),
+  deployed: false,
+};
+const mainButton = document.querySelector(".select-like button:first-of-type");
+const options = document.getElementById("sorting-options");
+
+const likes = document.getElementById("option-likes");
+const date = document.getElementById("option-date");
+const title = document.getElementById("option-title");
 
 /*
   initializes an array that will be filled later on, 
@@ -24,15 +35,6 @@ let activePhotographer = "";
 let slideContainers = "";
 // initializes the slider counter.
 let count = "";
-// initializes the selected photographer's global likes counter.
-let totalLikes = 0;
-
-/*
-  initializes two arrays that will be filled later on
-  with the medias of the selected photographer.
-*/
-let pictures = [];
-let videos = [];
 
 /* 
 indicates the selected sorting algorithm :
@@ -53,319 +55,17 @@ async function getDatas(url) {
 
 // - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - //
 
-class Photographer {
-  constructor(data) {
-    this._name = data.name;
-    this._id = data.id;
-    this._city = data.city;
-    this._country = data.country;
-    this._tagline = data.tagline;
-    this._price = data.price;
-    this._portrait = data.portrait;
-  }
-
-  get name() {
-    return this._name;
-  }
-
-  get id() {
-    return this._id;
-  }
-
-  get city() {
-    return this._city;
-  }
-
-  get country() {
-    return this._country;
-  }
-
-  get tagline() {
-    return this._tagline;
-  }
-
-  get price() {
-    return this._price;
-  }
-
-  get portrait() {
-    return `assets/photographers/${this._portrait}`;
-  }
-
-  createBanner() {
-    sectionPhotographerHeader.innerHTML = `
-      <div>
-        <h1>${this._name}</h1>
-        <p>${this._city}, ${this._country}</p>
-        <p>${this._tagline}</p>
-      </div>
-
-      <span class="sr-only" id="contact-btn-description">Ouvre le formulaire de contact</span>
-      <button type="button" aria-labelledby="contact-btn-description" class="contact-button" onclick="displayModal()">Contactez-moi</button>
-      <div>
-      <img src="assets/photographers/${this._portrait}" alt="${this._name}"/>
-      </div>
-    `;
-  }
-}
-
-class Image {
-  constructor(data) {
-    this._id = data.id;
-    this._photographerId = data.photographerId;
-    this._title = data.title;
-    this._image = data.image;
-    this._likes = data.likes;
-    this._date = data.date;
-    this._price = data.price;
-    this._slide = document.createElement("div");
-    this._liked = false;
-    this._likesCounter = this._likes;
-  }
-
-  get id() {
-    return this._id;
-  }
-
-  get photographerId() {
-    return this._photographerId;
-  }
-
-  get title() {
-    return this._title;
-  }
-
-  get url() {
-    return `assets/media/${this._image}`;
-  }
-
-  get likes() {
-    return this._likes;
-  }
-
-  get date() {
-    return this._date;
-  }
-
-  get price() {
-    return this._price;
-  }
-
-  createArticle() {
-    const card = document.createElement("article");
-
-    const img = document.createElement("img");
-    img.setAttribute("src", `assets/media/${this._image}`);
-    img.setAttribute("tabindex", "0");
-    img.setAttribute("alt", `${this._title}`);
-
-    const div = document.createElement("div");
-
-    const h2 = document.createElement("h2");
-    h2.innerText = `${this._title}`;
-
-    const p = document.createElement("p");
-    p.innerText = `${this._likes} `;
-
-    const i = document.createElement("i");
-    i.setAttribute("aria-label", "likes");
-    i.classList.add("fa-solid", "fa-heart");
-
-    div.append(h2);
-    div.append(p);
-    div.append(i);
-    card.append(img);
-    card.append(div);
-    sectionMedia.append(card);
-
-    img.addEventListener("click", () => {
-      sliderBg.classList.add("active");
-      this._slide.classList.add("active");
-
-      // sends back an array containing all elements targeted by the '.slide-container' selector.
-      let slideContainers = Object.values(document.querySelectorAll(".slide-container"));
-
-      // updates and returns count with the index of the array key containing an attribute .style.display who's worth "flex".
-      slideContainers.filter((res) => {
-        if (res.classList.contains("active")) {
-          count = slideContainers.indexOf(res);
-        }
-      });
-    });
-
-    i.addEventListener("click", () => {
-      if (this._likesCounter === this.likes && !this._liked) {
-        this._likesCounter++;
-        this._likes++;
-        p.innerText = `${this._likes} `;
-        this._liked = true;
-        totalLikes++;
-        sectionPrice.innerHTML = `<p>${totalLikes}&nbsp;<i class="fa-solid fa-heart"></i></p><p>${activePhotographer.price}€&#8239;/&#8239;jour</p>`;
-      } else {
-        this._likesCounter--;
-        this._likes--;
-        p.innerText = `${this._likes} `;
-        this._liked = false;
-        totalLikes--;
-        sectionPrice.innerHTML = `<p>${totalLikes}&nbsp;<i class="fa-solid fa-heart"></i></p><p>${activePhotographer.price}€&#8239;/&#8239;jour</p>`;
-      }
-    });
-  }
-
-  createSlide() {
-    this._slide.classList.add("slide-container");
-    const slideContent = `
-          <article class="slide">
-            <img src="assets/media/${this._image}" alt="${this._title}"/>
-            <h2>${this._title}</h2>
-          </article>
-      `;
-    this._slide.innerHTML = slideContent;
-    sectionSlider.setAttribute("aria-label", `image close up view.`);
-    sectionSlider.append(this._slide);
-  }
-}
-
-class Video {
-  constructor(data) {
-    this._id = data.id;
-    this._photographerId = data.photographerId;
-    this._title = data.title;
-    this._video = data.video;
-    this._likes = data.likes;
-    this._date = data.date;
-    this._price = data.price;
-    this._slide = document.createElement("div");
-    this._liked = false;
-    this._likesCounter = this._likes;
-  }
-
-  get id() {
-    return this._id;
-  }
-
-  get photographerId() {
-    return this._photographerId;
-  }
-
-  get title() {
-    return this._title;
-  }
-
-  get url() {
-    return `assets/media/${this._video}`;
-  }
-
-  get likes() {
-    return this._likes;
-  }
-
-  get date() {
-    return this._date;
-  }
-
-  get price() {
-    return this._price;
-  }
-
-  createArticle() {
-    const card = document.createElement("article");
-
-    const video = document.createElement("video");
-    video.setAttribute("src", `assets/media/${this._video}`);
-    video.setAttribute("tabindex", "0");
-    video.setAttribute("title", `${this._title}`);
-    // video.setAttribute("controls", "");
-    video.innerText = `${this.title}`;
-
-    const div = document.createElement("div");
-
-    const h2 = document.createElement("h2");
-    h2.innerText = `${this._title}`;
-
-    const p = document.createElement("p");
-    p.innerText = `${this._likes} `;
-
-    const i = document.createElement("i");
-    i.setAttribute("aria-label", "likes");
-    i.classList.add("fa-solid", "fa-heart");
-
-    div.append(h2);
-    div.append(p);
-    div.append(i);
-    card.append(video);
-    card.append(div);
-    sectionMedia.append(card);
-
-    video.addEventListener("click", (e) => {
-      e.preventDefault();
-      sliderBg.classList.add("active");
-      this._slide.classList.add("active");
-      // sends back an array containing all elements targeted by the '.slide-container' selector.
-      let slideContainers = Object.values(document.querySelectorAll(".slide-container"));
-
-      // updates and returns count with the index of the array key containing an attribute .style.display who's worth "flex".
-      slideContainers.filter((res) => {
-        if (res.classList.contains("active")) {
-          count = slideContainers.indexOf(res);
-        }
-      });
-    });
-
-    i.addEventListener("click", () => {
-      if (this._likesCounter === this.likes && !this._liked) {
-        this._likesCounter++;
-        this._likes++;
-        p.innerText = `${this._likes} `;
-        this._liked = true;
-        totalLikes++;
-        sectionPrice.innerHTML = `<p>${totalLikes}&nbsp;<i class="fa-solid fa-heart"></i></p><p>${activePhotographer.price}€&#8239;/&#8239;jour</p>`;
-      } else {
-        this._likesCounter--;
-        this._likes--;
-        p.innerText = `${this._likes} `;
-        this._liked = false;
-        totalLikes--;
-        sectionPrice.innerHTML = `<p>${totalLikes}&nbsp;<i class="fa-solid fa-heart"></i></p><p>${activePhotographer.price}€&#8239;/&#8239;jour</p>`;
-      }
-    });
-  }
-
-  createSlide() {
-    this._slide.classList.add("slide-container");
-    const slideContent = `
-          <article class="slide">
-            <video src="assets/media/${this._video}" controls title="${this._title}">${this._title}</video>
-            <h2>${this._title}</h2>
-          </article>
-      `;
-    this._slide.innerHTML = slideContent;
-    sectionSlider.setAttribute("aria-label", `image close up view.`);
-    sectionSlider.append(this._slide);
-  }
-}
+// - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - //
 
 // - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - //
 
-class MediaFactory {
-  constructor(data) {
-    if (data.image && data.photographerId == id) {
-      pictures.push(new Image(data));
-    } else if (data.video && data.photographerId == id) {
-      videos.push(new Video(data));
-    }
-  }
-}
-
-// - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - //
-
-async function getTotalLikes(array) {
-  let i = 0;
+function getTotalLikes(array) {
+  let totalLikes = 0;
   array.forEach((key) => {
     const likes = key._likes;
-    i += likes;
+    totalLikes += likes;
   });
-  totalLikes = i;
+  return totalLikes;
 }
 
 // - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - //
@@ -409,7 +109,7 @@ function slider() {
 // - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - //
 // sorting
 
-async function Sort(object, sortBy) {
+function Sort(array, sortBy) {
   sectionMedia.innerHTML = ``;
   sectionSlider.innerHTML = `
     <button type="button" class="close">
@@ -422,61 +122,38 @@ async function Sort(object, sortBy) {
       <i class="fa-sharp fa-solid fa-chevron-right"></i>
     </button>
   `;
-  await object;
-  // object => array
-  let array = Object.values(object);
+
+  let sortedMedias = [];
 
   switch (sortBy) {
     // likes
     case 0:
       sortedMedias = array.sort((a, b) => b.likes - a.likes);
-      sortedMedias.forEach((key) => {
-        key.createArticle();
-        key.createSlide();
-        console.log(key.likes);
-      });
       break;
 
     // date
     case 1:
       sortedMedias = array.sort((a, b) => new Date(b.date) - new Date(a.date));
-      sortedMedias.forEach((key) => {
-        key.createArticle();
-        key.createSlide();
-        console.log(key.date);
-      });
       break;
 
     // title
     case 2:
       sortedMedias = array.sort((a, b) => a.title.localeCompare(b.title));
-      sortedMedias.forEach((key) => {
-        key.createArticle();
-        key.createSlide();
-        console.log(key.title);
-      });
       break;
 
     default:
       console.error(`invalid object`);
   }
 
+  sortedMedias.forEach((key) => {
+    key.createArticle();
+    /* key.createSlide(); */
+  });
+
   slider();
 }
 
-async function sorting(object) {
-  let dropDownArrow = {
-    target: document.getElementById("dropDownArrow"),
-    deployed: false,
-  };
-
-  const mainButton = document.querySelector(".select-like button:first-of-type");
-  const selectedOption = document.getElementById("option-selected");
-  const options = document.getElementById("sorting-options");
-  const likes = document.getElementById("option-likes");
-  const date = document.getElementById("option-date");
-  const title = document.getElementById("option-title");
-
+function sorting(object) {
   mainButton.addEventListener("click", () => {
     switch (dropDownArrow.deployed) {
       case false:
@@ -497,52 +174,63 @@ async function sorting(object) {
   likes.addEventListener("click", () => {
     sortBy = 0;
     Sort(object, sortBy);
-    selectedOption.innerText = "Popularité";
-    dropDownArrow.deployed = false;
-    options.classList.remove("deployed");
-    mainButton.setAttribute("aria-expanded", "false");
-    dropDownArrow.target.classList.remove("U-turn");
-    likes.setAttribute("aria-selected", "true");
-    date.setAttribute("aria-selected", "false");
-    title.setAttribute("aria-selected", "false");
-    options.setAttribute("aria-activedescendant", "option-likes");
+    displayOptions(sortBy);
   });
 
   date.addEventListener("click", () => {
     sortBy = 1;
     Sort(object, sortBy);
-    selectedOption.innerText = "Date";
-    dropDownArrow.deployed = false;
-    options.classList.remove("deployed");
-    mainButton.setAttribute("aria-expanded", "false");
-    dropDownArrow.target.classList.remove("U-turn");
-    likes.setAttribute("aria-selected", "false");
-    date.setAttribute("aria-selected", "true");
-    title.setAttribute("aria-selected", "false");
-    options.setAttribute("aria-activedescendant", "option-date");
+    displayOptions(sortBy);
   });
 
   title.addEventListener("click", () => {
     sortBy = 2;
     Sort(object, sortBy);
-    selectedOption.innerText = "Titre";
-    dropDownArrow.deployed = false;
-    options.classList.remove("deployed");
-    mainButton.setAttribute("aria-expanded", "false");
-    dropDownArrow.target.classList.remove("U-turn");
-    likes.setAttribute("aria-selected", "false");
-    date.setAttribute("aria-selected", "false");
-    title.setAttribute("aria-selected", "true");
-    options.setAttribute("aria-activedescendant", "option-title");
+    displayOptions(sortBy);
   });
 }
 
+function displayOptions(sortBy) {
+  let display = null;
+  let undisplay = [];
+
+  const selectedOption = document.getElementById("option-selected");
+
+  dropDownArrow.deployed = false;
+  options.classList.remove("deployed");
+  mainButton.setAttribute("aria-expanded", "false");
+  dropDownArrow.target.classList.remove("U-turn");
+
+  switch (sortBy) {
+    case 0:
+      selectedOption.innerText = "Popularité";
+      display = likes;
+      undisplay.push(date, title);
+      options.setAttribute("aria-activedescendant", "option-likes");
+      break;
+    case 1:
+      selectedOption.innerText = "Date";
+      display = date;
+      undisplay.push(title, likes);
+      options.setAttribute("aria-activedescendant", "option-date");
+      break;
+    case 2:
+      selectedOption.innerText = "Titre";
+      display = title;
+      undisplay.push(date, likes);
+      options.setAttribute("aria-activedescendant", "option-title");
+      break;
+  }
+
+  display.setAttribute("aria-selected", "true");
+  undisplay.forEach((key) => key.setAttribute("aria-selected", "false"));
+}
 // - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - //
 
 async function app(url) {
   // fetches datas, then returns them in js format.
   const data = await getDatas(url);
-
+  let medias = [];
   /* 
     get 'photographers' property from data object.
     get 'media' property from data object.
@@ -552,15 +240,14 @@ async function app(url) {
   const media = data.media;
 
   // for each key, instanciates the right class then push the newly created object on the right array.
-  media.forEach((key) => new MediaFactory(key));
-
-  // concatenates all medias together.
-  const medias = pictures.concat(videos);
+  media.forEach((key) => {
+    if (key.photographerId == id) {
+      medias.push(new MediaFactory(key));
+    }
+  });
 
   /* test unit */
   console.log("=*=*=*=*=*=*=*=*=*=");
-  console.log(pictures);
-  console.log(videos);
   console.log(medias);
   console.log("=_=_=_=_=_=_=_=_=_=");
 
@@ -569,12 +256,11 @@ async function app(url) {
   // creates a Photographer instance.
   activePhotographer = new Photographer(photographer[0]);
   // calls the creation function for the banner.
-  activePhotographer.createBanner();
+  sectionPhotographerHeader.innerHTML = activePhotographer.createBanner();
   modalH2.innerHTML = `Conctactez<br> ${activePhotographer._name}`;
 
   // creates and inserts the price section content.
-  getTotalLikes(medias);
-  sectionPrice.innerHTML = `<p>${totalLikes}&nbsp;<i class="fa-solid fa-heart"></i></p><p>${activePhotographer.price}€&#8239;/&#8239;jour</p>`;
+  sectionPrice.innerHTML = `<p><span id="total-likes">${getTotalLikes(medias)}</span>&nbsp;<i class="fa-solid fa-heart"></i></p><p>${activePhotographer.price}€&#8239;/&#8239;jour</p>`;
 
   // sorts initially by likes count (descending).
   Sort(medias, sortBy);
