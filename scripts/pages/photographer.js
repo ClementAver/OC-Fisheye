@@ -7,8 +7,9 @@ const id = url.searchParams.get("id");
 const sectionPhotographerHeader = document.querySelector(".photographer-header");
 const sectionMedia = document.querySelector("section.media");
 const sectionPrice = document.querySelector(".price");
+
+let lightboxSection = document.querySelector(".slider");
 /*
-const sectionSlider = document.querySelector(".slider");
 const sliderBg = document.querySelector(".slider-bg");
 */
 const sortingSelect = document.querySelector(".sorting-select");
@@ -76,18 +77,18 @@ function getTotalLikes(array) {
 
 /*
 function slider() {
-  const close = document.querySelector(".close");
-  const previous = document.querySelector(".previous");
-  const next = document.querySelector(".next");
+  //checked// const close = document.querySelector(".close");
+  //checked// const previous = document.querySelector(".previous");
+  //checked// const next = document.querySelector(".next");
 
   let slideContainers = Object.values(document.querySelectorAll(".slide-container"));
 
-  close.addEventListener("click", () => {
+  //checked// close.addEventListener("click", () => {
     sliderBg.classList.remove("active");
     slideContainers[count].classList.remove("active");
   });
 
-  previous.addEventListener("click", () => {
+  //checked// previous.addEventListener("click", () => {
     //exécute le code ci-dessous quand le bouton previous du slider est pressé.
     slideContainers[count].classList.remove("active");
     if (count > 0) {
@@ -99,7 +100,7 @@ function slider() {
     slideContainers[count].classList.add("active");
   });
 
-  next.addEventListener("click", () => {
+  //checked// next.addEventListener("click", () => {
     //exécute le code ci-dessous quand le bouton next du slider est pressé.
     slideContainers[count].classList.remove("active");
     if (count < slideContainers.length - 1) {
@@ -115,22 +116,7 @@ function slider() {
 // - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - //
 // sorting
 
-function Sort(array, sortBy) {
-  sectionMedia.innerHTML = ``;
-  /*
-  sectionSlider.innerHTML = `
-    <button type="button" class="close">
-      <i class="fa-sharp fa-solid fa-xmark"></i>
-    </button>
-    <button type="button" class="previous">
-      <i class="fa-sharp fa-solid fa-chevron-left"></i>
-    </button>
-    <button type="button" class="next">
-      <i class="fa-sharp fa-solid fa-chevron-right"></i>
-    </button>
-  `;
-*/
-
+function sort(array, sortBy) {
   let sortedMedias = [];
 
   switch (sortBy) {
@@ -155,8 +141,9 @@ function Sort(array, sortBy) {
 
   sortedMedias.forEach((key) => {
     key.createArticle();
-    /* key.createSlide(); */
   });
+
+  // Lightbox.createSlides(sortedMedias);
 
   /*
 slider();
@@ -183,19 +170,19 @@ function sorting(object) {
 
   likes.addEventListener("click", () => {
     sortBy = 0;
-    Sort(object, sortBy);
+    sort(object, sortBy);
     displayOptions(sortBy);
   });
 
   date.addEventListener("click", () => {
     sortBy = 1;
-    Sort(object, sortBy);
+    sort(object, sortBy);
     displayOptions(sortBy);
   });
 
   title.addEventListener("click", () => {
     sortBy = 2;
-    Sort(object, sortBy);
+    sort(object, sortBy);
     displayOptions(sortBy);
   });
 }
@@ -267,13 +254,17 @@ async function app(url) {
   activePhotographer = new Photographer(photographer[0]);
   // calls the creation function for the banner.
   sectionPhotographerHeader.innerHTML = activePhotographer.createBanner();
+
   modalH2.innerHTML = `Conctactez<br> ${activePhotographer._name}`;
+
+  Lightbox.createLightbox();
+  Lightbox.createSlides(medias);
 
   // creates and inserts the price section content.
   sectionPrice.innerHTML = `<p><span id="total-likes">${getTotalLikes(medias)}</span>&nbsp;<i class="fa-solid fa-heart"></i></p><p>${activePhotographer.price}€&#8239;/&#8239;jour</p>`;
 
   // sorts initially by likes count (descending).
-  Sort(medias, sortBy);
+  sort(medias, sortBy);
 
   // adds eventListeners on 'select-like' div options.
   sorting(medias);
