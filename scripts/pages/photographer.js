@@ -31,11 +31,13 @@ const title = document.getElementById("option-title");
   it will contains one object representing the selected photographer.
 */
 let activePhotographer = "";
+
 /*
   initializes an array that will be filled later on, 
   it will contains all the slides of the selected photographer.
-*/
+
 let slideContainers = null;
+*/
 
 // initializes the slider counter.
 let count = 0;
@@ -146,9 +148,10 @@ function sort(array, sortBy) {
     key.createArticle();
   });
 
+  Lightbox.createLightbox();
   Lightbox.createSlides(sortedMedias);
-
-  const anchors = document.querySelectorAll("section.media article");
+  console.log(sortedMedias);
+  const anchors = document.querySelectorAll("section.media article img, section.media article video");
   Lightbox.pinOn(anchors);
 
   /*
@@ -263,8 +266,6 @@ async function app(url) {
   sectionPhotographerHeader.innerHTML = activePhotographer.createBanner();
 
   modalH2.innerHTML = `Conctactez<br> ${activePhotographer._name}`;
-
-  Lightbox.createLightbox();
 
   // creates and inserts the price section content.
   sectionPrice.innerHTML = `<p><span id="total-likes">${getTotalLikes(medias)}</span>&nbsp;<i class="fa-solid fa-heart"></i></p><p>${activePhotographer.price}€&#8239;/&#8239;jour</p>`;

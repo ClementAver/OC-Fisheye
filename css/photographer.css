@@ -337,8 +337,10 @@ section.media video {
   grid-template-columns: 40px 1fr 40px;
 }
 
-.slide-container {
+.slide {
   display: none;
+
+  flex-flow: column nowrap;
 
   grid-column: 2;
   grid-row: 1;

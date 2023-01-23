@@ -1,8 +1,7 @@
 class Lightbox {
   static createLightbox() {
     // creates a div.slider-bg.
-    const sliderBg = document.createElement("div");
-    sliderBg.classList.add("slider-bg");
+    const sliderBg = document.querySelector("div.slider-bg");
 
     // creates a section.slider.
     const lightboxSection = document.createElement("section");
@@ -40,67 +39,64 @@ class Lightbox {
     lightboxSection.append(previousBtn);
     lightboxSection.append(nextBtn);
 
+    sliderBg.innerHTML = null;
     sliderBg.append(lightboxSection);
-
-    document.body.append(sliderBg);
 
     //// listeners.
     closeBtn.addEventListener("click", () => {
       //exécute le code ci-dessous quand le bouton close du slider est pressé.
-      let slideContainers = Object.values(document.querySelectorAll(".slide-container"));
+      let slides = Object.values(document.querySelectorAll(".slide"));
       sliderBg.classList.remove("active");
-      slideContainers[count].classList.remove("active");
+      slides[count].classList.remove("active");
     });
 
     previousBtn.addEventListener("click", () => {
       //exécute le code ci-dessous quand le bouton previous du slider est pressé.
-      let slideContainers = Object.values(document.querySelectorAll(".slide-container"));
-      slideContainers[count].classList.remove("active");
+      let slides = Object.values(document.querySelectorAll(".slide"));
+      slides[count].classList.remove("active");
       if (count > 0) {
         count--;
       } else {
-        count = slideContainers.length - 1;
+        count = slides.length - 1;
       }
-      slideContainers[count].classList.add("active");
+      slides[count].classList.add("active");
     });
 
     nextBtn.addEventListener("click", () => {
       //exécute le code ci-dessous quand le bouton next du slider est pressé.
-      let slideContainers = Object.values(document.querySelectorAll(".slide-container"));
-      slideContainers[count].classList.remove("active");
-      if (count < slideContainers.length - 1) {
+      let slides = Object.values(document.querySelectorAll(".slide"));
+      slides[count].classList.remove("active");
+      if (count < slides.length - 1) {
         count++;
       } else {
         count = 0;
       }
-      slideContainers[count].classList.add("active");
+      slides[count].classList.add("active");
     });
   }
 
   static createSlides(array) {
     array.forEach((key) => {
-      key._slide.classList.add("slide-container");
+      let slide = document.createElement("article");
+      slide.classList.add("slide");
       let slideContent = null;
       if (key._image) {
         slideContent = `
-          <article class="slide">
             <img src="${key.url}" alt="${key._title}"/>
             <h2>${key._title}</h2>
-          </article>
           `;
       } else if (key._video) {
         slideContent = `
-          <article class="slide">
             <video src="${key.url}" controls title="${key._title}">${key._title}</video>
             <h2>${key._title}</h2>
-          </article>
           `;
       } else {
         console.error("invalid object passed to the createSlides 'function'.");
       }
-      key._slide.innerHTML = slideContent;
+
+      slide.innerHTML = slideContent;
       const lightboxSection = document.querySelector("section.slider");
-      lightboxSection.append(key._slide);
+      lightboxSection.append(slide);
     });
   }
 
@@ -116,16 +112,16 @@ class Lightbox {
 
         sliderBg.classList.add("active");
 
-        let slideContainers = Object.values(document.querySelectorAll(".slide-container"));
-        slideContainers[count].classList.add("active");
+        let slides = Object.values(document.querySelectorAll(".slide"));
+        slides[count].classList.add("active");
         /*
         // sends back an array containing all elements targeted by the '.slide-container' selector.
-        let slideContainers = Object.values(document.querySelectorAll(".slide-container"));
+        let slides = Object.values(document.querySelectorAll(".slide-container"));
 
         // updates and returns count with the index of the array key containing an attribute .style.display who's worth "flex".
-        slideContainers.filter((res) => {
+        slides.filter((res) => {
           if (res.classList.contains("active")) {
-            count = slideContainers.indexOf(res);
+            count = slides.indexOf(res);
           }
         });
         */
