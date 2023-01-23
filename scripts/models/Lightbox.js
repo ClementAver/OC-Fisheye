@@ -43,6 +43,7 @@ class Lightbox {
     sliderBg.append(lightboxSection);
 
     document.body.append(sliderBg);
+    console.log(lightboxSection);
 
     //// listeners.
 
@@ -81,13 +82,15 @@ class Lightbox {
       key._slide.classList.add("slide-container");
       const slideContent = `
           <article class="slide">
-            <img src="assets/media/${key._image}" alt="${key._title}"/>
+            <img src="${key.url}" alt="${key._title}"/>
             <h2>${key._title}</h2>
           </article>
       `;
       key._slide.innerHTML = slideContent;
-      const lightboxSection = document.createElement("section");
+      const lightboxSection = document.querySelector("section.slider");
       lightboxSection.append(key._slide);
+      console.log(lightboxSection);
+      console.log(key._slide);
     });
   }
 }
