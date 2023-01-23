@@ -123,34 +123,38 @@ function sort(array, sortBy) {
     // likes
     case 0:
       sortedMedias = array.sort((a, b) => b.likes - a.likes);
+      sortedMedias.forEach((key) => console.log(key._likes));
       break;
 
     // date
     case 1:
       sortedMedias = array.sort((a, b) => new Date(b.date) - new Date(a.date));
+      sortedMedias.forEach((key) => console.log(key._date));
       break;
 
     // title
     case 2:
       sortedMedias = array.sort((a, b) => a.title.localeCompare(b.title));
+      sortedMedias.forEach((key) => console.log(key._title));
       break;
 
     default:
       console.error(`invalid object`);
   }
 
+  document.querySelector("section.media").innerHTML = null;
   sortedMedias.forEach((key) => {
     key.createArticle();
   });
 
-  // Lightbox.createSlides(sortedMedias);
+  Lightbox.createSlides(sortedMedias);
 
   /*
 slider();
 */
 }
 
-function sorting(object) {
+function sorting(array) {
   mainButton.addEventListener("click", () => {
     switch (dropDownArrow.deployed) {
       case false:
@@ -170,19 +174,19 @@ function sorting(object) {
 
   likes.addEventListener("click", () => {
     sortBy = 0;
-    sort(object, sortBy);
+    sort(array, sortBy);
     displayOptions(sortBy);
   });
 
   date.addEventListener("click", () => {
     sortBy = 1;
-    sort(object, sortBy);
+    sort(array, sortBy);
     displayOptions(sortBy);
   });
 
   title.addEventListener("click", () => {
     sortBy = 2;
-    sort(object, sortBy);
+    sort(array, sortBy);
     displayOptions(sortBy);
   });
 }
@@ -222,6 +226,7 @@ function displayOptions(sortBy) {
   display.setAttribute("aria-selected", "true");
   undisplay.forEach((key) => key.setAttribute("aria-selected", "false"));
 }
+
 // - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - //
 
 async function app(url) {

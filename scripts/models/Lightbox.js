@@ -43,7 +43,6 @@ class Lightbox {
     sliderBg.append(lightboxSection);
 
     document.body.append(sliderBg);
-    console.log(lightboxSection);
 
     //// listeners.
 
@@ -89,8 +88,6 @@ class Lightbox {
       key._slide.innerHTML = slideContent;
       const lightboxSection = document.querySelector("section.slider");
       lightboxSection.append(key._slide);
-      console.log(lightboxSection);
-      console.log(key._slide);
     });
   }
 }
