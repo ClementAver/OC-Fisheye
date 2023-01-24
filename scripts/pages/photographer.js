@@ -234,6 +234,48 @@ async function app(url) {
 
   // adds eventListeners on 'select-like' div options.
   sorting(medias);
+
+  // -_-_-_-_- //
+  const sliderBg = document.querySelector("div.slider-bg");
+  // <-
+  window.addEventListener("keydown", (event) => {
+    if (event.which === 37 && sliderBg.classList.contains("active")) {
+      // exécute le code ci-dessous quand la touche 'flèche gauche' du clavier est pressé.
+      let slides = Object.values(document.querySelectorAll(".slide"));
+      slides[count].classList.remove("active");
+      if (count > 0) {
+        count--;
+      } else {
+        count = slides.length - 1;
+      }
+      slides[count].classList.add("active");
+    }
+  });
+
+  // ->
+  window.addEventListener("keydown", (event) => {
+    if (event.which === 39 && sliderBg.classList.contains("active")) {
+      // exécute le code ci-dessous quand la touche 'flèche droite' du clavier est pressé.
+      let slides = Object.values(document.querySelectorAll(".slide"));
+      slides[count].classList.remove("active");
+      if (count < slides.length - 1) {
+        count++;
+      } else {
+        count = 0;
+      }
+      slides[count].classList.add("active");
+    }
+  });
+
+  // 'escape' key
+  window.addEventListener("keydown", (event) => {
+    if (event.which === 27 && sliderBg.classList.contains("active")) {
+      // exécute le code ci-dessous quand la touche 'échap' du clavier est pressé.
+      let slides = Object.values(document.querySelectorAll(".slide"));
+      sliderBg.classList.remove("active");
+      slides[count].classList.remove("active");
+    }
+  });
 }
 
 app("data/photographers.json");
