@@ -1,12 +1,19 @@
+const contactModal = document.getElementById("contact-modal");
+
 function displayModal() {
-  const contactModal = document.getElementById("contact-modal");
   contactModal.style.display = "block";
 }
 
 function closeModal() {
-  const contactModal = document.getElementById("contact-modal");
   contactModal.style.display = "none";
 }
+
+window.addEventListener("keydown", (event) => {
+  if (event.which !== 27 || contactModal.style.display !== "block") {
+    return;
+  }
+  contactModal.style.display = "none";
+});
 
 ///// globals variables.
 // form
