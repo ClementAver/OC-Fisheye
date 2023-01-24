@@ -70,23 +70,7 @@ class Video {
     card.append(div);
     sectionMedia.append(card);
 
-    /*
-    video.addEventListener("click", (e) => {
-      e.preventDefault();
-
-      sliderBg.classList.add("active");
-      this._slide.classList.add("active");
-      // sends back an array containing all elements targeted by the '.slide-container' selector.
-      let slideContainers = Object.values(document.querySelectorAll(".slide-container"));
-
-      // updates and returns count with the index of the array key containing an attribute .style.display who's worth "flex".
-      slideContainers.filter((res) => {
-        if (res.classList.contains("active")) {
-          count = slideContainers.indexOf(res);
-        }
-      });
-*/
-
+    // media's likes counter.
     i.addEventListener("click", () => {
       let totalLikes = parseInt(document.getElementById("total-likes").textContent);
       if (this._likesCounter === this.likes && !this._liked) {
@@ -104,18 +88,4 @@ class Video {
       document.getElementById("total-likes").textContent = totalLikes;
     });
   }
-  /*
-   //checked// createSlide() {
-    this._slide.classList.add("slide-container");
-    const slideContent = `
-          <article class="slide">
-            <video src="assets/media/${this._video}" controls title="${this._title}">${this._title}</video>
-            <h2>${this._title}</h2>
-          </article>
-      `;
-    this._slide.innerHTML = slideContent;
-    sectionSlider.setAttribute("aria-label", `image close up view.`);
-    sectionSlider.append(this._slide);
-  }
-*/
 }

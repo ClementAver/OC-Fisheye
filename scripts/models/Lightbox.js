@@ -1,12 +1,12 @@
 class Lightbox {
   static createLightbox() {
-    // creates a div.slider-bg.
+    // retrieves a div.slider-bg.
     const sliderBg = document.querySelector("div.slider-bg");
 
     // creates a section.slider.
-    const lightboxSection = document.createElement("section");
-    lightboxSection.classList.add("slider");
-    lightboxSection.setAttribute("aria-label", `media close up view.`);
+    const sectionLightbox = document.createElement("section");
+    sectionLightbox.classList.add("slider");
+    sectionLightbox.setAttribute("aria-label", `media close up view.`);
 
     // creates a 'close' button.
     const closeBtn = document.createElement("button");
@@ -35,14 +35,14 @@ class Lightbox {
     nextIcon.classList.add("fa-sharp", "fa-solid", "fa-chevron-right");
     nextBtn.append(nextIcon);
 
-    lightboxSection.append(closeBtn);
-    lightboxSection.append(previousBtn);
-    lightboxSection.append(nextBtn);
+    sectionLightbox.append(closeBtn);
+    sectionLightbox.append(previousBtn);
+    sectionLightbox.append(nextBtn);
 
+    // empties the section before appending the newly created content.
     sliderBg.innerHTML = null;
-    sliderBg.append(lightboxSection);
+    sliderBg.append(sectionLightbox);
 
-    //// listeners.
     closeBtn.addEventListener("click", () => {
       //exécute le code ci-dessous quand le bouton close du slider est pressé.
       let slides = Object.values(document.querySelectorAll(".slide"));
@@ -74,6 +74,7 @@ class Lightbox {
       slides[count].classList.add("active");
     });
 
+    // <-
     window.addEventListener("keydown", (event) => {
       if (event.which === 37 && sliderBg.classList.contains("active")) {
         // exécute le code ci-dessous quand la touche 'flèche gauche' du clavier est pressé.
@@ -88,6 +89,7 @@ class Lightbox {
       }
     });
 
+    // ->
     window.addEventListener("keydown", (event) => {
       if (event.which === 39 && sliderBg.classList.contains("active")) {
         // exécute le code ci-dessous quand la touche 'flèche droite' du clavier est pressé.
@@ -102,6 +104,7 @@ class Lightbox {
       }
     });
 
+    // 'escape' key
     window.addEventListener("keydown", (event) => {
       if (event.which === 27 && sliderBg.classList.contains("active")) {
         // exécute le code ci-dessous quand la touche 'échap' du clavier est pressé.
@@ -132,8 +135,8 @@ class Lightbox {
       }
 
       slide.innerHTML = slideContent;
-      const lightboxSection = document.querySelector("section.slider");
-      lightboxSection.append(slide);
+      const sectionLightbox = document.querySelector("section.slider");
+      sectionLightbox.append(slide);
     });
   }
 
@@ -152,6 +155,7 @@ class Lightbox {
         slides[count].classList.add("active");
       });
 
+      // 'enter' key
       key.addEventListener("keydown", (event) => {
         if (event.which === 13 && !sliderBg.classList.contains("active")) {
           count = key._index;

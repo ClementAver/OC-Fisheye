@@ -6,31 +6,20 @@ const id = url.searchParams.get("id");
 // stores targeted DOM sectors.
 const sectionPhotographerHeader = document.querySelector(".photographer-header");
 const sectionMedia = document.querySelector("section.media");
-const sectionPrice = document.querySelector(".price");
+const sectionPrice = document.querySelector("section.price");
 
-let lightboxSection = document.querySelector(".slider");
-/*
-const sliderBg = document.querySelector(".slider-bg");
-*/
-const sortingSelect = document.querySelector(".sorting-select");
-const modalH2 = document.querySelector(".modal h2");
-
+// sorting section dom elements.
+const mainButton = document.querySelector(".select-like button:first-of-type");
 let dropDownArrow = {
   target: document.getElementById("dropDownArrow"),
   deployed: false,
 };
-const mainButton = document.querySelector(".select-like button:first-of-type");
 const options = document.getElementById("sorting-options");
-
 const likes = document.getElementById("option-likes");
 const date = document.getElementById("option-date");
 const title = document.getElementById("option-title");
 
-/*
-  initializes an array that will be filled later on, 
-  it will contains one object representing the selected photographer.
-*/
-let activePhotographer = "";
+const modalTitle = document.querySelector(".modal h2");
 
 // initializes the slider counter.
 let count = 0;
@@ -64,8 +53,8 @@ function getTotalLikes(array) {
 }
 
 // - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - //
-// sorting
 
+// adds the actuals sorting algorithms.
 function sort(array, sortBy) {
   let sortedMedias = [];
 
@@ -103,6 +92,44 @@ function sort(array, sortBy) {
   Lightbox.pinOn(anchors);
 }
 
+// mutates the 'sorting' section html when an option is selected by the user.
+function displayOptions(sortBy) {
+  let display = null;
+  let undisplay = [];
+
+  const selectedOption = document.getElementById("option-selected");
+
+  dropDownArrow.deployed = false;
+  options.classList.remove("deployed");
+  mainButton.setAttribute("aria-expanded", "false");
+  dropDownArrow.target.classList.remove("U-turn");
+
+  switch (sortBy) {
+    case 0:
+      selectedOption.innerText = "Popularité";
+      display = likes;
+      undisplay.push(date, title);
+      options.setAttribute("aria-activedescendant", "option-likes");
+      break;
+    case 1:
+      selectedOption.innerText = "Date";
+      display = date;
+      undisplay.push(title, likes);
+      options.setAttribute("aria-activedescendant", "option-date");
+      break;
+    case 2:
+      selectedOption.innerText = "Titre";
+      display = title;
+      undisplay.push(date, likes);
+      options.setAttribute("aria-activedescendant", "option-title");
+      break;
+  }
+
+  display.setAttribute("aria-selected", "true");
+  undisplay.forEach((key) => key.setAttribute("aria-selected", "false"));
+}
+
+// adds the listeners on the 'sorting' section elements, which ones call the two functions above.
 function sorting(array) {
   mainButton.addEventListener("click", () => {
     switch (dropDownArrow.deployed) {
@@ -164,42 +191,6 @@ function sorting(array) {
   });
 }
 
-function displayOptions(sortBy) {
-  let display = null;
-  let undisplay = [];
-
-  const selectedOption = document.getElementById("option-selected");
-
-  dropDownArrow.deployed = false;
-  options.classList.remove("deployed");
-  mainButton.setAttribute("aria-expanded", "false");
-  dropDownArrow.target.classList.remove("U-turn");
-
-  switch (sortBy) {
-    case 0:
-      selectedOption.innerText = "Popularité";
-      display = likes;
-      undisplay.push(date, title);
-      options.setAttribute("aria-activedescendant", "option-likes");
-      break;
-    case 1:
-      selectedOption.innerText = "Date";
-      display = date;
-      undisplay.push(title, likes);
-      options.setAttribute("aria-activedescendant", "option-date");
-      break;
-    case 2:
-      selectedOption.innerText = "Titre";
-      display = title;
-      undisplay.push(date, likes);
-      options.setAttribute("aria-activedescendant", "option-title");
-      break;
-  }
-
-  display.setAttribute("aria-selected", "true");
-  undisplay.forEach((key) => key.setAttribute("aria-selected", "false"));
-}
-
 // - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - //
 
 async function app(url) {
@@ -229,11 +220,11 @@ async function app(url) {
   // retrieves the right photographer according to his id.
   const photographer = photographers.filter((res) => res.id == id);
   // creates a Photographer instance.
-  activePhotographer = new Photographer(photographer[0]);
+  let activePhotographer = new Photographer(photographer[0]);
   // calls the creation function for the banner.
   sectionPhotographerHeader.innerHTML = activePhotographer.createBanner();
 
-  modalH2.innerHTML = `Contactez<br> ${activePhotographer._name}`;
+  modalTitle.innerHTML = `Contactez<br> ${activePhotographer._name}`;
 
   // creates and inserts the price section content.
   sectionPrice.innerHTML = `<p><span id="total-likes">${getTotalLikes(medias)}</span>&nbsp;<i class="fa-solid fa-heart"></i></p><p>${activePhotographer.price}€&#8239;/&#8239;jour</p>`;
