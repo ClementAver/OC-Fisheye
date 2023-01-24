@@ -182,13 +182,40 @@ function sorting(array) {
     displayOptions(sortBy);
   });
 
+  likes.addEventListener("keydown", (event) => {
+    if (event.which !== 13) {
+      return;
+    }
+    sortBy = 0;
+    sort(array, sortBy);
+    displayOptions(sortBy);
+  });
+
   date.addEventListener("click", () => {
     sortBy = 1;
     sort(array, sortBy);
     displayOptions(sortBy);
   });
 
+  date.addEventListener("keydown", (event) => {
+    if (event.which !== 13) {
+      return;
+    }
+    sortBy = 1;
+    sort(array, sortBy);
+    displayOptions(sortBy);
+  });
+
   title.addEventListener("click", () => {
+    sortBy = 2;
+    sort(array, sortBy);
+    displayOptions(sortBy);
+  });
+
+  title.addEventListener("keydown", (event) => {
+    if (event.which !== 13) {
+      return;
+    }
     sortBy = 2;
     sort(array, sortBy);
     displayOptions(sortBy);
