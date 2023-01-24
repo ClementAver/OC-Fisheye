@@ -150,7 +150,6 @@ function sort(array, sortBy) {
 
   Lightbox.createLightbox();
   Lightbox.createSlides(sortedMedias);
-  console.log(sortedMedias);
   const anchors = document.querySelectorAll("section.media article img, section.media article video");
   Lightbox.pinOn(anchors);
 
@@ -265,7 +264,7 @@ async function app(url) {
   // calls the creation function for the banner.
   sectionPhotographerHeader.innerHTML = activePhotographer.createBanner();
 
-  modalH2.innerHTML = `Conctactez<br> ${activePhotographer._name}`;
+  modalH2.innerHTML = `Contactez<br> ${activePhotographer._name}`;
 
   // creates and inserts the price section content.
   sectionPrice.innerHTML = `<p><span id="total-likes">${getTotalLikes(medias)}</span>&nbsp;<i class="fa-solid fa-heart"></i></p><p>${activePhotographer.price}€&#8239;/&#8239;jour</p>`;

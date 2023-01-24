@@ -73,6 +73,46 @@ class Lightbox {
       }
       slides[count].classList.add("active");
     });
+
+    window.addEventListener("keydown", (event) => {
+      if (event.which !== 37 && sliderBg.classList.contains("active")) {
+        return;
+      }
+      // exécute le code ci-dessous quand la touche 'flèche gauche' du clavier est pressé.
+      let slides = Object.values(document.querySelectorAll(".slide"));
+      slides[count].classList.remove("active");
+      if (count > 0) {
+        count--;
+      } else {
+        count = slides.length - 1;
+      }
+      slides[count].classList.add("active");
+    });
+
+    window.addEventListener("keydown", (event) => {
+      if (event.which !== 39 && sliderBg.classList.contains("active")) {
+        return;
+      }
+      // exécute le code ci-dessous quand la touche 'flèche droite' du clavier est pressé.
+      let slides = Object.values(document.querySelectorAll(".slide"));
+      slides[count].classList.remove("active");
+      if (count < slides.length - 1) {
+        count++;
+      } else {
+        count = 0;
+      }
+      slides[count].classList.add("active");
+    });
+
+    window.addEventListener("keydown", (event) => {
+      if (event.which !== 27 && sliderBg.classList.contains("active")) {
+        return;
+      }
+      // exécute le code ci-dessous quand la touche 'échap' du clavier est pressé.
+      let slides = Object.values(document.querySelectorAll(".slide"));
+      sliderBg.classList.remove("active");
+      slides[count].classList.remove("active");
+    });
   }
 
   static createSlides(array) {
@@ -106,25 +146,25 @@ class Lightbox {
 
     array.forEach((key) => {
       key._index = i;
-      key.addEventListener("click", (e) => {
-        e.preventDefault();
+      key.addEventListener("click", () => {
         count = key._index;
 
         sliderBg.classList.add("active");
 
         let slides = Object.values(document.querySelectorAll(".slide"));
         slides[count].classList.add("active");
-        /*
-        // sends back an array containing all elements targeted by the '.slide-container' selector.
-        let slides = Object.values(document.querySelectorAll(".slide-container"));
+      });
 
-        // updates and returns count with the index of the array key containing an attribute .style.display who's worth "flex".
-        slides.filter((res) => {
-          if (res.classList.contains("active")) {
-            count = slides.indexOf(res);
-          }
-        });
-        */
+      key.addEventListener("keydown", (event) => {
+        if (event.which !== 13 || sliderBg.classList.contains("active")) {
+          return;
+        }
+        count = key._index;
+
+        sliderBg.classList.add("active");
+
+        let slides = Object.values(document.querySelectorAll(".slide"));
+        slides[count].classList.add("active");
       });
       i++;
     });
