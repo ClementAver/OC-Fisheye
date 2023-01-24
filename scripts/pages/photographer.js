@@ -32,13 +32,6 @@ const title = document.getElementById("option-title");
 */
 let activePhotographer = "";
 
-/*
-  initializes an array that will be filled later on, 
-  it will contains all the slides of the selected photographer.
-
-let slideContainers = null;
-*/
-
 // initializes the slider counter.
 let count = 0;
 
@@ -61,10 +54,6 @@ async function getDatas(url) {
 
 // - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - //
 
-// - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - //
-
-// - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - //
-
 function getTotalLikes(array) {
   let totalLikes = 0;
   array.forEach((key) => {
@@ -73,46 +62,6 @@ function getTotalLikes(array) {
   });
   return totalLikes;
 }
-
-// - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - //
-
-/*
-function slider() {
-  //checked// const close = document.querySelector(".close");
-  //checked// const previous = document.querySelector(".previous");
-  //checked// const next = document.querySelector(".next");
-
-  //checked// let slideContainers = Object.values(document.querySelectorAll(".slide-container"));
-
-  //checked// close.addEventListener("click", () => {
-    sliderBg.classList.remove("active");
-    slideContainers[count].classList.remove("active");
-  });
-
-  //checked// previous.addEventListener("click", () => {
-    //exécute le code ci-dessous quand le bouton previous du slider est pressé.
-    slideContainers[count].classList.remove("active");
-    if (count > 0) {
-      count--;
-    } else {
-      count = slideContainers.length - 1;
-    }
-
-    slideContainers[count].classList.add("active");
-  });
-
-  //checked// next.addEventListener("click", () => {
-    //exécute le code ci-dessous quand le bouton next du slider est pressé.
-    slideContainers[count].classList.remove("active");
-    if (count < slideContainers.length - 1) {
-      count++;
-    } else {
-      count = 0;
-    }
-    slideContainers[count].classList.add("active");
-  });
-}
-*/
 
 // - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - //
 // sorting
@@ -152,10 +101,6 @@ function sort(array, sortBy) {
   Lightbox.createSlides(sortedMedias);
   const anchors = document.querySelectorAll("section.media article img, section.media article video");
   Lightbox.pinOn(anchors);
-
-  /*
-slider();
-*/
 }
 
 function sorting(array) {
@@ -183,12 +128,11 @@ function sorting(array) {
   });
 
   likes.addEventListener("keydown", (event) => {
-    if (event.which !== 13) {
-      return;
+    if (event.which === 13) {
+      sortBy = 0;
+      sort(array, sortBy);
+      displayOptions(sortBy);
     }
-    sortBy = 0;
-    sort(array, sortBy);
-    displayOptions(sortBy);
   });
 
   date.addEventListener("click", () => {
@@ -198,12 +142,11 @@ function sorting(array) {
   });
 
   date.addEventListener("keydown", (event) => {
-    if (event.which !== 13) {
-      return;
+    if (event.which === 13) {
+      sortBy = 1;
+      sort(array, sortBy);
+      displayOptions(sortBy);
     }
-    sortBy = 1;
-    sort(array, sortBy);
-    displayOptions(sortBy);
   });
 
   title.addEventListener("click", () => {
@@ -213,12 +156,11 @@ function sorting(array) {
   });
 
   title.addEventListener("keydown", (event) => {
-    if (event.which !== 13) {
-      return;
+    if (event.which === 13) {
+      sortBy = 2;
+      sort(array, sortBy);
+      displayOptions(sortBy);
     }
-    sortBy = 2;
-    sort(array, sortBy);
-    displayOptions(sortBy);
   });
 }
 

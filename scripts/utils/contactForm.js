@@ -9,10 +9,9 @@ function closeModal() {
 }
 
 window.addEventListener("keydown", (event) => {
-  if (event.which !== 27 || contactModal.style.display !== "block") {
-    return;
+  if (event.which === 27 && contactModal.style.display === "block") {
+    contactModal.style.display = "none";
   }
-  contactModal.style.display = "none";
 });
 
 ///// globals variables.

@@ -75,43 +75,40 @@ class Lightbox {
     });
 
     window.addEventListener("keydown", (event) => {
-      if (event.which !== 37 && sliderBg.classList.contains("active")) {
-        return;
+      if (event.which === 37 && sliderBg.classList.contains("active")) {
+        // exécute le code ci-dessous quand la touche 'flèche gauche' du clavier est pressé.
+        let slides = Object.values(document.querySelectorAll(".slide"));
+        slides[count].classList.remove("active");
+        if (count > 0) {
+          count--;
+        } else {
+          count = slides.length - 1;
+        }
+        slides[count].classList.add("active");
       }
-      // exécute le code ci-dessous quand la touche 'flèche gauche' du clavier est pressé.
-      let slides = Object.values(document.querySelectorAll(".slide"));
-      slides[count].classList.remove("active");
-      if (count > 0) {
-        count--;
-      } else {
-        count = slides.length - 1;
-      }
-      slides[count].classList.add("active");
     });
 
     window.addEventListener("keydown", (event) => {
-      if (event.which !== 39 && sliderBg.classList.contains("active")) {
-        return;
+      if (event.which === 39 && sliderBg.classList.contains("active")) {
+        // exécute le code ci-dessous quand la touche 'flèche droite' du clavier est pressé.
+        let slides = Object.values(document.querySelectorAll(".slide"));
+        slides[count].classList.remove("active");
+        if (count < slides.length - 1) {
+          count++;
+        } else {
+          count = 0;
+        }
+        slides[count].classList.add("active");
       }
-      // exécute le code ci-dessous quand la touche 'flèche droite' du clavier est pressé.
-      let slides = Object.values(document.querySelectorAll(".slide"));
-      slides[count].classList.remove("active");
-      if (count < slides.length - 1) {
-        count++;
-      } else {
-        count = 0;
-      }
-      slides[count].classList.add("active");
     });
 
     window.addEventListener("keydown", (event) => {
-      if (event.which !== 27 && sliderBg.classList.contains("active")) {
-        return;
+      if (event.which === 27 && sliderBg.classList.contains("active")) {
+        // exécute le code ci-dessous quand la touche 'échap' du clavier est pressé.
+        let slides = Object.values(document.querySelectorAll(".slide"));
+        sliderBg.classList.remove("active");
+        slides[count].classList.remove("active");
       }
-      // exécute le code ci-dessous quand la touche 'échap' du clavier est pressé.
-      let slides = Object.values(document.querySelectorAll(".slide"));
-      sliderBg.classList.remove("active");
-      slides[count].classList.remove("active");
     });
   }
 
@@ -156,15 +153,14 @@ class Lightbox {
       });
 
       key.addEventListener("keydown", (event) => {
-        if (event.which !== 13 || sliderBg.classList.contains("active")) {
-          return;
+        if (event.which === 13 && !sliderBg.classList.contains("active")) {
+          count = key._index;
+
+          sliderBg.classList.add("active");
+
+          let slides = Object.values(document.querySelectorAll(".slide"));
+          slides[count].classList.add("active");
         }
-        count = key._index;
-
-        sliderBg.classList.add("active");
-
-        let slides = Object.values(document.querySelectorAll(".slide"));
-        slides[count].classList.add("active");
       });
       i++;
     });
