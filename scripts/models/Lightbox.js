@@ -48,6 +48,7 @@ class Lightbox {
       let slides = Object.values(document.querySelectorAll(".slide"));
       sliderBg.classList.remove("active");
       slides[count].classList.remove("active");
+      pageFocusOn();
     });
 
     previousBtn.addEventListener("click", () => {
@@ -113,6 +114,8 @@ class Lightbox {
 
         let slides = Object.values(document.querySelectorAll(".slide"));
         slides[count].classList.add("active");
+
+        pageFocusOff();
       });
 
       // 'enter' key
@@ -124,6 +127,7 @@ class Lightbox {
 
           let slides = Object.values(document.querySelectorAll(".slide"));
           slides[count].classList.add("active");
+          pageFocusOff();
         }
       });
       i++;

@@ -11,15 +11,18 @@ const message = document.getElementById("message");
 function displayModal() {
   contactModal.style.display = "block";
   firstName.focus();
+  pageFocusOff();
 }
 
 function closeModal() {
   contactModal.style.display = "none";
+  pageFocusOn();
 }
 
 window.addEventListener("keydown", (event) => {
   if (event.which === 27 && contactModal.style.display === "block") {
     contactModal.style.display = "none";
+    pageFocusOn();
   }
 });
 
