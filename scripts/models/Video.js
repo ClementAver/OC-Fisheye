@@ -61,6 +61,7 @@ class Video {
 
     const i = document.createElement("i");
     i.setAttribute("aria-label", "likes");
+    i.setAttribute("tabindex", "0");
     i.classList.add("fa-solid", "fa-heart");
 
     div.append(h2);
@@ -86,6 +87,28 @@ class Video {
       }
       p.innerText = `${this._likes} `;
       document.getElementById("total-likes").textContent = totalLikes;
+    });
+
+    // 'enter' key
+    i.addEventListener("keydown", (event) => {
+      console.log(1);
+      if ((event.which === 13) & (document.activeElement === i)) {
+        console.log(2);
+        let totalLikes = parseInt(document.getElementById("total-likes").textContent);
+        if (this._likesCounter === this.likes && !this._liked) {
+          this._likesCounter++;
+          this._likes++;
+          this._liked = true;
+          totalLikes++;
+        } else {
+          this._likesCounter--;
+          this._likes--;
+          this._liked = false;
+          totalLikes--;
+        }
+        p.innerText = `${this._likes} `;
+        document.getElementById("total-likes").textContent = totalLikes;
+      }
     });
   }
 }
