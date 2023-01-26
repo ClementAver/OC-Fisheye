@@ -1,0 +1,23 @@
+{
+  "root": true,
+  "parserOptions": {
+    "ecmaVersion": 2018,
+    "sourceType": "module",
+    "parser": "babel-eslint"
+  },
+  "env": {
+    "browser": true,
+    "es6": true
+  },
+  "extends": [
+    "eslint:recommended"
+  ],
+"rules": {
+// throws a warning for '==' instead of '==='. 
+    "eqeqeq": "warn",
+// throws a warning when indentation isn't two spaces, or when a case isn't indented by 1 lvl from his switch.
+    "indent": ["warn", 2, { "SwitchCase": 1 }],
+// throws a warning when a ternary expression is declared on more than one line.
+    "multiline-ternary": ["warn", "always-multiline"]
+  }
+}
