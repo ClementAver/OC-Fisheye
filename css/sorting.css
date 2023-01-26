@@ -7,11 +7,12 @@
   display: flex;
 }
 
-.sorting h2 {
+.sorting label {
   font-size: 1.125rem;
   font-weight: 500;
   padding: 0.5rem 0;
   padding-right: 1rem;
+  align-self: center;
 }
 
 .sorting button,

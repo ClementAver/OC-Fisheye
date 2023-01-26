@@ -192,7 +192,7 @@ section.media video {
   margin: auto;
 
   width: 50%;
-  max-width: 620px;
+  max-width: 670px;
   height: fit-content;
   max-height: 90vh;
 
@@ -216,6 +216,7 @@ section.media video {
 
 .modal header {
   width: 100%;
+  align-items: flex-start;
 }
 
 .modal header img {
@@ -229,7 +230,7 @@ section.media video {
 .modal header h2 {
   font-size: 4rem;
   font-weight: normal;
-  line-height: 5rem;
+  line-height: 1.5;
 
   width: calc(100% - 3rem);
 
@@ -337,8 +338,10 @@ section.media video {
   grid-template-columns: 40px 1fr 40px;
 }
 
-.slide-container {
+.slide {
   display: none;
+
+  flex-flow: column nowrap;
 
   grid-column: 2;
   grid-row: 1;

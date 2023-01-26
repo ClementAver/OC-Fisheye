@@ -1,14 +1,4 @@
-function displayModal() {
-  const contactModal = document.getElementById("contact-modal");
-  contactModal.style.display = "block";
-}
-
-function closeModal() {
-  const contactModal = document.getElementById("contact-modal");
-  contactModal.style.display = "none";
-}
-
-///// globals variables.
+const contactModal = document.getElementById("contact-modal");
 // form
 const contactForm = document.getElementById("contact-form");
 const invalidMessages = document.querySelectorAll(".invalid-fields");
@@ -18,7 +8,24 @@ const lastName = document.getElementById("last");
 const email = document.getElementById("email");
 const message = document.getElementById("message");
 
-///// tests functions
+function displayModal() {
+  contactModal.style.display = "block";
+  firstName.focus();
+  pageFocusOff();
+}
+
+function closeModal() {
+  contactModal.style.display = "none";
+  pageFocusOn();
+}
+
+window.addEventListener("keydown", (event) => {
+  if (event.which === 27 && contactModal.style.display === "block") {
+    contactModal.style.display = "none";
+    pageFocusOn();
+  }
+});
+
 // tests the length of a string
 function testLength(string, element) {
   if (string.length >= 2) {
@@ -41,7 +48,6 @@ function isEmail(email, element) {
   return false;
 }
 
-///// validation functions
 // validates inputs
 function isValid(callback, value, index, element) {
   if (callback(value, element)) {
@@ -67,7 +73,7 @@ function allValid() {
   return !error;
 }
 
-///// launches submit
+// launches submit
 function validate(e) {
   e.preventDefault();
 
@@ -84,22 +90,6 @@ function validate(e) {
           message: message.value,
         })
     );
-
-    /*
-fetch("url", {
-      method: "POST",
-      headers: JSON.stringify({
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      }),
-      body: JSON.stringify({
-          name: first.value,
-          surname: last.value,
-          email: email.value,
-          message: message.value,
-      }),
-    });
-*/
   }
 }
 

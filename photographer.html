@@ -21,9 +21,9 @@
 
       <!-- sorting section -->
       <section class="sorting">
-        <h2>Trier par</h2>
+        <label for="select-like">Trier par</label>
         <!-- contains selected options and dropdown menu -->
-        <div class="select-like">
+        <div id="select-like" class="select-like">
           <!-- displayed role when the dropdown menu isn't displayed -->
           <span class="sr-only" id="dropdown-description">Ouvre le menu déroulant de tri.</span>
           <button type="button" tabindex="0" aria-controls="sorting-options" aria-haspopup="listbox" aria-expanded="false" aria-labelledby="dropdown-description">
@@ -35,7 +35,8 @@
           </button>
 
           <!-- dropdown menu container -->
-          <ul role="listbox" id="sorting-options" aria-activedescendant="option-likes">
+          <span class="sr-only" id="dropdown-description">Trier par</span>
+          <ul role="listbox" id="sorting-options" aria-activedescendant="option-likes" aria-labelledby="dropdown-options">
             <li role="option" aria-selected="true" tabindex="0" id="option-likes">Popularité</li>
             <hr />
             <li role="option" aria-selected="false" tabindex="0" id="option-date">Date</li>
@@ -53,19 +54,7 @@
     <section class="price"></section>
 
     <!-- slider section -->
-    <div class="slider-bg">
-      <section class="slider">
-        <button type="button" class="close" aria-label="fermer la vue avancée.">
-          <i class="fa-sharp fa-solid fa-xmark"></i>
-        </button>
-        <button type="button" class="previous" aria-label="Image précédente.">
-          <i class="fa-sharp fa-solid fa-chevron-left"></i>
-        </button>
-        <button type="button" class="next" aria-label="Image suivante.">
-          <i class="fa-sharp fa-solid fa-chevron-right"></i>
-        </button>
-      </section>
-    </div>
+    <div class="slider-bg"></div>
 
     <!-- form section -->
     <div id="contact-modal">
@@ -103,6 +92,7 @@
     <script src="scripts/models/Photographer.js"></script>
     <script src="scripts/models/Image.js"></script>
     <script src="scripts/models/Video.js"></script>
+    <script src="scripts/models/Lightbox.js"></script>
     <script src="scripts/factories/MediaFactory.js"></script>
     <script src="scripts/factories/photographer.js"></script>
     <script src="/scripts/pages/photographer.js"></script>

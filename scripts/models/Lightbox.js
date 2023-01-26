@@ -1,0 +1,136 @@
+class Lightbox {
+  static createLightbox() {
+    // retrieves a div.slider-bg.
+    const sliderBg = document.querySelector("div.slider-bg");
+
+    // creates a section.slider.
+    const sectionLightbox = document.createElement("section");
+    sectionLightbox.classList.add("slider");
+    sectionLightbox.setAttribute("aria-label", `media close up view.`);
+
+    // creates a 'close' button.
+    const closeBtn = document.createElement("button");
+    closeBtn.setAttribute("type", "button");
+    closeBtn.classList.add("close");
+    closeBtn.setAttribute("aria-label", "Fermer la vue avancée.");
+    const closeIcon = document.createElement("i");
+    closeIcon.classList.add("fa-sharp", "fa-solid", "fa-xmark");
+    closeBtn.append(closeIcon);
+
+    // creates a 'previous' button.
+    const previousBtn = document.createElement("button");
+    previousBtn.setAttribute("type", "button");
+    previousBtn.classList.add("previous");
+    previousBtn.setAttribute("aria-label", "Image précédente.");
+    const previousIcon = document.createElement("i");
+    previousIcon.classList.add("fa-sharp", "fa-solid", "fa-chevron-left");
+    previousBtn.append(previousIcon);
+
+    // creates a 'next' button.
+    const nextBtn = document.createElement("button");
+    nextBtn.setAttribute("type", "button");
+    nextBtn.classList.add("next");
+    nextBtn.setAttribute("aria-label", "Image suivante.");
+    const nextIcon = document.createElement("i");
+    nextIcon.classList.add("fa-sharp", "fa-solid", "fa-chevron-right");
+    nextBtn.append(nextIcon);
+
+    sectionLightbox.append(closeBtn);
+    sectionLightbox.append(previousBtn);
+    sectionLightbox.append(nextBtn);
+
+    // empties the section before appending the newly created content.
+    sliderBg.innerHTML = null;
+    sliderBg.append(sectionLightbox);
+
+    closeBtn.addEventListener("click", () => {
+      //exécute le code ci-dessous quand le bouton close du slider est pressé.
+      let slides = Object.values(document.querySelectorAll(".slide"));
+      sliderBg.classList.remove("active");
+      slides[count].classList.remove("active");
+      pageFocusOn();
+    });
+
+    previousBtn.addEventListener("click", () => {
+      //exécute le code ci-dessous quand le bouton previous du slider est pressé.
+      let slides = Object.values(document.querySelectorAll(".slide"));
+      slides[count].classList.remove("active");
+      if (count > 0) {
+        count--;
+      } else {
+        count = slides.length - 1;
+      }
+      slides[count].classList.add("active");
+    });
+
+    nextBtn.addEventListener("click", () => {
+      //exécute le code ci-dessous quand le bouton next du slider est pressé.
+      let slides = Object.values(document.querySelectorAll(".slide"));
+      slides[count].classList.remove("active");
+      if (count < slides.length - 1) {
+        count++;
+      } else {
+        count = 0;
+      }
+      slides[count].classList.add("active");
+    });
+  }
+
+  static createSlides(array) {
+    array.forEach((key) => {
+      let slide = document.createElement("article");
+      slide.classList.add("slide");
+      let slideContent = null;
+      if (key._image) {
+        slideContent = `
+            <img src="${key.url}" alt="${key._title}"/>
+            <h2>${key._title}</h2>
+          `;
+      } else if (key._video) {
+        slideContent = `
+            <video src="${key.url}" controls title="${key._title}">${key._title}</video>
+            <h2>${key._title}</h2>
+          `;
+      } else {
+        console.error("invalid object passed to the createSlides 'function'.");
+      }
+
+      slide.innerHTML = slideContent;
+      const sectionLightbox = document.querySelector("section.slider");
+      sectionLightbox.append(slide);
+    });
+  }
+
+  static pinOn(array) {
+    const sliderBg = document.querySelector("div.slider-bg");
+    let i = 0;
+
+    array.forEach((key) => {
+      key._index = i;
+      key.addEventListener("click", () => {
+        count = key._index;
+
+        sliderBg.classList.add("active");
+
+        let slides = Object.values(document.querySelectorAll(".slide"));
+        slides[count].classList.add("active");
+
+        pageFocusOff();
+      });
+
+      // 'enter' key
+      key.addEventListener("keydown", (event) => {
+        if (event.which === 13 && !sliderBg.classList.contains("active")) {
+          count = key._index;
+
+          sliderBg.classList.add("active");
+
+          let slides = Object.values(document.querySelectorAll(".slide"));
+          slides[count].classList.add("active");
+          pageFocusOff();
+        }
+      });
+      i++;
+    });
+  }
+}
