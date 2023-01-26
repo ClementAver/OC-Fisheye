@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
   <head>
     <link href="css/style.css" rel="stylesheet" type="text/css" />
     <meta charset="utf-8" />
@@ -25,8 +25,8 @@
         <!-- contains selected options and dropdown menu -->
         <div id="select-like" class="select-like">
           <!-- displayed role when the dropdown menu isn't displayed -->
-          <span class="sr-only" id="dropdown-description">Ouvre le menu déroulant de tri.</span>
-          <button type="button" tabindex="0" aria-controls="sorting-options" aria-haspopup="listbox" aria-expanded="false" aria-labelledby="dropdown-description">
+          <span class="sr-only" id="dropdown-trigger-description">Ouvre le menu déroulant de tri.</span>
+          <button type="button" tabindex="0" aria-controls="sorting-options" aria-haspopup="listbox" aria-expanded="false" aria-labelledby="dropdown-trigger-description">
             <p id="option-selected">Popularité</p>
             <svg id="dropDownArrow" viewBox="0 0 17 11.3" alt="chevron pointing down">
               <title>dropDownArrow</title>
@@ -61,7 +61,7 @@
       <div class="modal styled-scrollbars">
         <header>
           <h2>Contactez-moi</h2>
-          <img src="assets/icons/close.svg" onclick="closeModal()" aria-label="Ferme la modale." />
+          <img src="assets/icons/close.svg" onclick="closeModal()" alt="Ferme la modale." />
         </header>
         <form id="contact-form">
           <div>
