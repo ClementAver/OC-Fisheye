@@ -68,6 +68,7 @@
   border-radius: 5px;
 
   cursor: pointer;
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 }
 
 .photographer-header img {
@@ -132,6 +133,7 @@ section.media p:nth-child(2) {
 section.media i {
   z-index: 1;
   cursor: pointer;
+  transition: color 0.3s ease-in-out, transform 0.3s ease-in-out;
 }
 
 section.media img,
@@ -144,6 +146,7 @@ section.media video {
   border-radius: 5px;
 
   cursor: pointer;
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 }
 
 /* price */

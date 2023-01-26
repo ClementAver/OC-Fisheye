@@ -1,5 +1,6 @@
 @import url("photographer.css");
 @import url("sorting.css");
+@import url("states.css");
 
 *,
 *::before,
@@ -64,6 +65,7 @@ header {
 
 .logo {
   margin: 30px 0 30px 100px;
+  transition: transform 0.3s ease-in-out;
 }
 
 .logo img {
@@ -94,6 +96,7 @@ header {
   display: flex;
   flex-flow: column nowrap;
   align-items: center;
+  transition: transform 0.3s ease-in-out;
 }
 
 /* portrait */
@@ -104,6 +107,7 @@ header {
   object-fit: cover;
   border-radius: 50%;
   box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease-in-out;
 
   margin-bottom: 1rem;
 }
@@ -143,11 +147,6 @@ header {
   padding: 0;
   position: absolute;
   width: 1px;
-}
-
-:focus {
-  border: 2px solid var(--orangeB);
-  background: var(--orangeB);
 }
 
 @media (max-width: 768px) {
