@@ -131,19 +131,29 @@ function displayOptions(sortBy) {
 
 // adds the listeners on the 'sorting' section elements, which ones call the two functions above.
 function sorting(array) {
+  function closeSorting() {
+    dropDownArrow.target.classList.remove("U-turn");
+    dropDownArrow.deployed = false;
+    options.classList.remove("deployed");
+    mainButton.setAttribute("aria-expanded", "false");
+    mainButton.focus();
+  }
+
+  function openSorting() {
+    dropDownArrow.target.classList.add("U-turn");
+    dropDownArrow.deployed = true;
+    options.classList.add("deployed");
+    mainButton.setAttribute("aria-expanded", "true");
+    likes.focus();
+  }
+
   mainButton.addEventListener("click", () => {
     switch (dropDownArrow.deployed) {
       case false:
-        dropDownArrow.target.classList.add("U-turn");
-        dropDownArrow.deployed = true;
-        options.classList.add("deployed");
-        mainButton.setAttribute("aria-expanded", "true");
+        openSorting();
         break;
       case true:
-        dropDownArrow.target.classList.remove("U-turn");
-        dropDownArrow.deployed = false;
-        options.classList.remove("deployed");
-        mainButton.setAttribute("aria-expanded", "false");
+        closeSorting();
         break;
     }
   });
@@ -154,26 +164,10 @@ function sorting(array) {
     displayOptions(sortBy);
   });
 
-  likes.addEventListener("keydown", (event) => {
-    if (event.which === 13) {
-      sortBy = 0;
-      sort(array, sortBy);
-      displayOptions(sortBy);
-    }
-  });
-
   date.addEventListener("click", () => {
     sortBy = 1;
     sort(array, sortBy);
     displayOptions(sortBy);
-  });
-
-  date.addEventListener("keydown", (event) => {
-    if (event.which === 13) {
-      sortBy = 1;
-      sort(array, sortBy);
-      displayOptions(sortBy);
-    }
   });
 
   title.addEventListener("click", () => {
@@ -182,11 +176,77 @@ function sorting(array) {
     displayOptions(sortBy);
   });
 
-  title.addEventListener("keydown", (event) => {
-    if (event.which === 13) {
-      sortBy = 2;
-      sort(array, sortBy);
-      displayOptions(sortBy);
+  /////////////////////////////////////////////////////
+
+  window.addEventListener("keydown", (e) => {
+    if (!dropDownArrow.deployed) {
+      return;
+    }
+
+    if (document.activeElement === likes) {
+      switch (e.which) {
+        case 27:
+          closeSorting();
+          break;
+        case 13:
+          sortBy = 0;
+          sort(array, sortBy);
+          displayOptions(sortBy);
+          break;
+        case 38:
+          e.preventDefault();
+          title.focus();
+          break;
+        case 40:
+          e.preventDefault();
+          date.focus();
+          break;
+      }
+      return;
+    }
+
+    if (document.activeElement === date) {
+      switch (e.which) {
+        case 27:
+          closeSorting();
+          break;
+        case 13:
+          sortBy = 1;
+          sort(array, sortBy);
+          displayOptions(sortBy);
+          break;
+        case 38:
+          e.preventDefault();
+          likes.focus();
+          break;
+        case 40:
+          e.preventDefault();
+          title.focus();
+          break;
+      }
+      return;
+    }
+
+    if (document.activeElement === title) {
+      switch (e.which) {
+        case 27:
+          closeSorting();
+          break;
+        case 13:
+          sortBy = 2;
+          sort(array, sortBy);
+          displayOptions(sortBy);
+          break;
+        case 38:
+          e.preventDefault();
+          date.focus();
+          break;
+        case 40:
+          e.preventDefault();
+          likes.focus();
+          break;
+          return;
+      }
     }
   });
 }
@@ -195,13 +255,11 @@ function sorting(array) {
 function pageFocusOff() {
   let uninteresting = document.querySelectorAll('header a, section.photographer-header button, .select-like > button, .media video, .media img, i[aria-label="likes"]');
   uninteresting.forEach((key) => key.setAttribute("tabindex", "-1"));
-  console.log("OFF");
 }
 
 function pageFocusOn() {
   let uninteresting = document.querySelectorAll('header a, section.photographer-header button, .select-like > button, .media video, .media img, i[aria-label="likes"]');
   uninteresting.forEach((key) => key.setAttribute("tabindex", "0"));
-  console.log("ON");
 }
 
 // - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - //

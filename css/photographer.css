@@ -148,7 +148,7 @@ section.media video {
 
 /* price */
 .price {
-  z-index: 2;
+  z-index: 20;
 
   font-size: 1.5rem;
   font-weight: 500;

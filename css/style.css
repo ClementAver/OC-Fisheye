@@ -63,8 +63,11 @@ header {
 }
 
 .logo {
-  height: 50px;
   margin: 30px 0 30px 100px;
+}
+
+.logo img {
+  height: 50px;
 }
 
 /* container of the photographer's galery */
@@ -140,6 +143,11 @@ header {
   padding: 0;
   position: absolute;
   width: 1px;
+}
+
+:focus {
+  border: 2px solid var(--orangeB);
+  background: var(--orangeB);
 }
 
 @media (max-width: 768px) {
