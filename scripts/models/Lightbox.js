@@ -1,7 +1,7 @@
 class Lightbox {
   static createLightbox() {
-    // retrieves a div.slider-bg.
-    const sliderBg = document.querySelector("div.slider-bg");
+    // retrieves a div.lightbox-bg.
+    const lightboxBg = document.querySelector("div.lightbox-bg");
 
     // creates a section.slider.
     const sectionLightbox = document.createElement("section");
@@ -40,13 +40,13 @@ class Lightbox {
     sectionLightbox.append(nextBtn);
 
     // empties the section before appending the newly created content.
-    sliderBg.innerHTML = null;
-    sliderBg.append(sectionLightbox);
+    lightboxBg.innerHTML = null;
+    lightboxBg.append(sectionLightbox);
 
     closeBtn.addEventListener("click", () => {
       //exécute le code ci-dessous quand le bouton close du slider est pressé.
       let slides = Object.values(document.querySelectorAll(".slide"));
-      sliderBg.classList.remove("active");
+      lightboxBg.classList.remove("active");
       slides[count].classList.remove("active");
       pageFocusOn();
     });
@@ -102,7 +102,7 @@ class Lightbox {
   }
 
   static pinOn(array) {
-    const sliderBg = document.querySelector("div.slider-bg");
+    const lightboxBg = document.querySelector("div.lightbox-bg");
     let i = 0;
 
     array.forEach((key) => {
@@ -110,7 +110,7 @@ class Lightbox {
       key.addEventListener("click", () => {
         count = key._index;
 
-        sliderBg.classList.add("active");
+        lightboxBg.classList.add("active");
 
         let slides = Object.values(document.querySelectorAll(".slide"));
         slides[count].classList.add("active");
@@ -120,10 +120,10 @@ class Lightbox {
 
       // 'enter' key
       key.addEventListener("keydown", (event) => {
-        if (event.which === 13 && !sliderBg.classList.contains("active")) {
+        if (event.which === 13 && !lightboxBg.classList.contains("active")) {
           count = key._index;
 
-          sliderBg.classList.add("active");
+          lightboxBg.classList.add("active");
 
           let slides = Object.values(document.querySelectorAll(".slide"));
           slides[count].classList.add("active");

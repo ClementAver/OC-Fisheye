@@ -102,11 +102,13 @@ class Video {
           this._likes++;
           this._liked = true;
           totalLikes++;
+          i.classList.add("likes-counter");
         } else {
           this._likesCounter--;
           this._likes--;
           this._liked = false;
           totalLikes--;
+          i.classList.remove("likes-counter");
         }
         p.innerText = `${this._likes} `;
         document.getElementById("total-likes").textContent = totalLikes;

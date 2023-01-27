@@ -1,6 +1,5 @@
 @import url("photographer.css");
-@import url("sorting.css");
-@import url("states.css");
+@import url("animation.css");
 
 *,
 *::before,
@@ -68,6 +67,11 @@ header {
   transition: transform 0.3s ease-in-out;
 }
 
+.logo:hover,
+.logo:focus {
+  transform: scale(1.05);
+}
+
 .logo img {
   height: 50px;
 }
@@ -99,6 +103,10 @@ header {
   transition: transform 0.3s ease-in-out;
 }
 
+.photographers a:hover {
+  transform: scale(1.05);
+}
+
 /* portrait */
 .photographers img {
   height: 200px;
@@ -110,6 +118,10 @@ header {
   transition: box-shadow 0.3s ease-in-out;
 
   margin-bottom: 1rem;
+}
+
+.photographers a:hover img {
+  box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.05);
 }
 
 /* name */

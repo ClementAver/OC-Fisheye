@@ -17,12 +17,13 @@ function displayModal() {
 function closeModal() {
   contactModal.style.display = "none";
   pageFocusOn();
+  const contactBtn = document.querySelector(".contact-button");
+  contactBtn.focus();
 }
 
 window.addEventListener("keydown", (event) => {
   if (event.which === 27 && contactModal.style.display === "block") {
-    contactModal.style.display = "none";
-    pageFocusOn();
+    closeModal();
   }
 });
 

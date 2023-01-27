@@ -307,10 +307,10 @@ async function app(url) {
   sorting(medias);
 
   // -_-_-_-_- //
-  const sliderBg = document.querySelector("div.slider-bg");
+  const lightboxBg = document.querySelector("div.lightbox-bg");
   // <-
   window.addEventListener("keydown", (event) => {
-    if (event.which === 37 && sliderBg.classList.contains("active")) {
+    if (event.which === 37 && lightboxBg.classList.contains("active")) {
       // exécute le code ci-dessous quand la touche 'flèche gauche' du clavier est pressé.
       let slides = Object.values(document.querySelectorAll(".slide"));
       slides[count].classList.remove("active");
@@ -325,7 +325,7 @@ async function app(url) {
 
   // ->
   window.addEventListener("keydown", (event) => {
-    if (event.which === 39 && sliderBg.classList.contains("active")) {
+    if (event.which === 39 && lightboxBg.classList.contains("active")) {
       // exécute le code ci-dessous quand la touche 'flèche droite' du clavier est pressé.
       let slides = Object.values(document.querySelectorAll(".slide"));
       slides[count].classList.remove("active");
@@ -340,10 +340,10 @@ async function app(url) {
 
   // 'escape' key
   window.addEventListener("keydown", (event) => {
-    if (event.which === 27 && sliderBg.classList.contains("active")) {
+    if (event.which === 27 && lightboxBg.classList.contains("active")) {
       // exécute le code ci-dessous quand la touche 'échap' du clavier est pressé.
       let slides = Object.values(document.querySelectorAll(".slide"));
-      sliderBg.classList.remove("active");
+      lightboxBg.classList.remove("active");
       slides[count].classList.remove("active");
       pageFocusOn();
     }
