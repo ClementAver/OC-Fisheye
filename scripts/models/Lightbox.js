@@ -120,7 +120,7 @@ class Lightbox {
 
       // 'enter' key
       key.addEventListener("keydown", (event) => {
-        if (event.which === 13 && !lightboxBg.classList.contains("active")) {
+        if (event.key === "Enter" && !lightboxBg.classList.contains("active")) {
           count = key._index;
 
           lightboxBg.classList.add("active");

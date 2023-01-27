@@ -91,9 +91,7 @@ class Image {
 
     // 'enter' key
     i.addEventListener("keydown", (event) => {
-      console.log(1);
-      if ((event.which === 13) & (document.activeElement === i)) {
-        console.log(2);
+      if (event.key === "Enter" && document.activeElement === i) {
         let totalLikes = parseInt(document.getElementById("total-likes").textContent);
         if (this._likesCounter === this.likes && !this._liked) {
           this._likesCounter++;

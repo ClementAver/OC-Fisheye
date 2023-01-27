@@ -184,20 +184,20 @@ function sorting(array) {
     }
 
     if (document.activeElement === likes) {
-      switch (e.which) {
-        case 27:
+      switch (e.key) {
+        case "Escape":
           closeSorting();
           break;
-        case 13:
+        case "Enter":
           sortBy = 0;
           sort(array, sortBy);
           displayOptions(sortBy);
           break;
-        case 38:
+        case "ArrowUp":
           e.preventDefault();
           title.focus();
           break;
-        case 40:
+        case "ArrowDown":
           e.preventDefault();
           date.focus();
           break;
@@ -206,20 +206,20 @@ function sorting(array) {
     }
 
     if (document.activeElement === date) {
-      switch (e.which) {
-        case 27:
+      switch (e.key) {
+        case "Escape":
           closeSorting();
           break;
-        case 13:
+        case "Enter":
           sortBy = 1;
           sort(array, sortBy);
           displayOptions(sortBy);
           break;
-        case 38:
+        case "ArrowUp":
           e.preventDefault();
           likes.focus();
           break;
-        case 40:
+        case "ArrowDown":
           e.preventDefault();
           title.focus();
           break;
@@ -228,20 +228,20 @@ function sorting(array) {
     }
 
     if (document.activeElement === title) {
-      switch (e.which) {
-        case 27:
+      switch (e.key) {
+        case "Escape":
           closeSorting();
           break;
-        case 13:
+        case "Enter":
           sortBy = 2;
           sort(array, sortBy);
           displayOptions(sortBy);
           break;
-        case 38:
+        case "ArrowUp":
           e.preventDefault();
           date.focus();
           break;
-        case 40:
+        case "ArrowDown":
           e.preventDefault();
           likes.focus();
           break;
@@ -310,7 +310,7 @@ async function app(url) {
   const lightboxBg = document.querySelector("div.lightbox-bg");
   // <-
   window.addEventListener("keydown", (event) => {
-    if (event.which === 37 && lightboxBg.classList.contains("active")) {
+    if (event.key === "ArrowLeft" && lightboxBg.classList.contains("active")) {
       // exécute le code ci-dessous quand la touche 'flèche gauche' du clavier est pressé.
       let slides = Object.values(document.querySelectorAll(".slide"));
       slides[count].classList.remove("active");
@@ -325,7 +325,7 @@ async function app(url) {
 
   // ->
   window.addEventListener("keydown", (event) => {
-    if (event.which === 39 && lightboxBg.classList.contains("active")) {
+    if (event.key === "ArrowRight" && lightboxBg.classList.contains("active")) {
       // exécute le code ci-dessous quand la touche 'flèche droite' du clavier est pressé.
       let slides = Object.values(document.querySelectorAll(".slide"));
       slides[count].classList.remove("active");
@@ -340,7 +340,7 @@ async function app(url) {
 
   // 'escape' key
   window.addEventListener("keydown", (event) => {
-    if (event.which === 27 && lightboxBg.classList.contains("active")) {
+    if (event.key === "Escape" && lightboxBg.classList.contains("active")) {
       // exécute le code ci-dessous quand la touche 'échap' du clavier est pressé.
       let slides = Object.values(document.querySelectorAll(".slide"));
       lightboxBg.classList.remove("active");

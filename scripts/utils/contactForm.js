@@ -22,7 +22,7 @@ function closeModal() {
 }
 
 window.addEventListener("keydown", (event) => {
-  if (event.which === 27 && contactModal.style.display === "block") {
+  if (event.key === "Escape" && contactModal.style.display === "block") {
     closeModal();
   }
 });
