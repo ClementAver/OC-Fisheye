@@ -53,9 +53,11 @@ function isEmail(email, element) {
 function isValid(callback, value, index, element) {
   if (callback(value, element)) {
     invalidMessages[index].classList.remove("invalid-field");
+    element.setAttribute("aria-invalid", "false");
     return true;
   }
   invalidMessages[index].classList.add("invalid-field");
+  element.setAttribute("aria-invalid", "true");
   throw new Error(`The field n°${index} isn't valid`);
 }
 
