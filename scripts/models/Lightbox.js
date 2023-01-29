@@ -116,6 +116,7 @@ class Lightbox {
         slides[count].classList.add("active");
 
         pageFocusOff();
+        lightboxBg.setAttribute("aria-hidden", "false");
       });
 
       // 'enter' key
@@ -128,6 +129,7 @@ class Lightbox {
           let slides = Object.values(document.querySelectorAll(".slide"));
           slides[count].classList.add("active");
           pageFocusOff();
+          lightboxBg.setAttribute("aria-hidden", "false");
         }
       });
       i++;

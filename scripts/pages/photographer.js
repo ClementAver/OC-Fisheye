@@ -4,9 +4,14 @@ const url = new URL(window.location.href);
 const id = url.searchParams.get("id");
 
 // stores targeted DOM sectors.
+const header = document.querySelector("header");
+const main = document.querySelector("main");
+const sectionPrice = document.querySelector("section.price");
+const lightboxBg = document.querySelector("div.lightbox-bg");
+const contactModal = document.getElementById("contact-modal");
+
 const sectionPhotographerHeader = document.querySelector(".photographer-header");
 const sectionMedia = document.querySelector("section.media");
-const sectionPrice = document.querySelector("section.price");
 
 // sorting section dom elements.
 const mainButton = document.querySelector(".select-like button:first-of-type");
@@ -255,11 +260,21 @@ function sorting(array) {
 function pageFocusOff() {
   let uninteresting = document.querySelectorAll('header a, section.photographer-header button, .select-like > button, .media video, .media img, i[aria-label="likes"]');
   uninteresting.forEach((key) => key.setAttribute("tabindex", "-1"));
+  header.setAttribute("aria-hidden", "true");
+  main.setAttribute("aria-hidden", "true");
+  sectionPrice.setAttribute("aria-hidden", "true");
+  lightboxBg.setAttribute("aria-hidden", "true");
+  contactModal.setAttribute("aria-hidden", "true");
 }
 
 function pageFocusOn() {
   let uninteresting = document.querySelectorAll('header a, section.photographer-header button, .select-like > button, .media video, .media img, i[aria-label="likes"]');
   uninteresting.forEach((key) => key.setAttribute("tabindex", "0"));
+  header.setAttribute("aria-hidden", "false");
+  main.setAttribute("aria-hidden", "false");
+  sectionPrice.setAttribute("aria-hidden", "false");
+  lightboxBg.setAttribute("aria-hidden", "true");
+  contactModal.setAttribute("aria-hidden", "true");
 }
 
 // - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - //
@@ -306,8 +321,8 @@ async function app(url) {
   // adds eventListeners on 'select-like' div options.
   sorting(medias);
 
-  // -_-_-_-_- //
-  const lightboxBg = document.querySelector("div.lightbox-bg");
+  pageFocusOn();
+
   // <-
   window.addEventListener("keydown", (event) => {
     if (event.key === "ArrowLeft" && lightboxBg.classList.contains("active")) {

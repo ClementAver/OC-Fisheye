@@ -1,4 +1,3 @@
-const contactModal = document.getElementById("contact-modal");
 // form
 const contactForm = document.getElementById("contact-form");
 const invalidMessages = document.querySelectorAll(".invalid-fields");
@@ -12,6 +11,7 @@ function displayModal() {
   contactModal.style.display = "block";
   firstName.focus();
   pageFocusOff();
+  contactModal.setAttribute("aria-hidden", "false");
 }
 
 function closeModal() {
