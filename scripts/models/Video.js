@@ -41,7 +41,6 @@ class Video {
   }
 
   createArticle() {
-    const sectionPrice = document.querySelector(".price");
     const card = document.createElement("article");
 
     const video = document.createElement("video");

@@ -41,7 +41,6 @@ class Image {
   }
 
   createArticle() {
-    const sectionPrice = document.querySelector(".price");
     const card = document.createElement("article");
 
     const img = document.createElement("img");

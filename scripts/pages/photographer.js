@@ -250,8 +250,8 @@ function sorting(array) {
           e.preventDefault();
           likes.focus();
           break;
-          return;
       }
+      return;
     }
   });
 }

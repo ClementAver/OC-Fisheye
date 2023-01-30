@@ -29,11 +29,11 @@
 
       <!-- sorting section -->
       <section class="sorting">
-        <label for="select-like">Trier par</label>
+        <span id="dropdown-trigger-description">Trier par</span>
         <!-- contains selected options and dropdown menu -->
         <div id="select-like" class="select-like">
           <!-- displayed role when the dropdown menu isn't displayed -->
-          <span class="sr-only" id="dropdown-trigger-description">Ouvre le menu déroulant de tri.</span>
+
           <button type="button" tabindex="0" aria-controls="sorting-options" aria-haspopup="listbox" aria-expanded="false" aria-labelledby="dropdown-trigger-description">
             <p id="option-selected">Popularité</p>
             <svg id="dropDownArrow" viewBox="0 0 17 11.3" alt="chevron pointing down">
@@ -43,8 +43,7 @@
           </button>
 
           <!-- dropdown menu container -->
-          <span class="sr-only" id="dropdown-description">Trier par</span>
-          <ul role="listbox" id="sorting-options" aria-activedescendant="option-likes" aria-labelledby="dropdown-options">
+          <ul role="listbox" id="sorting-options" aria-activedescendant="option-likes">
             <li role="option" aria-selected="true" tabindex="0" id="option-likes">Popularité</li>
             <hr />
             <li role="option" aria-selected="false" tabindex="0" id="option-date">Date</li>
