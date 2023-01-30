@@ -441,7 +441,7 @@ section.media video {
   font-size: 1rem;
   font-weight: 500;
 
-  color: var(--red);
+  color: #661515;
 
   overflow: hidden;
   text-overflow: ellipsis;
