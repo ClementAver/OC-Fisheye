@@ -40,6 +40,7 @@ class Image {
     return this._price;
   }
 
+  // creates media card
   createArticle() {
     const card = document.createElement("article");
 
@@ -88,7 +89,7 @@ class Image {
       document.getElementById("total-likes").textContent = totalLikes;
     });
 
-    // 'enter' key
+    // 'Enter' key.
     i.addEventListener("keydown", (event) => {
       if (event.key === "Enter" && document.activeElement === i) {
         let totalLikes = parseInt(document.getElementById("total-likes").textContent);

@@ -40,6 +40,7 @@ class Video {
     return this._price;
   }
 
+  // creates media card
   createArticle() {
     const card = document.createElement("article");
 

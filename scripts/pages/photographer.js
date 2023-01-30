@@ -51,6 +51,7 @@ async function getDatas(url) {
 
 // - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - //
 
+// return the sum of all the '_likes' property from an array.
 function getTotalLikes(array) {
   let totalLikes = 0;
   array.forEach((key) => {
@@ -97,6 +98,7 @@ function sort(array, sortBy) {
   Lightbox.createLightbox();
   Lightbox.createSlides(sortedMedias);
   const anchors = document.querySelectorAll("section.media article img, section.media article video");
+  // links the slides on the articles of the media setion.
   Lightbox.pinOn(anchors);
 }
 
@@ -137,7 +139,7 @@ function displayOptions(sortBy) {
   undisplay.forEach((key) => key.setAttribute("aria-selected", "false"));
 }
 
-// adds the listeners on the 'sorting' section elements, which ones call the two functions above.
+// adds the listeners on the 'sorting' section elements.
 function sorting(array) {
   function closeSorting() {
     dropDownArrow.target.classList.remove("U-turn");
@@ -184,8 +186,6 @@ function sorting(array) {
     displayOptions(sortBy);
   });
 
-  /////////////////////////////////////////////////////
-
   window.addEventListener("keydown", (e) => {
     if (!dropDownArrow.deployed) {
       return;
@@ -226,78 +226,12 @@ function sorting(array) {
       sortingNavKeys(date, likes, 2);
       return;
     }
-    /*
-    if (document.activeElement === likes) {
-      switch (e.key) {
-        case "Escape":
-          closeSorting();
-          break;
-        case "Enter":
-          sortBy = 0;
-          sort(array, sortBy);
-          displayOptions(sortBy);
-          break;
-        case "ArrowUp":
-          e.preventDefault();
-          title.focus();
-          break;
-        case "ArrowDown":
-          e.preventDefault();
-          date.focus();
-          break;
-      }
-      return;
-    }
-
-    if (document.activeElement === date) {
-      switch (e.key) {
-        case "Escape":
-          closeSorting();
-          break;
-        case "Enter":
-          sortBy = 1;
-          sort(array, sortBy);
-          displayOptions(sortBy);
-          break;
-        case "ArrowUp":
-          e.preventDefault();
-          likes.focus();
-          break;
-        case "ArrowDown":
-          e.preventDefault();
-          title.focus();
-          break;
-      }
-      return;
-    }
-
-    if (document.activeElement === title) {
-      switch (e.key) {
-        case "Escape":
-          closeSorting();
-          break;
-        case "Enter":
-          sortBy = 2;
-          sort(array, sortBy);
-          displayOptions(sortBy);
-          break;
-        case "ArrowUp":
-          e.preventDefault();
-          date.focus();
-          break;
-        case "ArrowDown":
-          e.preventDefault();
-          likes.focus();
-          break;
-      }
-      return;
-    }
-*/
   });
 }
 
 // - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - //
 
+// applies tabindexes and aria-hidden attributes for given arguments.
 function pageFocus(page, lightbox, contact) {
   let uninteresting = document.querySelectorAll('header a, section.photographer-header button, .select-like > button, .media video, .media img, i[aria-label="likes"]');
   if (page === false) {
@@ -314,7 +248,7 @@ function pageFocus(page, lightbox, contact) {
 
 // - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - //
 
-async function app(url) {
+async function init(url) {
   // fetches datas, then returns them in js format.
   const data = await getDatas(url);
   let medias = [];
@@ -323,8 +257,8 @@ async function app(url) {
     get 'media' property from data object.
     concatenates the two above
   */
-  const photographers = data.photographers;
-  const media = data.media;
+  const { photographers } = data;
+  const { media } = data;
 
   // for each key, instanciates the right class then push the newly created object on the right array.
   media.forEach((key) => {
@@ -359,4 +293,4 @@ async function app(url) {
   pageFocus(false, true, true);
 }
 
-app("data/photographers.json");
+init("data/photographers.json");

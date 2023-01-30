@@ -2,7 +2,6 @@
 const contactForm = document.getElementById("contact-form");
 const invalidMessages = document.querySelectorAll(".invalid-fields");
 const cross = document.querySelector("#contact-modal img");
-console.log(cross);
 // inputs
 const firstName = document.getElementById("first");
 const lastName = document.getElementById("last");
