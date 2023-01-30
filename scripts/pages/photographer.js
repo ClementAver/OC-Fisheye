@@ -226,7 +226,6 @@ function sorting(array) {
       sortingNavKeys(date, likes, 2);
       return;
     }
-
     /*
     if (document.activeElement === likes) {
       switch (e.key) {
@@ -299,24 +298,18 @@ function sorting(array) {
 
 // - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - //
 
-function pageFocusOff() {
+function pageFocus(page, lightbox, contact) {
   let uninteresting = document.querySelectorAll('header a, section.photographer-header button, .select-like > button, .media video, .media img, i[aria-label="likes"]');
-  uninteresting.forEach((key) => key.setAttribute("tabindex", "-1"));
-  header.setAttribute("aria-hidden", "true");
-  main.setAttribute("aria-hidden", "true");
-  sectionPrice.setAttribute("aria-hidden", "true");
-  lightboxBg.setAttribute("aria-hidden", "true");
-  contactModal.setAttribute("aria-hidden", "true");
-}
-
-function pageFocusOn() {
-  let uninteresting = document.querySelectorAll('header a, section.photographer-header button, .select-like > button, .media video, .media img, i[aria-label="likes"]');
-  uninteresting.forEach((key) => key.setAttribute("tabindex", "0"));
-  header.setAttribute("aria-hidden", "false");
-  main.setAttribute("aria-hidden", "false");
-  sectionPrice.setAttribute("aria-hidden", "false");
-  lightboxBg.setAttribute("aria-hidden", "true");
-  contactModal.setAttribute("aria-hidden", "true");
+  if (page === false) {
+    uninteresting.forEach((key) => key.setAttribute("tabindex", "0"));
+  } else {
+    uninteresting.forEach((key) => key.setAttribute("tabindex", "-1"));
+  }
+  header.setAttribute("aria-hidden", `${page}`);
+  main.setAttribute("aria-hidden", `${page}`);
+  sectionPrice.setAttribute("aria-hidden", `${page}`);
+  lightboxBg.setAttribute("aria-hidden", `${lightbox}`);
+  contactModal.setAttribute("aria-hidden", `${contact}`);
 }
 
 // - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - //
@@ -363,7 +356,7 @@ async function app(url) {
   // adds eventListeners on 'select-like' div options.
   sorting(medias);
 
-  pageFocusOn();
+  pageFocus(false, true, true);
 }
 
 app("data/photographers.json");

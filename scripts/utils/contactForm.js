@@ -10,13 +10,12 @@ const message = document.getElementById("message");
 function displayModal() {
   contactModal.style.display = "block";
   firstName.focus();
-  pageFocusOff();
-  contactModal.setAttribute("aria-hidden", "false");
+  pageFocus(true, true, false);
 }
 
 function closeModal() {
   contactModal.style.display = "none";
-  pageFocusOn();
+  pageFocus(false, true, true);
   const contactBtn = document.querySelector(".contact-button");
   contactBtn.focus();
 }
