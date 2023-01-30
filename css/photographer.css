@@ -96,7 +96,8 @@
   display: flex;
 }
 
-.sorting label {
+.sorting label,
+.sorting span {
   font-size: 1.125rem;
   font-weight: 500;
   padding: 0.5rem 0;
@@ -109,11 +110,6 @@
   font-size: 1.125rem;
   font-weight: 500;
   padding: 0.5rem 1rem;
-}
-
-.sorting li {
-  padding: 0.75rem 1rem;
-  align-items: baseline;
 }
 
 .sorting svg {
@@ -158,6 +154,8 @@
 
 .select-like button,
 .select-like li {
+  padding: 0.75rem 1rem;
+  align-items: baseline;
   color: white;
   background-color: var(--red);
   border: none;
@@ -167,13 +165,13 @@
 }
 
 .select-like li {
-  transition: transform 0.3s ease-in-out, width 0.3s ease-in-out;
-  width: calc(100% - 0px);
+  transition: padding 0.3s ease-in-out;
+  padding: 0.75rem 1rem 0.75rem 1rem;
 }
 
-.select-like li:hover {
-  transform: translateX(12px);
-  width: calc(100% - 12px);
+.select-like li:hover,
+.select-like li:focus {
+  padding: 0.75rem 0rem 0.75rem 2rem;
 }
 
 #dropDownArrow {

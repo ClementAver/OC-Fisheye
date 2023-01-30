@@ -26,8 +26,11 @@ const title = document.getElementById("option-title");
 
 const modalTitle = document.querySelector(".modal h2");
 
-// initializes the slider counter.
+// initializes the slides counter.
 let count = 0;
+
+// initializes the window addEventListeners state for the lightbox keys navigation.
+let LightboxNavKeys = "not declared";
 
 /* 
 indicates the selected sorting algorithm :
@@ -188,6 +191,43 @@ function sorting(array) {
       return;
     }
 
+    function sortingNavKeys(a, b, i) {
+      switch (e.key) {
+        case "Escape":
+          closeSorting();
+          break;
+        case "Enter":
+          sortBy = i;
+          sort(array, sortBy);
+          displayOptions(sortBy);
+          break;
+        case "ArrowUp":
+          e.preventDefault();
+          a.focus();
+          break;
+        case "ArrowDown":
+          e.preventDefault();
+          b.focus();
+          break;
+      }
+    }
+
+    if (document.activeElement === likes) {
+      sortingNavKeys(title, date, 0);
+      return;
+    }
+
+    if (document.activeElement === date) {
+      sortingNavKeys(likes, title, 1);
+      return;
+    }
+
+    if (document.activeElement === title) {
+      sortingNavKeys(date, likes, 2);
+      return;
+    }
+
+    /*
     if (document.activeElement === likes) {
       switch (e.key) {
         case "Escape":
@@ -253,8 +293,10 @@ function sorting(array) {
       }
       return;
     }
+*/
   });
 }
+
 // - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - = - //
 
 function pageFocusOff() {
@@ -322,47 +364,6 @@ async function app(url) {
   sorting(medias);
 
   pageFocusOn();
-
-  // <-
-  window.addEventListener("keydown", (event) => {
-    if (event.key === "ArrowLeft" && lightboxBg.classList.contains("active")) {
-      // exécute le code ci-dessous quand la touche 'flèche gauche' du clavier est pressé.
-      let slides = Object.values(document.querySelectorAll(".slide"));
-      slides[count].classList.remove("active");
-      if (count > 0) {
-        count--;
-      } else {
-        count = slides.length - 1;
-      }
-      slides[count].classList.add("active");
-    }
-  });
-
-  // ->
-  window.addEventListener("keydown", (event) => {
-    if (event.key === "ArrowRight" && lightboxBg.classList.contains("active")) {
-      // exécute le code ci-dessous quand la touche 'flèche droite' du clavier est pressé.
-      let slides = Object.values(document.querySelectorAll(".slide"));
-      slides[count].classList.remove("active");
-      if (count < slides.length - 1) {
-        count++;
-      } else {
-        count = 0;
-      }
-      slides[count].classList.add("active");
-    }
-  });
-
-  // 'escape' key
-  window.addEventListener("keydown", (event) => {
-    if (event.key === "Escape" && lightboxBg.classList.contains("active")) {
-      // exécute le code ci-dessous quand la touche 'échap' du clavier est pressé.
-      let slides = Object.values(document.querySelectorAll(".slide"));
-      lightboxBg.classList.remove("active");
-      slides[count].classList.remove("active");
-      pageFocusOn();
-    }
-  });
 }
 
 app("data/photographers.json");

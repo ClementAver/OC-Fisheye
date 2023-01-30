@@ -74,6 +74,54 @@ class Lightbox {
       }
       slides[count].classList.add("active");
     });
+
+    if (LightboxNavKeys === "declared") {
+      return;
+    } else {
+      // 'escape' key
+      window.addEventListener("keydown", (event) => {
+        if (event.key === "Escape" && lightboxBg.classList.contains("active")) {
+          // exécute le code ci-dessous quand la touche 'échap' du clavier est pressé.
+          let slides = Object.values(document.querySelectorAll(".slide"));
+          lightboxBg.classList.remove("active");
+          slides[count].classList.remove("active");
+          pageFocusOn();
+          LightboxNavKeys = "declared";
+        }
+      });
+
+      // <-
+      window.addEventListener("keydown", (event) => {
+        if (event.key === "ArrowLeft" && lightboxBg.classList.contains("active")) {
+          // exécute le code ci-dessous quand la touche 'flèche gauche' du clavier est pressé.
+          let slides = Object.values(document.querySelectorAll(".slide"));
+          slides[count].classList.remove("active");
+          if (count > 0) {
+            count--;
+          } else {
+            count = slides.length - 1;
+          }
+          slides[count].classList.add("active");
+        }
+        LightboxNavKeys = "declared";
+      });
+
+      // ->
+      window.addEventListener("keydown", (event) => {
+        if (event.key === "ArrowRight" && lightboxBg.classList.contains("active")) {
+          // exécute le code ci-dessous quand la touche 'flèche droite' du clavier est pressé.
+          let slides = Object.values(document.querySelectorAll(".slide"));
+          slides[count].classList.remove("active");
+          if (count < slides.length - 1) {
+            count++;
+          } else {
+            count = 0;
+          }
+          slides[count].classList.add("active");
+        }
+        LightboxNavKeys = "declared";
+      });
+    }
   }
 
   static createSlides(array) {
