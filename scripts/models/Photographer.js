@@ -9,34 +9,6 @@ class Photographer {
     this._portrait = data.portrait;
   }
 
-  get name() {
-    return this._name;
-  }
-
-  get id() {
-    return this._id;
-  }
-
-  get city() {
-    return this._city;
-  }
-
-  get country() {
-    return this._country;
-  }
-
-  get tagline() {
-    return this._tagline;
-  }
-
-  get price() {
-    return this._price;
-  }
-
-  get portrait() {
-    return `assets/photographers/${this._portrait}`;
-  }
-
   createBanner() {
     return `
       <div>

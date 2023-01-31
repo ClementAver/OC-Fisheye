@@ -12,32 +12,8 @@ class Image {
     this._likesCounter = this._likes;
   }
 
-  get id() {
-    return this._id;
-  }
-
-  get photographerId() {
-    return this._photographerId;
-  }
-
-  get title() {
-    return this._title;
-  }
-
   get url() {
     return `assets/media/${this._image}`;
-  }
-
-  get likes() {
-    return this._likes;
-  }
-
-  get date() {
-    return this._date;
-  }
-
-  get price() {
-    return this._price;
   }
 
   // creates media card
@@ -72,7 +48,7 @@ class Image {
     // media's likes counter.
     i.addEventListener("click", () => {
       let totalLikes = parseInt(document.getElementById("total-likes").textContent);
-      if (this._likesCounter === this.likes && !this._liked) {
+      if (this._likesCounter === this._likes && !this._liked) {
         this._likesCounter++;
         this._likes++;
         this._liked = true;
@@ -93,7 +69,7 @@ class Image {
     i.addEventListener("keydown", (event) => {
       if (event.key === "Enter" && document.activeElement === i) {
         let totalLikes = parseInt(document.getElementById("total-likes").textContent);
-        if (this._likesCounter === this.likes && !this._liked) {
+        if (this._likesCounter === this._likes && !this._liked) {
           this._likesCounter++;
           this._likes++;
           this._liked = true;

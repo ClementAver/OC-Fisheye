@@ -70,19 +70,19 @@ function sort(array, sortBy) {
   switch (sortBy) {
     // likes
     case 0:
-      sortedMedias = array.sort((a, b) => b.likes - a.likes);
+      sortedMedias = array.sort((a, b) => b._likes - a._likes);
       sortedMedias.forEach((key) => console.log(key._likes));
       break;
 
     // date
     case 1:
-      sortedMedias = array.sort((a, b) => new Date(b.date) - new Date(a.date));
+      sortedMedias = array.sort((a, b) => new Date(b._date) - new Date(a._date));
       sortedMedias.forEach((key) => console.log(key._date));
       break;
 
     // title
     case 2:
-      sortedMedias = array.sort((a, b) => a.title.localeCompare(b.title));
+      sortedMedias = array.sort((a, b) => a._title.localeCompare(b._title));
       sortedMedias.forEach((key) => console.log(key._title));
       break;
 
@@ -212,19 +212,16 @@ function sorting(array) {
       }
     }
 
-    if (document.activeElement === likes) {
-      sortingNavKeys(title, date, 0);
-      return;
-    }
-
-    if (document.activeElement === date) {
-      sortingNavKeys(likes, title, 1);
-      return;
-    }
-
-    if (document.activeElement === title) {
-      sortingNavKeys(date, likes, 2);
-      return;
+    switch (document.activeElement) {
+      case likes:
+        sortingNavKeys(title, date, 0);
+        break;
+      case date:
+        sortingNavKeys(likes, title, 1);
+        break;
+      case title:
+        sortingNavKeys(date, likes, 2);
+        break;
     }
   });
 }
@@ -282,7 +279,7 @@ async function init(url) {
   modalTitle.innerHTML = `Contactez<br> ${activePhotographer._name}`;
 
   // creates and inserts the price section content.
-  sectionPrice.innerHTML = `<p><span id="total-likes">${getTotalLikes(medias)}</span>&nbsp;<i class="fa-solid fa-heart"></i></p><p>${activePhotographer.price}€&#8239;/&#8239;jour</p>`;
+  sectionPrice.innerHTML = `<p><span id="total-likes">${getTotalLikes(medias)}</span>&nbsp;<i class="fa-solid fa-heart"></i></p><p>${activePhotographer._price}€&#8239;/&#8239;jour</p>`;
 
   // sorts initially by likes count (descending).
   sort(medias, sortBy);

@@ -12,32 +12,8 @@ class Video {
     this._likesCounter = this._likes;
   }
 
-  get id() {
-    return this._id;
-  }
-
-  get photographerId() {
-    return this._photographerId;
-  }
-
-  get title() {
-    return this._title;
-  }
-
   get url() {
     return `assets/media/${this._video}`;
-  }
-
-  get likes() {
-    return this._likes;
-  }
-
-  get date() {
-    return this._date;
-  }
-
-  get price() {
-    return this._price;
   }
 
   // creates media card
@@ -49,7 +25,7 @@ class Video {
     video.setAttribute("tabindex", "0");
     video.setAttribute("title", `${this._title}`);
     // video.setAttribute("controls", "");
-    video.innerText = `${this.title}`;
+    video.innerText = `${this._title}`;
 
     const div = document.createElement("div");
 
@@ -74,7 +50,7 @@ class Video {
     // media's likes counter.
     i.addEventListener("click", () => {
       let totalLikes = parseInt(document.getElementById("total-likes").textContent);
-      if (this._likesCounter === this.likes && !this._liked) {
+      if (this._likesCounter === this._likes && !this._liked) {
         this._likesCounter++;
         this._likes++;
         this._liked = true;
@@ -95,7 +71,7 @@ class Video {
     i.addEventListener("keydown", (event) => {
       if (event.key === "Enter" && document.activeElement === i) {
         let totalLikes = parseInt(document.getElementById("total-likes").textContent);
-        if (this._likesCounter === this.likes && !this._liked) {
+        if (this._likesCounter === this._likes && !this._liked) {
           this._likesCounter++;
           this._likes++;
           this._liked = true;

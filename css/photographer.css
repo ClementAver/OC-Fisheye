@@ -72,8 +72,7 @@
   transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 }
 
-.contact-button:hover,
-.contact-button:focus {
+.contact-button:hover {
   transform: scale(1.05);
   box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1);
 }
@@ -132,8 +131,7 @@
   transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 }
 
-.select-like > button:hover svg,
-.select-like > button:focus svg {
+.select-like > button:hover svg {
   animation: dring 0.2s linear 2;
 }
 
@@ -169,8 +167,7 @@
   padding: 0.75rem 1rem 0.75rem 1rem;
 }
 
-.select-like li:hover,
-.select-like li:focus {
+.select-like li:hover {
   padding: 0.75rem 0rem 0.75rem 2rem;
 }
 
@@ -260,8 +257,7 @@ section.media i {
   transition: color 0.3s ease-in-out, transform 0.3s ease-in-out;
 }
 
-section.media i:hover,
-section.media i:focus {
+section.media i:hover {
   color: var(--orange);
   transform: scale(0.9);
 }
@@ -284,9 +280,7 @@ section.media video {
 }
 
 .media img:hover,
-.media video:hover,
-.media img:focus,
-.media video:focus {
+.media video:hover {
   transform: scale(1.05) translateY(-2%);
   box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1);
 }
@@ -649,9 +643,7 @@ section.media video {
   }
 
   .media img:hover,
-  .media video:hover,
-  .media img:focus,
-  .media video:focus {
+  .media video:hover {
     transform: scale(1) translateY(-0.5%);
     box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.1);
   }
