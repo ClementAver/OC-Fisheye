@@ -281,12 +281,13 @@ async function init(url) {
   // creates and inserts the price section content.
   sectionPrice.innerHTML = `<p><span id="total-likes">${getTotalLikes(medias)}</span>&nbsp;<i class="fa-solid fa-heart"></i></p><p>${activePhotographer._price}€&#8239;/&#8239;jour</p>`;
 
-  // sorts initially by likes count (descending).
+  // initially sorts by likes count (descending) on page.
   sort(medias, sortBy);
 
   // adds eventListeners on 'select-like' div options.
   sorting(medias);
 
+  // applies tabindexes and aria-hidden attributes for given arguments.
   pageFocus(false, true, true);
 }
 

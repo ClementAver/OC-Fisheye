@@ -8,13 +8,13 @@ function PhotographerFactory(data) {
     const article = document.createElement("article");
 
     const a = document.createElement("a");
-    const img = document.createElement("img");
-
     a.setAttribute("tabindex", "0");
     a.setAttribute("href", `photographer.html?id=${id}`);
 
+    const img = document.createElement("img");
     img.setAttribute("src", picture);
     img.setAttribute("alt", name);
+
     const h2 = document.createElement("h2");
     h2.textContent = name;
     const p1 = document.createElement("p");
@@ -26,7 +26,6 @@ function PhotographerFactory(data) {
 
     a.appendChild(img);
     a.appendChild(h2);
-
     article.appendChild(a);
     article.appendChild(p1);
     article.appendChild(p2);

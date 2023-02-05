@@ -149,6 +149,7 @@ class Lightbox {
     });
   }
 
+  // in charge of the links between gallery cards and lightbox slides.
   static pinOn(array) {
     const lightboxBg = document.querySelector("div.lightbox-bg");
     let i = 0;
